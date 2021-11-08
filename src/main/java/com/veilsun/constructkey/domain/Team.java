@@ -20,7 +20,8 @@ public class Team extends Record {
 
 	public enum TeamType {
 		OrganizationAdmin, OrganizationMember,
-		ProjectAdmin, ProjectMember
+		ProjectAdmin, ProjectMember,
+		PullPlanTargetMeeting
 	}
 	
 	public Team(String userId, TeamType type) {
