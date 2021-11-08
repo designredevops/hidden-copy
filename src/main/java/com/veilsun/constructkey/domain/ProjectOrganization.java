@@ -23,4 +23,7 @@ public class ProjectOrganization extends Record {
 	
 	@OneToOne(fetch = FetchType.LAZY)
 	private DisplayStyle displayStyle;
+	
+	@OneToOne(fetch = FetchType.LAZY)
+	private WorkSchedule workSchedule;
 }

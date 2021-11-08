@@ -41,4 +41,7 @@ public class Project extends Record {
 	private Set<ProjectOrganization> tradePartners;
 	
 	private Boolean allowExternalInvites;
+	
+	@OneToOne(fetch = FetchType.LAZY)
+	private WorkSchedule workSchedule;
 }

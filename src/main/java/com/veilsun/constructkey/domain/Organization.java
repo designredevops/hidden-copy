@@ -44,4 +44,7 @@ public class Organization extends Record {
 	
 	@OneToOne(fetch = FetchType.LAZY)
 	private DisplayStyle displayStyle;
+	
+	@OneToOne(fetch = FetchType.LAZY)
+	private WorkSchedule workSchedule;
 }
