@@ -144,45 +144,4 @@ public class ProjectController {
 	}
 	
 	
-	/**
-	 * PROJECT ORGANIZATION
-	 */
-	
-	@GetMapping("/{projectId}/pull-plan-target")
-	public ResponseEntity<?> getProjectPullPlanTargets(@RequestParam() String orgId, @RequestParam() String projectId) {
-		return null;
-	}
-	
-	@PostMapping("/{projectId}/pull-plan-target")
-	public ResponseEntity<?> createProjectPullPlanTarget(
-			@RequestParam() String orgId, 
-			@RequestParam() String projectId, 
-			@RequestBody PullPlanTarget ppt) {
-		return null;
-	}
-	
-	@GetMapping("/{projectId}/pull-plan-target/{pptId}")
-	public ResponseEntity<?> getProjectPullPlanTarget(
-			@RequestParam() String orgId, 
-			@RequestParam() String projectId, 
-			@RequestParam() String pptId) {
-		return null;
-	}
-	
-	@PutMapping("/{projectId}/pull-plan-target/{pptId}")
-	public ResponseEntity<?> updateProjectPullPlanTarget(
-			@RequestParam() String orgId, 
-			@RequestParam() String projectId, 
-			@RequestParam() String pptId,
-			@RequestBody PullPlanTarget ppt) {
-		return null;
-	}
-	
-	@DeleteMapping("/{projectId}/pull-plan-target/{pptId}")
-	public ResponseEntity<?> deleteProjectPullPlanTarget(
-			@RequestParam() String orgId, 
-			@RequestParam() String projectId, 
-			@RequestParam() String pptId) {
-		return null;
-	}
 }

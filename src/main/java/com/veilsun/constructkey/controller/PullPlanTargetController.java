@@ -16,13 +16,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.veilsun.constructkey.domain.Card;
+import com.veilsun.constructkey.domain.Chute;
 import com.veilsun.constructkey.domain.Project;
 import com.veilsun.constructkey.domain.PullPlanTarget;
 import com.veilsun.constructkey.domain.PullPlanTargetMeeting;
 import com.veilsun.constructkey.service.PullPlanTargetService;
 
 @RestController
-@RequestMapping("/org/{orgId}/project/{projectId}/ppt")
+@RequestMapping("/org/{orgId}/project/{projectId}/pull-plan-target")
 public class PullPlanTargetController {
 
 	Logger logger = LoggerFactory.getLogger(PullPlanTargetController.class);
@@ -102,7 +104,7 @@ public class PullPlanTargetController {
 		return null;
 	}
 	
-	@PutMapping("/{pptId}")
+	@PutMapping("/{pptId}/meeting/{meetingId}")
 	public ResponseEntity<?> updatePPTMeeting(
 			@RequestParam() String orgId, 
 			@RequestParam() String projectId,
@@ -112,12 +114,116 @@ public class PullPlanTargetController {
 		return null;
 	}
 	
-	@DeleteMapping("/{pptId}")
+	@DeleteMapping("/{pptId}/meeting/{meetingId}")
 	public ResponseEntity<?> deletePPTMeeting(
 			@RequestParam() String orgId, 
 			@RequestParam() String projectId,
 			@RequestParam() String pptId,
 			@RequestParam() String meetingId) {
+		return null;
+	}
+	
+	/**
+	 * PPT CHUTE
+	 */
+	
+	@GetMapping("/{pptId}/chute")
+	public ResponseEntity<?> getPPTChutes(
+			@RequestParam() String orgId, 
+			@RequestParam() String projectId,
+			@RequestParam() String pptId) {
+		return null;
+	}
+	
+	
+	@PostMapping("/{pptId}/chute")
+	public ResponseEntity<?> createPPTChute(
+			@RequestParam() String orgId, 
+			@RequestParam() String projectId,
+			@RequestParam() String pptId,
+			@RequestBody Chute chute) {
+		return ResponseEntity.ok(new Chute());
+	}
+	
+	@GetMapping("/{pptId}/chute/{chuteId}")
+	public ResponseEntity<?> getPPTChute(
+			@RequestParam() String orgId, 
+			@RequestParam() String projectId,
+			@RequestParam() String pptId,
+			@RequestParam() String chuteId) {
+		return null;
+	}
+	
+	@PutMapping("/{pptId}/chute/{chuteId}")
+	public ResponseEntity<?> updatePPTChute(
+			@RequestParam() String orgId, 
+			@RequestParam() String projectId,
+			@RequestParam() String pptId,
+			@RequestParam() String chuteId,
+			@RequestBody Chute chute ) {
+		return null;
+	}
+	
+	@DeleteMapping("/{pptId}/chute/{chuteId}")
+	public ResponseEntity<?> deletePPTChute(
+			@RequestParam() String orgId, 
+			@RequestParam() String projectId,
+			@RequestParam() String pptId,
+			@RequestParam() String chuteId) {
+		return null;
+	}
+	
+	/**
+	 * PPT CHUTE CARD
+	 */
+	
+	@GetMapping("/{pptId}/chute/{chuteId}/card")
+	public ResponseEntity<?> getPPTChuteCards(
+			@RequestParam() String orgId, 
+			@RequestParam() String projectId,
+			@RequestParam() String pptId,
+			@RequestParam() String chuteId) {
+		return null;
+	}
+	
+	
+	@PostMapping("/{pptId}/chute/{chuteId}/card")
+	public ResponseEntity<?> createPPTChuteCard(
+			@RequestParam() String orgId, 
+			@RequestParam() String projectId,
+			@RequestParam() String pptId,
+			@RequestBody Card card) {
+		return ResponseEntity.ok(new Card());
+	}
+	
+	@GetMapping("/{pptId}/chute/{chuteId}/card/{cardId}")
+	public ResponseEntity<?> getPPTChuteCard(
+			@RequestParam() String orgId, 
+			@RequestParam() String projectId,
+			@RequestParam() String pptId,
+			@RequestParam() String chuteId,
+			@RequestParam() String cardId) {
+		return null;
+	}
+	
+	@PutMapping("/{pptId}/chute/{chuteId}/card/{cardId}")
+	public ResponseEntity<?> updatePPTChuteCard(
+			@RequestParam() String orgId, 
+			@RequestParam() String projectId,
+			@RequestParam() String pptId,
+			@RequestParam() String chuteId,
+			@RequestParam() String cardId,
+			@RequestBody Card card ) {
+		return null;
+	}
+	
+	@DeleteMapping("/{pptId}/chute/{chuteId}/card/{cardId}")
+	public ResponseEntity<?> deletePPTChuteCard(
+			@RequestParam() String orgId, 
+			@RequestParam() String projectId,
+			@RequestParam() String pptId,
+			@RequestParam() String chuteId,
+			@RequestParam() String cardId) {
 		return null;
 	}
 }
