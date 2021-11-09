@@ -5,7 +5,6 @@ import java.util.UUID;
 
 import javax.persistence.Entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.veilsun.constructkey.domain.global.Record;
 
 import lombok.AllArgsConstructor;
@@ -28,22 +27,10 @@ public class User extends Record {
 
 	private String firstName;
 	private String lastName;
-	
-	@JsonIgnore
 	private String email;
-	
-	@JsonIgnore
 	private Boolean emailVerified;
-	
-	@JsonIgnore
 	private LocalDateTime emailVerifiedDate;
-	
-	@JsonIgnore
 	private String mobile;
-	
-	@JsonIgnore
 	private Boolean mobileVerified;
-	
-	@JsonIgnore
 	private LocalDateTime mobileVerifiedDate;
 }
