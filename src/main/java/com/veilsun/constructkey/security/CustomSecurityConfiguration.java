@@ -14,12 +14,20 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 @EnableWebSecurity
 public class CustomSecurityConfiguration extends WebSecurityConfigurerAdapter {
  
+	private static final String[] AUTH_WHITELIST = {
+			"/public/**",
+			"/swagger-ui/**",
+            "/swagger-resources/**",
+            "/swagger-ui.html",
+            "/v2/api-docs",
+            "/webjars/**"
+    };
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests((authorize)->{
 			authorize
-				.antMatchers("/public/**").permitAll()
+				.antMatchers(AUTH_WHITELIST).permitAll()
 				.anyRequest().authenticated();
 		}).oauth2ResourceServer((oauth2)->{
 			oauth2.jwt((jwt)->{

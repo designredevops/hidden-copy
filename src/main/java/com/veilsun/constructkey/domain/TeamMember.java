@@ -27,6 +27,10 @@ public class TeamMember extends Record {
 		this.user = new User(userId);
 	}
 
+	public TeamMember() {
+		
+	}
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Team team;
 	

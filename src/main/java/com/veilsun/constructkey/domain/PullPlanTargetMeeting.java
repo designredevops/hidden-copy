@@ -9,13 +9,19 @@ import javax.persistence.OneToOne;
 
 import com.veilsun.constructkey.domain.global.Record;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity(name = "ppt_meeting")
 @Getter
 @Setter
+@AllArgsConstructor
 public class PullPlanTargetMeeting extends Record {
+
+	public PullPlanTargetMeeting() {
+		// TODO Auto-generated constructor stub
+	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	private PullPlanTarget pullPlanTarget;

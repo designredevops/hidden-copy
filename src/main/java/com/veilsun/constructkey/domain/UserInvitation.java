@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 
 import com.veilsun.constructkey.domain.global.Record;
 
@@ -22,10 +22,10 @@ public class UserInvitation extends Record {
 		NEW, ACCEPTED, DELETED
 	}
 
-	@OneToMany(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY)
 	private User user;
 	
-	@OneToMany(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY)
 	private Organization organization;
 	
 	private LocalDateTime acceptanceDate;

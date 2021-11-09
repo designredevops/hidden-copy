@@ -12,7 +12,7 @@ import lombok.Setter;
 @Setter
 public class DisplayStyle extends Record {
 	
-	private String primary;
-	private String secondary;
+	private String primaryColor;
+	private String secondaryColor;
 	
 }

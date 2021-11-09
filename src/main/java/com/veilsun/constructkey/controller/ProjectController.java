@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.veilsun.constructkey.domain.Project;
 import com.veilsun.constructkey.domain.ProjectLocation;
 import com.veilsun.constructkey.domain.ProjectOrganization;
-import com.veilsun.constructkey.domain.PullPlanTarget;
 import com.veilsun.constructkey.service.ProjectService;
 
 @RestController

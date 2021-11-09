@@ -33,6 +33,10 @@ public class Team extends Record {
 		this.type = type;
 	}
 	
+	public Team() {
+		
+	}
+	
 	@OneToMany(mappedBy = "team", fetch = FetchType.LAZY)
 	private Set<TeamMember> members;
 	

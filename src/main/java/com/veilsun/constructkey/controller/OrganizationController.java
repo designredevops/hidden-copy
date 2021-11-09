@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +22,7 @@ import com.veilsun.constructkey.domain.dto.UserOrganizationInvitation;
 import com.veilsun.constructkey.service.OrganizationService;
 
 @RestController
-@RequestMapping("/org/{orgId}")
+@RequestMapping("/org")
 public class OrganizationController {
 
 	Logger logger = LoggerFactory.getLogger(OrganizationController.class);
@@ -29,7 +30,7 @@ public class OrganizationController {
 	@Autowired
 	OrganizationService organizationService;
 	
-	@GetMapping("")
+	@GetMapping("/{orgId}")
 	public ResponseEntity<?> getOrganization(@RequestParam("orgId") String orgId) {
 		return new ResponseEntity<Organization>(organizationService.getOrganizationById(orgId), HttpStatus.OK);
 	}
@@ -39,19 +40,19 @@ public class OrganizationController {
 		return new ResponseEntity<Organization>(organizationService.createOrganization(principal.getName(), org), HttpStatus.CREATED);
 	}
 	
-	@PutMapping("")
+	@PutMapping("/{orgId}")
 	public ResponseEntity<?> updateOrganization(@RequestParam("orgId") String orgId, Organization org) {
 		return new ResponseEntity<Organization>(organizationService.updateOrganization(orgId, org), HttpStatus.OK);
 	}
 	
-	@PostMapping("/invite")
+	@PostMapping("/{orgId}/invite")
 	public ResponseEntity<?> inviteToOrganization(@RequestParam("orgId") String orgId, @RequestBody UserOrganizationInvitation invitation) {
 		return new ResponseEntity<Organization>(organizationService.inviteUser(invitation), HttpStatus.OK);
 	}
 	
-	@GetMapping("/organization")
-	public ResponseEntity<?> getSubOrganization(@RequestParam("orgId") String orgId) {
-		return new ResponseEntity<Page<Organization>>(organizationService.getOrganizationByParentId(orgId), HttpStatus.OK);
+	@GetMapping("/{orgId}/organization")
+	public ResponseEntity<?> getSubOrganization(@RequestParam("orgId") String orgId, Pageable page) {
+		return new ResponseEntity<Page<Organization>>(organizationService.getOrganizationByParentId(orgId, page), HttpStatus.OK);
 	}
 	
 	

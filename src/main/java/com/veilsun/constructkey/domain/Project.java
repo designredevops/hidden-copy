@@ -11,12 +11,14 @@ import javax.persistence.OneToOne;
 
 import com.veilsun.constructkey.domain.global.Record;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity(name = "project")
 @Getter
 @Setter
+@AllArgsConstructor
 public class Project extends Record {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -44,4 +46,8 @@ public class Project extends Record {
 	
 	@OneToOne(fetch = FetchType.LAZY)
 	private WorkSchedule workSchedule;
+	
+	public Project() {
+		
+	}
 }

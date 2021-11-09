@@ -2,6 +2,7 @@ package com.veilsun.constructkey.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.veilsun.constructkey.domain.Organization;
@@ -39,8 +40,8 @@ public class OrganizationService {
 		return null;
 	}
 
-	public Page<Organization> getOrganizationByParentId(String orgId) {
-		return organizationRepository.findAllByParentOrganizationId(orgId);
+	public Page<Organization> getOrganizationByParentId(String orgId, Pageable page) {
+		return organizationRepository.findAllByParentOrganizationId(orgId, page);
 	}
 	
 

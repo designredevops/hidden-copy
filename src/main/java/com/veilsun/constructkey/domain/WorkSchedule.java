@@ -5,6 +5,7 @@ import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import com.veilsun.constructkey.domain.global.Record;
 
@@ -19,5 +20,6 @@ public class WorkSchedule extends Record {
 	@OneToMany(mappedBy = "workSchedule", fetch = FetchType.LAZY)
 	private Set<WorkScheduleItem> items;
 	
+	@OneToOne(fetch = FetchType.LAZY)
 	private WorkScheduleItem defaultWorkScheduleItem;
 }
