@@ -43,6 +43,11 @@ public class OrganizationService {
 	public Page<Organization> getOrganizationByParentId(String orgId, Pageable page) {
 		return organizationRepository.findAllByParentOrganizationId(orgId, page);
 	}
+
+	public Boolean deleteOrganization(String orgId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 
 }

@@ -1,5 +1,7 @@
 package com.veilsun.constructkey.controller;
 
+import java.time.LocalDate;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,15 @@ public class WorkScheduleController {
 	
 	@GetMapping("")
 	public ResponseEntity<?> getWorkSchedule(@RequestParam("workScheduleId") String workScheduleId) {
+		return null;
+	}
+	
+	@GetMapping("/calendar")
+	public ResponseEntity<?> getWorkScheduleCalendar(
+			@RequestParam("workScheduleId") String workScheduleId,
+			@RequestParam("from") LocalDate from,
+			@RequestParam("to") LocalDate to
+			) {
 		return null;
 	}
 	

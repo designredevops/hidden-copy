@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -11,11 +12,12 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 
+@Configuration
 @EnableWebSecurity
 public class CustomSecurityConfiguration extends WebSecurityConfigurerAdapter {
  
 	private static final String[] AUTH_WHITELIST = {
-			"/public/**",
+			"/public/*",
 			"/swagger-ui/**",
             "/swagger-resources/**",
             "/swagger-ui.html",
@@ -25,7 +27,9 @@ public class CustomSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests((authorize)->{
+		http
+		.csrf().disable()
+		.authorizeRequests((authorize)->{
 			authorize
 				.antMatchers(AUTH_WHITELIST).permitAll()
 				.anyRequest().authenticated();

@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -43,6 +44,11 @@ public class OrganizationController {
 	@PutMapping("/{orgId}")
 	public ResponseEntity<?> updateOrganization(@RequestParam("orgId") String orgId, Organization org) {
 		return new ResponseEntity<Organization>(organizationService.updateOrganization(orgId, org), HttpStatus.OK);
+	}
+	
+	@DeleteMapping("/{orgId}")
+	public ResponseEntity<?> deleteOrganization(@RequestParam("orgId") String orgId) {
+		return new ResponseEntity<Boolean>(organizationService.deleteOrganization(orgId), HttpStatus.OK);
 	}
 	
 	@PostMapping("/{orgId}/invite")

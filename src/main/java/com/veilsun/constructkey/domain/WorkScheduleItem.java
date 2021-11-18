@@ -3,6 +3,8 @@ package com.veilsun.constructkey.domain;
 import java.time.LocalDate;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 
@@ -15,6 +17,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class WorkScheduleItem extends Record {
+	
+	public enum WorkScheduleItemType {
+		Range, Day
+	}
 	
 	public enum WorkScheduleItemStatus {
 		OPEN(1), CLOSED(0);
@@ -30,8 +36,13 @@ public class WorkScheduleItem extends Record {
 	@ManyToOne(fetch = FetchType.LAZY)
 	private WorkSchedule workSchedule;
 	
+	private String title;
+	
 	private LocalDate start;
 	private LocalDate end;
+	
+	@Enumerated(EnumType.STRING)
+	private WorkScheduleItemType type;
 	
 	private WorkScheduleItemStatus SUN, MON, TUE, WED, THU, FRI, SAT;
 }

@@ -20,7 +20,11 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class Project extends Record {
-	
+
+	public Project() {
+
+	}
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Organization organization;
 
@@ -29,25 +33,25 @@ public class Project extends Record {
 	private String description;
 	private LocalDate startDate;
 	private LocalDate endDate;
-	
+
 	@OneToOne(fetch = FetchType.LAZY)
 	private Team adminTeam;
-	
+
 	@OneToOne(fetch = FetchType.LAZY)
 	private Team memberTeam;
-	
+
 	@OneToMany(mappedBy = "project", fetch = FetchType.LAZY)
 	private Set<ProjectLocation> locations;
-	
+
 	@OneToMany(mappedBy = "project", fetch = FetchType.LAZY)
 	private Set<ProjectOrganization> tradePartners;
-	
+
+	@OneToMany(mappedBy = "project", fetch = FetchType.LAZY)
+	private Set<PullPlanTarget> pullPlanTargets;
+
 	private Boolean allowExternalInvites;
-	
+
 	@OneToOne(fetch = FetchType.LAZY)
 	private WorkSchedule workSchedule;
-	
-	public Project() {
-		
-	}
+
 }

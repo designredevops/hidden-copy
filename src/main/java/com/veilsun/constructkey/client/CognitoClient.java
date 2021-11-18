@@ -45,12 +45,12 @@ public class CognitoClient {
 		if(registration.getEmail() != null) {
 			attributes.add(AttributeType.builder().name("email").value(registration.getEmail()).build());
 			userName += registration.getEmail();
-		};
-		
-		if(registration.getMobile() != null) {
+		} else if(registration.getMobile() != null) {
 			attributes.add(AttributeType.builder().name("mobile").value(registration.getMobile()).build());
 			userName += registration.getMobile();
 		}
+		
+		if(userName == "") throw new InternalError("Must provide email or mobile");
 		
 		try {
 			String secretHash = calculateSecretHash(userPoolClientId, userPoolClientSecret, userName);
