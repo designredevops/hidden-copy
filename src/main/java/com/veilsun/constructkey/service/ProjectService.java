@@ -2,6 +2,7 @@ package com.veilsun.constructkey.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.veilsun.constructkey.domain.Project;
@@ -39,8 +40,9 @@ public class ProjectService {
 		return null;
 	}
 
-	public Page<Project> getProjectsByOrganization(String orgId) {
+	public Page<Project> getProjectsByOrganization(String orgId, Pageable page) {
 		// TODO Auto-generated method stub
+		// JPA
 		return null;
 	}
 	

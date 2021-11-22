@@ -30,9 +30,10 @@ public class ProjectController {
 	@Autowired
 	ProjectService projectService;
 	
+	// GET https://constructkey.com/api/org/2882-al-28340-alkjd932/project
 	@GetMapping("")
 	public ResponseEntity<?> getProjectsByOrganization(@RequestParam() String orgId, Pageable page) {
-		return new ResponseEntity<Page<Project>>(projectService.getProjectsByOrganization(orgId), HttpStatus.OK);
+		return new ResponseEntity<Page<Project>>(projectService.getProjectsByOrganization(orgId, page), HttpStatus.OK);
 	}
 	
 	@PostMapping("")
