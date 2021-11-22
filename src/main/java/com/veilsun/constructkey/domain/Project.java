@@ -1,6 +1,7 @@
 package com.veilsun.constructkey.domain;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -49,6 +50,9 @@ public class Project extends Record {
 
 	@OneToOne(fetch = FetchType.LAZY)
 	private WorkSchedule workSchedule;
+	
+	private Boolean archived;
+	private LocalDateTime archiveDate;
 	
 	public Project() {
 
