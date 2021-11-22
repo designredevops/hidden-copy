@@ -21,10 +21,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Project extends Record {
 
-	public Project() {
-
-	}
-
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Organization organization;
 
@@ -53,5 +49,9 @@ public class Project extends Record {
 
 	@OneToOne(fetch = FetchType.LAZY)
 	private WorkSchedule workSchedule;
+	
+	public Project() {
+
+	}
 
 }
