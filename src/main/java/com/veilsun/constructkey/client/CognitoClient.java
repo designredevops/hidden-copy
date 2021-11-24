@@ -26,8 +26,8 @@ public class CognitoClient {
 	@Value("${aws.cognito.userpool.client.id}")
 	String userPoolClientId;
 	
-	@Value("${aws.cognito.userpool.client.secret}")
-	String userPoolClientSecret;
+//	@Value("${aws.cognito.userpool.client.secret}")
+//	String userPoolClientSecret;
 	
 	CognitoIdentityProviderClient identityProviderClient;
 	
@@ -53,13 +53,13 @@ public class CognitoClient {
 		if(userName == "") throw new InternalError("Must provide email or mobile");
 		
 		try {
-			String secretHash = calculateSecretHash(userPoolClientId, userPoolClientSecret, userName);
+//			String secretHash = calculateSecretHash(userPoolClientId, userPoolClientSecret, userName);
 			SignUpRequest signUpRequest =  SignUpRequest.builder()
 					.userAttributes(attributes)
 					.username(userName)
 					.clientId(userPoolClientId)
 					.password(registration.getPassword())
-					.secretHash(secretHash)
+//					.secretHash(secretHash)
 					.build();
 			SignUpResponse signUpResponse = identityProviderClient.signUp(signUpRequest);
 			
