@@ -2,6 +2,7 @@ package com.veilsun.constructkey.domain;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -28,10 +29,10 @@ public class Organization extends Record {
 	@Enumerated(EnumType.STRING)
 	private OrganizationType type;
 	
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Team adminTeam;
 	
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Team memberTeam;
 	
 	@OneToMany(mappedBy = "organization", fetch = FetchType.LAZY)
@@ -43,9 +44,9 @@ public class Organization extends Record {
 	private Boolean allowExternalInvites;
 	
 	
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private DisplayStyle displayStyle;
 	
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private WorkSchedule workSchedule;
 }

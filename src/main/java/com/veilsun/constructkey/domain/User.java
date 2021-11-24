@@ -3,9 +3,13 @@ package com.veilsun.constructkey.domain;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 
-import com.veilsun.constructkey.domain.global.Record;
+import org.hibernate.annotations.Type;
+
+import com.veilsun.constructkey.domain.global.RecordWithManualID;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,7 +19,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class User extends Record {
+public class User extends RecordWithManualID {
 
 	public User(String userId) {
 		this.setId(UUID.fromString(userId));
@@ -24,6 +28,11 @@ public class User extends Record {
 	public User() {
 		
 	}
+	
+	@Id
+	@Column(name = "id", updatable = false, nullable = false)
+	@Type(type = "uuid-char")
+	private UUID id;
 
 	private String firstName;
 	private String lastName;

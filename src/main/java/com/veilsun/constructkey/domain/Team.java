@@ -2,6 +2,7 @@ package com.veilsun.constructkey.domain;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -37,7 +38,7 @@ public class Team extends Record {
 		
 	}
 	
-	@OneToMany(mappedBy = "team", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "team", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<TeamMember> members;
 	
 	@Enumerated(EnumType.STRING)
