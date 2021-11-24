@@ -9,11 +9,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.veilsun.constructkey.domain.Card;
@@ -34,42 +34,42 @@ public class PullPlanTargetController {
 	
 	@GetMapping("")
 	public ResponseEntity<?> getPPTByProject(
-			@RequestParam() String orgId, 
-			@RequestParam() String projectId, 
+			@PathVariable() String orgId, 
+			@PathVariable() String projectId, 
 			Pageable page) {
 		return new ResponseEntity<Page<Project>>(pptService.getPPTByProject(orgId, projectId, page), HttpStatus.OK);
 	}
 	
 	@PostMapping("")
 	public ResponseEntity<?> createPPT(
-			@RequestParam() String orgId, 
-			@RequestParam() String projectId, 
+			@PathVariable() String orgId, 
+			@PathVariable() String projectId, 
 			@RequestBody PullPlanTarget ppt) {
 		return ResponseEntity.ok(new PullPlanTarget());
 	}
 	
 	@GetMapping("/{pptId}")
 	public ResponseEntity<?> getPPT(
-			@RequestParam() String orgId, 
-			@RequestParam() String projectId,
-			@RequestParam() String pptId) {
+			@PathVariable() String orgId, 
+			@PathVariable() String projectId,
+			@PathVariable() String pptId) {
 		return new ResponseEntity<PullPlanTarget>(pptService.getProjectById(orgId, projectId, pptId), HttpStatus.OK);
 	}
 	
 	@PutMapping("/{pptId}")
 	public ResponseEntity<?> updatePPT(
-			@RequestParam() String orgId, 
-			@RequestParam() String projectId,
-			@RequestParam() String pptId,
+			@PathVariable() String orgId, 
+			@PathVariable() String projectId,
+			@PathVariable() String pptId,
 			@RequestBody PullPlanTarget ppt ) {
 		return null;
 	}
 	
 	@DeleteMapping("/{pptId}")
 	public ResponseEntity<?> deletePPT(
-			@RequestParam() String orgId, 
-			@RequestParam() String projectId,
-			@RequestParam() String pptId) {
+			@PathVariable() String orgId, 
+			@PathVariable() String projectId,
+			@PathVariable() String pptId) {
 		return null;
 	}
 	
@@ -79,47 +79,47 @@ public class PullPlanTargetController {
 	
 	@GetMapping("/{pptId}/meeting")
 	public ResponseEntity<?> getPPTMeetings(
-			@RequestParam() String orgId, 
-			@RequestParam() String projectId,
-			@RequestParam() String pptId) {
+			@PathVariable() String orgId, 
+			@PathVariable() String projectId,
+			@PathVariable() String pptId) {
 		return null;
 	}
 	
 	
 	@PostMapping("/{pptId}/meeting")
 	public ResponseEntity<?> createPPTMeeting(
-			@RequestParam() String orgId, 
-			@RequestParam() String projectId,
-			@RequestParam() String pptId,
+			@PathVariable() String orgId, 
+			@PathVariable() String projectId,
+			@PathVariable() String pptId,
 			@RequestBody PullPlanTargetMeeting pptMeeting) {
 		return ResponseEntity.ok(new PullPlanTargetMeeting());
 	}
 	
 	@GetMapping("/{pptId}/meeting/{meetingId}")
 	public ResponseEntity<?> getPPTMeeting(
-			@RequestParam() String orgId, 
-			@RequestParam() String projectId,
-			@RequestParam() String pptId,
-			@RequestParam() String meetingId) {
+			@PathVariable() String orgId, 
+			@PathVariable() String projectId,
+			@PathVariable() String pptId,
+			@PathVariable() String meetingId) {
 		return null;
 	}
 	
 	@PutMapping("/{pptId}/meeting/{meetingId}")
 	public ResponseEntity<?> updatePPTMeeting(
-			@RequestParam() String orgId, 
-			@RequestParam() String projectId,
-			@RequestParam() String pptId,
-			@RequestParam() String meetingId,
+			@PathVariable() String orgId, 
+			@PathVariable() String projectId,
+			@PathVariable() String pptId,
+			@PathVariable() String meetingId,
 			@RequestBody PullPlanTargetMeeting pptMeeting ) {
 		return null;
 	}
 	
 	@DeleteMapping("/{pptId}/meeting/{meetingId}")
 	public ResponseEntity<?> deletePPTMeeting(
-			@RequestParam() String orgId, 
-			@RequestParam() String projectId,
-			@RequestParam() String pptId,
-			@RequestParam() String meetingId) {
+			@PathVariable() String orgId, 
+			@PathVariable() String projectId,
+			@PathVariable() String pptId,
+			@PathVariable() String meetingId) {
 		return null;
 	}
 	
@@ -129,47 +129,47 @@ public class PullPlanTargetController {
 	
 	@GetMapping("/{pptId}/chute")
 	public ResponseEntity<?> getPPTChutes(
-			@RequestParam() String orgId, 
-			@RequestParam() String projectId,
-			@RequestParam() String pptId) {
+			@PathVariable() String orgId, 
+			@PathVariable() String projectId,
+			@PathVariable() String pptId) {
 		return null;
 	}
 	
 	
 	@PostMapping("/{pptId}/chute")
 	public ResponseEntity<?> createPPTChute(
-			@RequestParam() String orgId, 
-			@RequestParam() String projectId,
-			@RequestParam() String pptId,
+			@PathVariable() String orgId, 
+			@PathVariable() String projectId,
+			@PathVariable() String pptId,
 			@RequestBody Chute chute) {
 		return ResponseEntity.ok(new Chute());
 	}
 	
 	@GetMapping("/{pptId}/chute/{chuteId}")
 	public ResponseEntity<?> getPPTChute(
-			@RequestParam() String orgId, 
-			@RequestParam() String projectId,
-			@RequestParam() String pptId,
-			@RequestParam() String chuteId) {
+			@PathVariable() String orgId, 
+			@PathVariable() String projectId,
+			@PathVariable() String pptId,
+			@PathVariable() String chuteId) {
 		return null;
 	}
 	
 	@PutMapping("/{pptId}/chute/{chuteId}")
 	public ResponseEntity<?> updatePPTChute(
-			@RequestParam() String orgId, 
-			@RequestParam() String projectId,
-			@RequestParam() String pptId,
-			@RequestParam() String chuteId,
+			@PathVariable() String orgId, 
+			@PathVariable() String projectId,
+			@PathVariable() String pptId,
+			@PathVariable() String chuteId,
 			@RequestBody Chute chute ) {
 		return null;
 	}
 	
 	@DeleteMapping("/{pptId}/chute/{chuteId}")
 	public ResponseEntity<?> deletePPTChute(
-			@RequestParam() String orgId, 
-			@RequestParam() String projectId,
-			@RequestParam() String pptId,
-			@RequestParam() String chuteId) {
+			@PathVariable() String orgId, 
+			@PathVariable() String projectId,
+			@PathVariable() String pptId,
+			@PathVariable() String chuteId) {
 		return null;
 	}
 	
@@ -179,51 +179,51 @@ public class PullPlanTargetController {
 	
 	@GetMapping("/{pptId}/chute/{chuteId}/card")
 	public ResponseEntity<?> getPPTChuteCards(
-			@RequestParam() String orgId, 
-			@RequestParam() String projectId,
-			@RequestParam() String pptId,
-			@RequestParam() String chuteId) {
+			@PathVariable() String orgId, 
+			@PathVariable() String projectId,
+			@PathVariable() String pptId,
+			@PathVariable() String chuteId) {
 		return null;
 	}
 	
 	
 	@PostMapping("/{pptId}/chute/{chuteId}/card")
 	public ResponseEntity<?> createPPTChuteCard(
-			@RequestParam() String orgId, 
-			@RequestParam() String projectId,
-			@RequestParam() String pptId,
+			@PathVariable() String orgId, 
+			@PathVariable() String projectId,
+			@PathVariable() String pptId,
 			@RequestBody Card card) {
 		return ResponseEntity.ok(new Card());
 	}
 	
 	@GetMapping("/{pptId}/chute/{chuteId}/card/{cardId}")
 	public ResponseEntity<?> getPPTChuteCard(
-			@RequestParam() String orgId, 
-			@RequestParam() String projectId,
-			@RequestParam() String pptId,
-			@RequestParam() String chuteId,
-			@RequestParam() String cardId) {
+			@PathVariable() String orgId, 
+			@PathVariable() String projectId,
+			@PathVariable() String pptId,
+			@PathVariable() String chuteId,
+			@PathVariable() String cardId) {
 		return null;
 	}
 	
 	@PutMapping("/{pptId}/chute/{chuteId}/card/{cardId}")
 	public ResponseEntity<?> updatePPTChuteCard(
-			@RequestParam() String orgId, 
-			@RequestParam() String projectId,
-			@RequestParam() String pptId,
-			@RequestParam() String chuteId,
-			@RequestParam() String cardId,
+			@PathVariable() String orgId, 
+			@PathVariable() String projectId,
+			@PathVariable() String pptId,
+			@PathVariable() String chuteId,
+			@PathVariable() String cardId,
 			@RequestBody Card card ) {
 		return null;
 	}
 	
 	@DeleteMapping("/{pptId}/chute/{chuteId}/card/{cardId}")
 	public ResponseEntity<?> deletePPTChuteCard(
-			@RequestParam() String orgId, 
-			@RequestParam() String projectId,
-			@RequestParam() String pptId,
-			@RequestParam() String chuteId,
-			@RequestParam() String cardId) {
+			@PathVariable() String orgId, 
+			@PathVariable() String projectId,
+			@PathVariable() String pptId,
+			@PathVariable() String chuteId,
+			@PathVariable() String cardId) {
 		return null;
 	}
 }

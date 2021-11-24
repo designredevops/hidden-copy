@@ -6,11 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.veilsun.constructkey.domain.TeamMember;
@@ -26,37 +26,37 @@ public class TeamController {
 	TeamService teamService;
 	
 	@GetMapping("")
-	public ResponseEntity<?> getTeam(@RequestParam("teamId") String teamId) {
+	public ResponseEntity<?> getTeam(@PathVariable("teamId") String teamId) {
 		return null;
 	}
 	
 	@GetMapping("/pool")
-	public ResponseEntity<?> getTeamUserPool(@RequestParam("teamId") String teamId) {
+	public ResponseEntity<?> getTeamUserPool(@PathVariable("teamId") String teamId) {
 		return null;
 	}
 	
 	@GetMapping("/member")
-	public ResponseEntity<?> getTeamMembers(@RequestParam("teamId") String teamId) {
+	public ResponseEntity<?> getTeamMembers(@PathVariable("teamId") String teamId) {
 		return null;
 	}
 	
 	@PostMapping("/member")
-	public ResponseEntity<?> addTeamMember(@RequestParam("teamId") String teamId, @RequestBody TeamMember member) {
+	public ResponseEntity<?> addTeamMember(@PathVariable("teamId") String teamId, @RequestBody TeamMember member) {
 		return null;
 	}
 	
 	@PutMapping("/member/{memberId}")
 	public ResponseEntity<?> updateTeamMember(
-			@RequestParam("teamId") String teamId, 
-			@RequestParam("memberId") String memberId,
+			@PathVariable("teamId") String teamId, 
+			@PathVariable("memberId") String memberId,
 			@RequestBody TeamMember member) {
 		return null;
 	}
 	
 	@DeleteMapping("/member/{memberId}")
 	public ResponseEntity<?> deleteTeamMember(
-			@RequestParam("teamId") String teamId, 
-			@RequestParam("memberId") String memberId) {
+			@PathVariable("teamId") String teamId, 
+			@PathVariable("memberId") String memberId) {
 		return null;
 	}
 }

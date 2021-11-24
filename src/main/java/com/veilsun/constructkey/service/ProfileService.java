@@ -1,5 +1,7 @@
 package com.veilsun.constructkey.service;
 
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -29,7 +31,7 @@ public class ProfileService {
 		return userRepository.getUserById(userId).orElseThrow();
 	}
 	
-	public Page<Organization> getOrganizationsByUserId(String userId, Pageable page) {
+	public Page<Organization> getOrganizationsByUserId(UUID userId, Pageable page) {
 		return organizationRepository.findAllByMemberTeamMembersUserId(userId, page);
 	}
 

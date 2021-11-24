@@ -9,11 +9,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.veilsun.constructkey.domain.Project;
@@ -32,30 +32,30 @@ public class ProjectController {
 	
 	// GET https://constructkey.com/api/org/2882-al-28340-alkjd932/project
 	@GetMapping("")
-	public ResponseEntity<?> getProjectsByOrganization(@RequestParam() String orgId, Pageable page) {
+	public ResponseEntity<?> getProjectsByOrganization(@PathVariable() String orgId, Pageable page) {
 		return new ResponseEntity<Page<Project>>(projectService.getProjectsByOrganization(orgId, page), HttpStatus.OK);
 	}
 	
 	@PostMapping("")
-	public ResponseEntity<?> createProject(@RequestParam() String orgId, @RequestBody Project project) {
+	public ResponseEntity<?> createProject(@PathVariable() String orgId, @RequestBody Project project) {
 		return ResponseEntity.ok(new Project());
 	}
 	
 	@GetMapping("/{projectId}")
-	public ResponseEntity<?> getProject(@RequestParam() String orgId, @RequestParam() String projectId ) {
+	public ResponseEntity<?> getProject(@PathVariable() String orgId, @PathVariable() String projectId ) {
 		return new ResponseEntity<Project>(projectService.getProjectById(projectId), HttpStatus.OK);
 	}
 	
 	@PutMapping("/{projectId}")
 	public ResponseEntity<?> updateProject(
-			@RequestParam() String orgId, 
-			@RequestParam() String projectId, 
+			@PathVariable() String orgId, 
+			@PathVariable() String projectId, 
 			@RequestBody Project project ) {
 		return null;
 	}
 	
 	@DeleteMapping("/{projectId}")
-	public ResponseEntity<?> deleteProject(@RequestParam() String orgId, @RequestParam() String projectId ) {
+	public ResponseEntity<?> deleteProject(@PathVariable() String orgId, @PathVariable() String projectId ) {
 		return null;
 	}
 	
@@ -64,40 +64,40 @@ public class ProjectController {
 	 */
 	
 	@GetMapping("/{projectId}/location")
-	public ResponseEntity<?> getProjectLocations(@RequestParam() String orgId, @RequestParam() String projectId) {
+	public ResponseEntity<?> getProjectLocations(@PathVariable() String orgId, @PathVariable() String projectId) {
 		return null;
 	}
 	
 	@PostMapping("/{projectId}/location")
 	public ResponseEntity<?> createProjectLocation(
-			@RequestParam() String orgId, 
-			@RequestParam() String projectId, 
+			@PathVariable() String orgId, 
+			@PathVariable() String projectId, 
 			@RequestBody ProjectLocation projectLocation) {
 		return null;
 	}
 	
 	@GetMapping("/{projectId}/location/{locationId}")
 	public ResponseEntity<?> getProjectLocation(
-			@RequestParam() String orgId, 
-			@RequestParam() String projectId, 
-			@RequestParam() String locationId) {
+			@PathVariable() String orgId, 
+			@PathVariable() String projectId, 
+			@PathVariable() String locationId) {
 		return null;
 	}
 	
 	@PutMapping("/{projectId}/location/{locationId}")
 	public ResponseEntity<?> updateProjectLocation(
-			@RequestParam() String orgId, 
-			@RequestParam() String projectId, 
-			@RequestParam() String locationId,
+			@PathVariable() String orgId, 
+			@PathVariable() String projectId, 
+			@PathVariable() String locationId,
 			@RequestBody ProjectLocation projectLocation) {
 		return null;
 	}
 	
 	@DeleteMapping("/{projectId}/location/{locationId}")
 	public ResponseEntity<?> deleteProjectLocation(
-			@RequestParam() String orgId, 
-			@RequestParam() String projectId, 
-			@RequestParam() String locationId) {
+			@PathVariable() String orgId, 
+			@PathVariable() String projectId, 
+			@PathVariable() String locationId) {
 		return null;
 	}
 	
@@ -106,40 +106,40 @@ public class ProjectController {
 	 */
 	
 	@GetMapping("/{projectId}/organization")
-	public ResponseEntity<?> getProjectOrganizations(@RequestParam() String orgId, @RequestParam() String projectId) {
+	public ResponseEntity<?> getProjectOrganizations(@PathVariable() String orgId, @PathVariable() String projectId) {
 		return null;
 	}
 	
 	@PostMapping("/{projectId}/organization")
 	public ResponseEntity<?> createProjectOrganization(
-			@RequestParam() String orgId, 
-			@RequestParam() String projectId, 
+			@PathVariable() String orgId, 
+			@PathVariable() String projectId, 
 			@RequestBody ProjectOrganization projectOrganization) {
 		return null;
 	}
 	
 	@GetMapping("/{projectId}/organization/{projectOrganizationId}")
 	public ResponseEntity<?> getProjectOrganization(
-			@RequestParam() String orgId, 
-			@RequestParam() String projectId, 
-			@RequestParam() String projectOrganizationId) {
+			@PathVariable() String orgId, 
+			@PathVariable() String projectId, 
+			@PathVariable() String projectOrganizationId) {
 		return null;
 	}
 	
 	@PutMapping("/{projectId}/organization/{projectOrganizationId}")
 	public ResponseEntity<?> updateProjectOrganization(
-			@RequestParam() String orgId, 
-			@RequestParam() String projectId, 
-			@RequestParam() String projectOrganizationId,
+			@PathVariable() String orgId, 
+			@PathVariable() String projectId, 
+			@PathVariable() String projectOrganizationId,
 			@RequestBody ProjectOrganization projectOrganization) {
 		return null;
 	}
 	
 	@DeleteMapping("/{projectId}/organization/{projectOrganizationId}")
 	public ResponseEntity<?> deleteProjectOrganization(
-			@RequestParam() String orgId, 
-			@RequestParam() String projectId, 
-			@RequestParam() String projectOrganizationId) {
+			@PathVariable() String orgId, 
+			@PathVariable() String projectId, 
+			@PathVariable() String projectOrganizationId) {
 		return null;
 	}
 	

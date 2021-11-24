@@ -1,5 +1,7 @@
 package com.veilsun.constructkey.service;
 
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,7 +27,7 @@ public class OrganizationService {
 		return createdOrg;
 	}
 
-	public Organization getOrganizationById(String orgId) {
+	public Organization getOrganizationById(UUID orgId) {
 		return organizationRepository.findById(orgId).orElseThrow();
 	}
 

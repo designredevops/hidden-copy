@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,32 +27,32 @@ public class BucketController {
 	BucketService bucketService;
 	
 	@GetMapping("")
-	public ResponseEntity<?> getBucket(@RequestParam("bucketId") String bucketId) {
+	public ResponseEntity<?> getBucket(@PathVariable("bucketId") String bucketId) {
 		return null;
 	}
 	
 	@GetMapping("/file")
-	public ResponseEntity<?> getFiles(@RequestParam("bucketId") String bucketId) {
+	public ResponseEntity<?> getFiles(@PathVariable("bucketId") String bucketId) {
 		return null;
 	}
 	
 	@PostMapping("/file")
-	public ResponseEntity<?> addFile(@RequestParam("teamId") String teamId, @RequestBody BucketItem file) {
+	public ResponseEntity<?> addFile(@PathVariable("teamId") String teamId, @RequestBody BucketItem file) {
 		return null;
 	}
 	
 	@PutMapping("/file/{fileId}")
 	public ResponseEntity<?> updateFile(
-			@RequestParam("bucketId") String bucketId, 
-			@RequestParam("fileId") String fileId,
+			@PathVariable("bucketId") String bucketId, 
+			@PathVariable("fileId") String fileId,
 			@RequestBody BucketItem file) {
 		return null;
 	}
 	
 	@DeleteMapping("/file/{fileId}")
 	public ResponseEntity<?> deleteFile(
-			@RequestParam("bucketId") String bucketId, 
-			@RequestParam("fileId") String fileId) {
+			@PathVariable("bucketId") String bucketId, 
+			@PathVariable("fileId") String fileId) {
 		return null;
 	}
 }
