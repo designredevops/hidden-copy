@@ -27,7 +27,7 @@ public class ProfileService {
 	@Autowired
 	private UserInvitationRepository userInvitationRepository;
 	
-	public User getProfileById(String userId) {
+	public User getProfileById(UUID userId) {
 		return userRepository.getUserById(userId).orElseThrow();
 	}
 	
@@ -39,7 +39,7 @@ public class ProfileService {
 		return userInvitationRepository.getInvitationsByUserIdAndStatus(userId, InvitationStatus.NEW, page);
 	}
 
-	public User updateProfile(String userId, User user) {
+	public User updateProfile(UUID userId, User user) {
 		User existingUser = userRepository.getUserById(userId).orElseThrow();
 		
 		existingUser.setFirstName(user.getFirstName());

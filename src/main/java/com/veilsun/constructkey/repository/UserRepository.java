@@ -1,6 +1,7 @@
 package com.veilsun.constructkey.repository;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -8,8 +9,8 @@ import org.springframework.stereotype.Repository;
 import com.veilsun.constructkey.domain.User;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, String> {
+public interface UserRepository extends JpaRepository<User, UUID> {
 
-	Optional<User> getUserById(String userId);
+	Optional<User> getUserById(UUID userId);
 	Optional<User> findOneByEmailOrMobile(String email, String mobile);
 }

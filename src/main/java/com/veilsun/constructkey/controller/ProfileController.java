@@ -36,8 +36,8 @@ public class ProfileController {
 	}
 	
 	@PutMapping("")
-	public ResponseEntity<?> updateProfile(Principal principal, User user) {
-		return new ResponseEntity<User>(profileService.updateProfile(principal.getName(), user), HttpStatus.OK);
+	public ResponseEntity<?> updateProfile(@ModelAttribute UUID uid, User user) {
+		return new ResponseEntity<User>(profileService.updateProfile(uid, user), HttpStatus.OK);
 	}
 	
 	@GetMapping("/org")
