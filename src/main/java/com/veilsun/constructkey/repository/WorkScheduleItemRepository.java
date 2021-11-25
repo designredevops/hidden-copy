@@ -5,8 +5,10 @@ import org.springframework.stereotype.Repository;
 
 import com.veilsun.constructkey.domain.WorkScheduleItem;
 
+import java.util.UUID;
+
 @Repository
-public interface WorkScheduleItemRepository extends JpaRepository<WorkScheduleItem, String> {
+public interface WorkScheduleItemRepository extends JpaRepository<WorkScheduleItem, UUID> {
 
 	
 }

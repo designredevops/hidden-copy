@@ -21,6 +21,8 @@ import com.veilsun.constructkey.domain.ProjectLocation;
 import com.veilsun.constructkey.domain.ProjectOrganization;
 import com.veilsun.constructkey.service.ProjectService;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/org/{orgId}/project")
 public class ProjectController {
@@ -42,7 +44,7 @@ public class ProjectController {
 	}
 	
 	@GetMapping("/{projectId}")
-	public ResponseEntity<?> getProject(@PathVariable() String orgId, @PathVariable() String projectId ) {
+	public ResponseEntity<?> getProject(@PathVariable() String orgId, @PathVariable() UUID projectId ) {
 		return new ResponseEntity<Project>(projectService.getProjectById(projectId), HttpStatus.OK);
 	}
 	

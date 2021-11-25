@@ -10,6 +10,8 @@ import com.veilsun.constructkey.domain.global.Record;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.UUID;
+
 @Entity(name = "team_member")
 @Getter
 @Setter
@@ -23,7 +25,7 @@ public class TeamMember extends Record {
 		Active, Deactive
 	}
 	
-	public TeamMember(String userId) {
+	public TeamMember(UUID userId) {
 		this.user = new User(userId);
 	}
 

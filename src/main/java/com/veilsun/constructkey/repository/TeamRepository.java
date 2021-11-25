@@ -5,8 +5,10 @@ import org.springframework.stereotype.Repository;
 
 import com.veilsun.constructkey.domain.Team;
 
+import java.util.UUID;
+
 @Repository
-public interface TeamRepository extends JpaRepository<Team, String> {
+public interface TeamRepository extends JpaRepository<Team, UUID> {
 
 	
 }

@@ -23,6 +23,8 @@ import com.veilsun.constructkey.domain.PullPlanTarget;
 import com.veilsun.constructkey.domain.PullPlanTargetMeeting;
 import com.veilsun.constructkey.service.PullPlanTargetService;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/org/{orgId}/project/{projectId}/pull-plan-target")
 public class PullPlanTargetController {
@@ -34,8 +36,8 @@ public class PullPlanTargetController {
 	
 	@GetMapping("")
 	public ResponseEntity<?> getPPTByProject(
-			@PathVariable() String orgId, 
-			@PathVariable() String projectId, 
+			@PathVariable() UUID orgId,
+			@PathVariable() UUID projectId,
 			Pageable page) {
 		return new ResponseEntity<Page<Project>>(pptService.getPPTByProject(orgId, projectId, page), HttpStatus.OK);
 	}
@@ -50,9 +52,9 @@ public class PullPlanTargetController {
 	
 	@GetMapping("/{pptId}")
 	public ResponseEntity<?> getPPT(
-			@PathVariable() String orgId, 
-			@PathVariable() String projectId,
-			@PathVariable() String pptId) {
+			@PathVariable() UUID orgId,
+			@PathVariable() UUID projectId,
+			@PathVariable() UUID pptId) {
 		return new ResponseEntity<PullPlanTarget>(pptService.getProjectById(orgId, projectId, pptId), HttpStatus.OK);
 	}
 	

@@ -10,6 +10,8 @@ import com.veilsun.constructkey.domain.PullPlanTarget;
 import com.veilsun.constructkey.repository.PullPlanTargetMeetingRepository;
 import com.veilsun.constructkey.repository.PullPlanTargetRepository;
 
+import java.util.UUID;
+
 @Service
 public class PullPlanTargetService {
 
@@ -20,11 +22,11 @@ public class PullPlanTargetService {
 	@Autowired
 	private PullPlanTargetMeetingRepository pptMeetingRepository;
 
-	public Page<Project> getPPTByProject(String orgId, String projectId, Pageable page) {
+	public Page<Project> getPPTByProject(UUID orgId, UUID projectId, Pageable page) {
 		return null;
 	}
 
-	public PullPlanTarget getProjectById(String orgId, String projectId, String pptId) {
+	public PullPlanTarget getProjectById(UUID orgId, UUID projectId, UUID pptId) {
 		return pptRepository.findOneByIdAndProjectIdAndProjectOrganizationId(pptId, projectId, orgId).orElseThrow();
 	}
 

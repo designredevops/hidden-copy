@@ -31,8 +31,8 @@ public class ProfileController {
 	private ProfileService profileService;
 	
 	@GetMapping("")
-	public ResponseEntity<?> getProfile(Principal principal) {
-		return new ResponseEntity<User>(profileService.getProfileById(principal.getName()), HttpStatus.OK);
+	public ResponseEntity<?> getProfile(@ModelAttribute UUID uid) {
+		return new ResponseEntity<User>(profileService.getProfileById(uid), HttpStatus.OK);
 	}
 	
 	@PutMapping("")
@@ -46,7 +46,7 @@ public class ProfileController {
 	}
 	
 	@GetMapping("/invitation")
-	public ResponseEntity<?> getNewInvitations(Principal principal, Pageable page) {
-		return new ResponseEntity<Page<UserInvitation>>(profileService.getNewInvitationsByUserId(principal.getName(), page), HttpStatus.OK);
+	public ResponseEntity<?> getNewInvitations(@ModelAttribute UUID uid, Pageable page) {
+		return new ResponseEntity<Page<UserInvitation>>(profileService.getNewInvitationsByUserId(uid, page), HttpStatus.OK);
 	}
 }

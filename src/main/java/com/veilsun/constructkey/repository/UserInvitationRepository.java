@@ -8,8 +8,10 @@ import org.springframework.stereotype.Repository;
 import com.veilsun.constructkey.domain.UserInvitation;
 import com.veilsun.constructkey.domain.UserInvitation.InvitationStatus;
 
-@Repository
-public interface UserInvitationRepository extends JpaRepository<UserInvitation, String> {
+import java.util.UUID;
 
-	public Page<UserInvitation> getInvitationsByUserIdAndStatus(String userId, InvitationStatus status, Pageable page);
+@Repository
+public interface UserInvitationRepository extends JpaRepository<UserInvitation, UUID> {
+
+	public Page<UserInvitation> getInvitationsByUserIdAndStatus(UUID userId, InvitationStatus status, Pageable page);
 }

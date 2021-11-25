@@ -7,9 +7,11 @@ import org.springframework.stereotype.Repository;
 
 import com.veilsun.constructkey.domain.Project;
 
-@Repository
-public interface ProjectRepository extends JpaRepository<Project, String> {
+import java.util.UUID;
 
-	public Page<Project> findAllByMemberTeamMembersUserId(String userId, Pageable page);
+@Repository
+public interface ProjectRepository extends JpaRepository<Project, UUID> {
+
+	public Page<Project> findAllByMemberTeamMembersUserId(UUID userId, Pageable page);
 	
 }

@@ -11,6 +11,8 @@ import com.veilsun.constructkey.domain.Team.TeamType;
 import com.veilsun.constructkey.domain.dto.UserProjectInvitation;
 import com.veilsun.constructkey.repository.ProjectRepository;
 
+import java.util.UUID;
+
 @Service
 public class ProjectService {
 
@@ -18,14 +20,14 @@ public class ProjectService {
 	@Autowired
 	private ProjectRepository projectRepository;
 
-	public Project createProject(String userId, Project project) {
+	public Project createProject(UUID userId, Project project) {
 		project.setAdminTeam(new Team(userId, TeamType.ProjectAdmin));
 		project.setMemberTeam(new Team(TeamType.ProjectMember));
 		Project createdProject = projectRepository.save(project);
 		return createdProject;
 	}
 
-	public Project getProjectById(String projectId) {
+	public Project getProjectById(UUID projectId) {
 		return projectRepository.findById(projectId).orElseThrow();
 	}
 

@@ -35,7 +35,7 @@ public class ProfileService {
 		return organizationRepository.findAllByMemberTeamMembersUserId(userId, page);
 	}
 
-	public Page<UserInvitation> getNewInvitationsByUserId(String userId, Pageable page) {
+	public Page<UserInvitation> getNewInvitationsByUserId(UUID userId, Pageable page) {
 		return userInvitationRepository.getInvitationsByUserIdAndStatus(userId, InvitationStatus.NEW, page);
 	}
 
