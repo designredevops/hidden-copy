@@ -10,14 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.veilsun.constructkey.domain.Organization;
 import com.veilsun.constructkey.domain.dto.UserOrganizationInvitation;
@@ -38,8 +31,8 @@ public class OrganizationController {
 	}
 	
 	@PostMapping("")
-	public ResponseEntity<?> createOrganization(Principal principal, @RequestBody Organization org) {
-		return new ResponseEntity<Organization>(organizationService.createOrganization(principal.getName(), org), HttpStatus.CREATED);
+	public ResponseEntity<?> createOrganization(@ModelAttribute UUID uid, @RequestBody Organization org) {
+		return new ResponseEntity<Organization>(organizationService.createOrganization(uid, org), HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/{orgId}")
@@ -58,7 +51,7 @@ public class OrganizationController {
 	}
 	
 	@GetMapping("/{orgId}/organization")
-	public ResponseEntity<?> getSubOrganization(@PathVariable("orgId") String orgId, Pageable page) {
+	public ResponseEntity<?> getSubOrganization(@PathVariable("orgId") UUID orgId, Pageable page) {
 		return new ResponseEntity<Page<Organization>>(organizationService.getOrganizationByParentId(orgId, page), HttpStatus.OK);
 	}
 	

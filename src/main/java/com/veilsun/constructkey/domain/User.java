@@ -21,8 +21,8 @@ import lombok.Setter;
 @AllArgsConstructor
 public class User extends RecordWithManualID {
 
-	public User(String userId) {
-		this.setId(UUID.fromString(userId));
+	public User(UUID userId) {
+		this.setId(userId);
 	}
 
 	public User() {

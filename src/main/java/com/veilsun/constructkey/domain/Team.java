@@ -1,6 +1,7 @@
 package com.veilsun.constructkey.domain;
 
 import java.util.Set;
+import java.util.UUID;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -25,7 +26,7 @@ public class Team extends Record {
 		PullPlanTargetMeeting
 	}
 	
-	public Team(String userId, TeamType type) {
+	public Team(UUID userId, TeamType type) {
 		this.type = type;
 		this.members = Set.of(new TeamMember(userId));
 	}

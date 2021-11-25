@@ -20,7 +20,7 @@ public class OrganizationService {
 	@Autowired
 	private OrganizationRepository organizationRepository;
 
-	public Organization createOrganization(String userId, Organization org) {
+	public Organization createOrganization(UUID userId, Organization org) {
 		org.setAdminTeam(new Team(userId, TeamType.OrganizationAdmin));
 		org.setMemberTeam(new Team(TeamType.OrganizationMember));
 		Organization createdOrg = organizationRepository.save(org);
@@ -42,7 +42,7 @@ public class OrganizationService {
 		return null;
 	}
 
-	public Page<Organization> getOrganizationByParentId(String orgId, Pageable page) {
+	public Page<Organization> getOrganizationByParentId(UUID orgId, Pageable page) {
 		return organizationRepository.findAllByParentOrganizationId(orgId, page);
 	}
 

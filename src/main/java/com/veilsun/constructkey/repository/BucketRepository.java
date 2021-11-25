@@ -5,8 +5,10 @@ import org.springframework.stereotype.Repository;
 
 import com.veilsun.constructkey.domain.Bucket;
 
+import java.util.UUID;
+
 @Repository
-public interface BucketRepository extends JpaRepository<Bucket, String> {
+public interface BucketRepository extends JpaRepository<Bucket, UUID> {
 
 	
 }

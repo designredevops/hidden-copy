@@ -5,8 +5,10 @@ import org.springframework.stereotype.Repository;
 
 import com.veilsun.constructkey.domain.OrganizationDomain;
 
+import java.util.UUID;
+
 @Repository
-public interface OrganizationDomainRepository extends JpaRepository<OrganizationDomain, String> {
+public interface OrganizationDomainRepository extends JpaRepository<OrganizationDomain, UUID> {
 
 	
 }
