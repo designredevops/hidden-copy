@@ -36,17 +36,17 @@ public class OrganizationController {
 	}
 	
 	@PutMapping("/{orgId}")
-	public ResponseEntity<?> updateOrganization(@PathVariable("orgId") String orgId, Organization org) {
+	public ResponseEntity<?> updateOrganization(@PathVariable("orgId") UUID orgId, Organization org) {
 		return new ResponseEntity<Organization>(organizationService.updateOrganization(orgId, org), HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/{orgId}")
-	public ResponseEntity<?> deleteOrganization(@PathVariable("orgId") String orgId) {
+	public ResponseEntity<?> deleteOrganization(@PathVariable("orgId") UUID orgId) {
 		return new ResponseEntity<Boolean>(organizationService.deleteOrganization(orgId), HttpStatus.OK);
 	}
 	
 	@PostMapping("/{orgId}/invite")
-	public ResponseEntity<?> inviteToOrganization(@PathVariable("orgId") String orgId, @RequestBody UserOrganizationInvitation invitation) {
+	public ResponseEntity<?> inviteToOrganization(@PathVariable("orgId") UUID orgId, @RequestBody UserOrganizationInvitation invitation) {
 		return new ResponseEntity<Organization>(organizationService.inviteUser(invitation), HttpStatus.OK);
 	}
 	

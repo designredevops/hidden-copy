@@ -1,0 +1,435 @@
+{
+	"info": {
+		"_postman_id": "7162ae84-5d15-4ff7-8423-3d8760220f05",
+		"name": "ConstructKey",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Public",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"ranelias89@gmail.com\",\r\n    \"mobile\": \"829-776-3470\",\r\n    \"password\": \"2021mainTest0!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/public/register",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"public",
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Organization",
+			"item": [
+				{
+					"name": "getOrganization",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/org/252124",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"org",
+								"252124"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createOrganization",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Acme\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/org",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"org"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateOrganization",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				},
+				{
+					"name": "deleteOrganization",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/org/someID",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"org",
+								"someID"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "inviteOrganization",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/org/someID/invite",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"org",
+								"someID",
+								"invite"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getSubOrganization",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/org/someID/organization",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"org",
+								"someID",
+								"organization"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Bucket",
+			"item": [
+				{
+					"name": "getBucket",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/bucket/someBucketID",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"bucket",
+								"someBucketID"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getFiles",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/bucket/someBucketID/file",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"bucket",
+								"someBucketID",
+								"file"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addFiles",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/bucket/someBucketID/file",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"bucket",
+								"someBucketID",
+								"file"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateFile",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/bucket/someBucketID/file/someFileID",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"bucket",
+								"someBucketID",
+								"file",
+								"someFileID"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteFile",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/bucket/someBucketID/file/someFileID",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"bucket",
+								"someBucketID",
+								"file",
+								"someFileID"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Profile",
+			"item": [
+				{
+					"name": "getProfile",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/profile",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateProfile",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/profile",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getOrganizations",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/profile/org",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"profile",
+								"org"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getNewInvitations",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/profile/invitation",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"profile",
+								"invitation"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "oauth2",
+		"oauth2": [
+			{
+				"key": "addTokenTo",
+				"value": "header",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"if(pm.request.auth && pm.request.auth.type == \"noauth\") {",
+					"    console.log(\"No authorization required\");",
+					"    return;",
+					"}",
+					"var clientId = pm.environment.get(\"cognitoClientId\");",
+					"var username = pm.environment.get(\"cognitoUserName\");",
+					"var password = pm.environment.get(\"cognitoUserPassword\");",
+					"",
+					"pm.sendRequest({",
+					"    url: \"https://cognito-idp.us-east-1.amazonaws.com/\",",
+					"    method: 'POST',",
+					"    header: {",
+					"        'X-Amz-Target':   'AWSCognitoIdentityProviderService.InitiateAuth',",
+					"        'Content-Type': 'application/x-amz-json-1.1'",
+					"    },",
+					"    body: {",
+					"        mode: 'raw',",
+					"        raw: JSON.stringify({",
+					"            \"AuthParameters\": {",
+					"                \"USERNAME\": username,",
+					"                \"PASSWORD\": password",
+					"            },",
+					"            \"AuthFlow\": \"USER_PASSWORD_AUTH\",",
+					"            \"ClientId\": clientId",
+					"        }),",
+					"        options: {",
+					"            raw: {",
+					"                language: 'json'",
+					"            }",
+					"        }",
+					"    }",
+					"}, function (error, response) {",
+					"    if(error) {",
+					"        console.log(\"Error\");",
+					"        console.log(error);",
+					"    } else {",
+					"        console.log(response.json());",
+					"        pm.environment.set(\"cognitoAccessToken\", response.json().AuthenticationResult.AccessToken);",
+					"        pm.environment.set(\"cognitoIdToken\", response.json().AuthenticationResult.IdToken);",
+					"    }",
+					"});"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
