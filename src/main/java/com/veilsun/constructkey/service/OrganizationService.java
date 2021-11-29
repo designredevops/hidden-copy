@@ -31,7 +31,7 @@ public class OrganizationService {
 		return organizationRepository.findById(orgId).orElseThrow();
 	}
 
-	public Organization updateOrganization(String orgId, Organization org) {
+	public Organization updateOrganization(UUID orgId, Organization org) {
 		return organizationRepository.save(org);
 	}
 
@@ -46,7 +46,7 @@ public class OrganizationService {
 		return organizationRepository.findAllByParentOrganizationId(orgId, page);
 	}
 
-	public Boolean deleteOrganization(String orgId) {
+	public Boolean deleteOrganization(UUID orgId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
