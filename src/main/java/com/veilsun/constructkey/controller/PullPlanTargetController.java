@@ -44,8 +44,8 @@ public class PullPlanTargetController {
 	
 	@PostMapping("")
 	public ResponseEntity<?> createPPT(
-			@PathVariable() String orgId, 
-			@PathVariable() String projectId, 
+			@PathVariable() UUID orgId,
+			@PathVariable() UUID projectId,
 			@RequestBody PullPlanTarget ppt) {
 		return ResponseEntity.ok(new PullPlanTarget());
 	}
@@ -54,8 +54,8 @@ public class PullPlanTargetController {
 	public ResponseEntity<?> getPPT(
 			@PathVariable() UUID orgId,
 			@PathVariable() UUID projectId,
-			@PathVariable() UUID pptId) {
-		return new ResponseEntity<PullPlanTarget>(pptService.getProjectById(orgId, projectId, pptId), HttpStatus.OK);
+			@PathVariable() PullPlanTarget pptId) {
+		return new ResponseEntity<PullPlanTarget>(pptService.getProjectById(orgId, projectId, pptId.getId()), HttpStatus.OK);
 	}
 	
 	@PutMapping("/{pptId}")
@@ -81,9 +81,9 @@ public class PullPlanTargetController {
 	
 	@GetMapping("/{pptId}/meeting")
 	public ResponseEntity<?> getPPTMeetings(
-			@PathVariable() String orgId, 
-			@PathVariable() String projectId,
-			@PathVariable() String pptId) {
+			@PathVariable() UUID orgId,
+			@PathVariable() UUID projectId,
+			@PathVariable() UUID pptId) {
 		return null;
 	}
 	

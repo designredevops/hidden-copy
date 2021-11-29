@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.veilsun.constructkey.domain.TeamMember;
 import com.veilsun.constructkey.service.TeamService;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/team/{teamId}")
 public class TeamController {
@@ -26,37 +28,37 @@ public class TeamController {
 	TeamService teamService;
 	
 	@GetMapping("")
-	public ResponseEntity<?> getTeam(@PathVariable("teamId") String teamId) {
+	public ResponseEntity<?> getTeam(@PathVariable("teamId") UUID teamId) {
 		return null;
 	}
 	
 	@GetMapping("/pool")
-	public ResponseEntity<?> getTeamUserPool(@PathVariable("teamId") String teamId) {
+	public ResponseEntity<?> getTeamUserPool(@PathVariable("teamId") UUID teamId) {
 		return null;
 	}
 	
 	@GetMapping("/member")
-	public ResponseEntity<?> getTeamMembers(@PathVariable("teamId") String teamId) {
+	public ResponseEntity<?> getTeamMembers(@PathVariable("teamId") UUID teamId) {
 		return null;
 	}
 	
 	@PostMapping("/member")
-	public ResponseEntity<?> addTeamMember(@PathVariable("teamId") String teamId, @RequestBody TeamMember member) {
+	public ResponseEntity<?> addTeamMember(@PathVariable("teamId") UUID teamId, @RequestBody TeamMember member) {
 		return null;
 	}
 	
 	@PutMapping("/member/{memberId}")
 	public ResponseEntity<?> updateTeamMember(
-			@PathVariable("teamId") String teamId, 
-			@PathVariable("memberId") String memberId,
+			@PathVariable("teamId") UUID teamId,
+			@PathVariable("memberId") UUID memberId,
 			@RequestBody TeamMember member) {
 		return null;
 	}
 	
 	@DeleteMapping("/member/{memberId}")
 	public ResponseEntity<?> deleteTeamMember(
-			@PathVariable("teamId") String teamId, 
-			@PathVariable("memberId") String memberId) {
+			@PathVariable("teamId") UUID teamId,
+			@PathVariable("memberId") UUID memberId) {
 		return null;
 	}
 }
