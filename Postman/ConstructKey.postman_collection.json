@@ -60,13 +60,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/org/252124",
+							"raw": "{{host}}/org/d9b5d452-14b3-4754-9ab5-c9c03c9d31ad",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"org",
-								"252124"
+								"d9b5d452-14b3-4754-9ab5-c9c03c9d31ad"
 							]
 						}
 					},
@@ -103,7 +103,25 @@
 					"request": {
 						"method": "PUT",
 						"header": [],
-						"url": null
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Acme\",\r\n    \"type\":\"GeneralContactor\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/org/d9b5d452-14b3-4754-9ab5-c9c03c9d31ad",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"org",
+								"d9b5d452-14b3-4754-9ab5-c9c03c9d31ad"
+							]
+						}
 					},
 					"response": []
 				},
@@ -194,13 +212,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/bucket/someBucketID",
+							"raw": "{{host}}/bucket/{{bucketID}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"bucket",
-								"someBucketID"
+								"{{bucketID}}"
 							]
 						}
 					},
@@ -212,13 +230,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/bucket/someBucketID/file",
+							"raw": "{{host}}/bucket/{{bucketID}}/file",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"bucket",
-								"someBucketID",
+								"{{bucketID}}",
 								"file"
 							]
 						}
@@ -231,13 +249,13 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/bucket/someBucketID/file",
+							"raw": "{{host}}/bucket/{{bucketID}}/file",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"bucket",
-								"someBucketID",
+								"{{bucketID}}",
 								"file"
 							]
 						}
@@ -250,15 +268,15 @@
 						"method": "PUT",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/bucket/someBucketID/file/someFileID",
+							"raw": "{{host}}/bucket/{{bucketID}}/file/{{fileID}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"bucket",
-								"someBucketID",
+								"{{bucketID}}",
 								"file",
-								"someFileID"
+								"{{fileID}}"
 							]
 						}
 					},
@@ -270,15 +288,15 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/bucket/someBucketID/file/someFileID",
+							"raw": "{{host}}/bucket/{{bucketID}}/file/{{fileID}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"bucket",
-								"someBucketID",
+								"{{bucketID}}",
 								"file",
-								"someFileID"
+								"{{fileID}}"
 							]
 						}
 					},
@@ -360,6 +378,1062 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "PullPlanTarget",
+			"item": [
+				{
+					"name": "getPPTByProject",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/org/{{organizationID}}/project/{{projectId}}/pull-plan-target",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"org",
+								"{{organizationID}}",
+								"project",
+								"{{projectId}}",
+								"pull-plan-target"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createPPT",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/org/{{organizationID}}/project/{{projectId}}/pull-plan-target",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"org",
+								"{{organizationID}}",
+								"project",
+								"{{projectId}}",
+								"pull-plan-target"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getPPT",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/org/{{organizationID}}/project/{{projectId}}/pull-plan-target/{{pptID}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"org",
+								"{{organizationID}}",
+								"project",
+								"{{projectId}}",
+								"pull-plan-target",
+								"{{pptID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updatePPT",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/org/{{organizationID}}/project/{{projectId}}/pull-plan-target/{{pptID}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"org",
+								"{{organizationID}}",
+								"project",
+								"{{projectId}}",
+								"pull-plan-target",
+								"{{pptID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deletePPT",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/org/{{organizationID}}/project/{{projectId}}/pull-plan-target/{{pptID}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"org",
+								"{{organizationID}}",
+								"project",
+								"{{projectId}}",
+								"pull-plan-target",
+								"{{pptID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getPPTMeetings",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/org/{{organizationID}}/project/{{projectId}}/pull-plan-target/{{pptID}}/meeting",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"org",
+								"{{organizationID}}",
+								"project",
+								"{{projectId}}",
+								"pull-plan-target",
+								"{{pptID}}",
+								"meeting"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createPPTMeeting",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/org/{{organizationID}}/project/{{projectId}}/pull-plan-target/{{pptID}}/meeting",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"org",
+								"{{organizationID}}",
+								"project",
+								"{{projectId}}",
+								"pull-plan-target",
+								"{{pptID}}",
+								"meeting"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getPPTMeeting",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/org/{{organizationID}}/project/{{projectId}}/pull-plan-target/{{pptID}}/meeting/{{meetingID}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"org",
+								"{{organizationID}}",
+								"project",
+								"{{projectId}}",
+								"pull-plan-target",
+								"{{pptID}}",
+								"meeting",
+								"{{meetingID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updatePPTMeeting",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/org/{{organizationID}}/project/{{projectId}}/pull-plan-target/{{pptID}}/meeting/{{meetingID}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"org",
+								"{{organizationID}}",
+								"project",
+								"{{projectId}}",
+								"pull-plan-target",
+								"{{pptID}}",
+								"meeting",
+								"{{meetingID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deletePPTMeeting",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/org/{{organizationID}}/project/{{projectId}}/pull-plan-target/{{pptID}}/meeting/{{meetingID}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"org",
+								"{{organizationID}}",
+								"project",
+								"{{projectId}}",
+								"pull-plan-target",
+								"{{pptID}}",
+								"meeting",
+								"{{meetingID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getPPTChutes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/org/{{organizationID}}/project/{{projectId}}/pull-plan-target/{{pptID}}/chute",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"org",
+								"{{organizationID}}",
+								"project",
+								"{{projectId}}",
+								"pull-plan-target",
+								"{{pptID}}",
+								"chute"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createPPTChute",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/org/{{organizationID}}/project/{{projectId}}/pull-plan-target/{{pptID}}/chute",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"org",
+								"{{organizationID}}",
+								"project",
+								"{{projectId}}",
+								"pull-plan-target",
+								"{{pptID}}",
+								"chute"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getPPTChute",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/org/{{organizationID}}/project/{{projectId}}/pull-plan-target/{{pptID}}/chute/{{chuteID}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"org",
+								"{{organizationID}}",
+								"project",
+								"{{projectId}}",
+								"pull-plan-target",
+								"{{pptID}}",
+								"chute",
+								"{{chuteID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updatePPTChute",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/org/{{organizationID}}/project/{{projectId}}/pull-plan-target/{{pptID}}/chute/{{chuteID}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"org",
+								"{{organizationID}}",
+								"project",
+								"{{projectId}}",
+								"pull-plan-target",
+								"{{pptID}}",
+								"chute",
+								"{{chuteID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deletePPTChute",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/org/{{organizationID}}/project/{{projectId}}/pull-plan-target/{{pptID}}/chute/{{chuteID}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"org",
+								"{{organizationID}}",
+								"project",
+								"{{projectId}}",
+								"pull-plan-target",
+								"{{pptID}}",
+								"chute",
+								"{{chuteID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getPPTChuteCards",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/org/{{organizationID}}/project/{{projectId}}/pull-plan-target/{{pptID}}/chute/{{chuteID}}/card",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"org",
+								"{{organizationID}}",
+								"project",
+								"{{projectId}}",
+								"pull-plan-target",
+								"{{pptID}}",
+								"chute",
+								"{{chuteID}}",
+								"card"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createPPTChuteCard",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/org/{{organizationID}}/project/{{projectId}}/pull-plan-target/{{pptID}}/chute/{{chuteID}}/card",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"org",
+								"{{organizationID}}",
+								"project",
+								"{{projectId}}",
+								"pull-plan-target",
+								"{{pptID}}",
+								"chute",
+								"{{chuteID}}",
+								"card"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getPPTChuteCard",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/org/{{organizationID}}/project/{{projectId}}/pull-plan-target/{{pptID}}/chute/{{chuteID}}/card/{{cardID}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"org",
+								"{{organizationID}}",
+								"project",
+								"{{projectId}}",
+								"pull-plan-target",
+								"{{pptID}}",
+								"chute",
+								"{{chuteID}}",
+								"card",
+								"{{cardID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updatePPTChuteCard",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/org/{{organizationID}}/project/{{projectId}}/pull-plan-target/{{pptID}}/chute/{{chuteID}}/card/{{cardID}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"org",
+								"{{organizationID}}",
+								"project",
+								"{{projectId}}",
+								"pull-plan-target",
+								"{{pptID}}",
+								"chute",
+								"{{chuteID}}",
+								"card",
+								"{{cardID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deletePPTChuteCard",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/org/{{organizationID}}/project/{{projectId}}/pull-plan-target/{{pptID}}/chute/{{chuteID}}/card/{{cardID}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"org",
+								"{{organizationID}}",
+								"project",
+								"{{projectId}}",
+								"pull-plan-target",
+								"{{pptID}}",
+								"chute",
+								"{{chuteID}}",
+								"card",
+								"{{cardID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Team",
+			"item": [
+				{
+					"name": "getTeam",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/team/{{teamID}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"team",
+								"{{teamID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getTeamUserPool",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/team/{{teamID}}/pool",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"team",
+								"{{teamID}}",
+								"pool"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getTeamMember",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/team/{{teamID}}/member",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"team",
+								"{{teamID}}",
+								"member"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addTeamMember",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/team/{{teamID}}/member",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"team",
+								"{{teamID}}",
+								"member"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateTeamMember",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/team/{{teamID}}/member/{{memberID}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"team",
+								"{{teamID}}",
+								"member",
+								"{{memberID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteTeamMember",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/team/{{teamID}}/member/{{memberID}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"team",
+								"{{teamID}}",
+								"member",
+								"{{memberID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Project",
+			"item": [
+				{
+					"name": "getProjectByOrganization",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/org/{{organizationID}}/project",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"org",
+								"{{organizationID}}",
+								"project"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createProject",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/org/{{organizationID}}/project",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"org",
+								"{{organizationID}}",
+								"project"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getProject",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/org/{{organizationID}}/project/{{projectID}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"org",
+								"{{organizationID}}",
+								"project",
+								"{{projectID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateProject",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/org/{{organizationID}}/project/{{projectID}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"org",
+								"{{organizationID}}",
+								"project",
+								"{{projectID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteProject",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/org/{{organizationID}}/project/{{projectID}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"org",
+								"{{organizationID}}",
+								"project",
+								"{{projectID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getProjectLocations",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/org/{{organizationID}}/project/{{projectID}}/location",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"org",
+								"{{organizationID}}",
+								"project",
+								"{{projectID}}",
+								"location"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createProjectLocation",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/org/{{organizationID}}/project/{{projectID}}/location",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"org",
+								"{{organizationID}}",
+								"project",
+								"{{projectID}}",
+								"location"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getProjectLocation",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/org/{{organizationID}}/project/{{projectID}}/location/{{locationID}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"org",
+								"{{organizationID}}",
+								"project",
+								"{{projectID}}",
+								"location",
+								"{{locationID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateProjectLocation",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/org/{{organizationID}}/project/{{projectID}}/location/{{locationID}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"org",
+								"{{organizationID}}",
+								"project",
+								"{{projectID}}",
+								"location",
+								"{{locationID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteProjectLocation",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/org/{{organizationID}}/project/{{projectID}}/location/{{locationID}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"org",
+								"{{organizationID}}",
+								"project",
+								"{{projectID}}",
+								"location",
+								"{{locationID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getProjectOrganizations",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/org/{{organizationID}}/project/{{projectID}}/organization",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"org",
+								"{{organizationID}}",
+								"project",
+								"{{projectID}}",
+								"organization"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createProjectOrganization",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/org/{{organizationID}}/project/{{projectID}}/organization",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"org",
+								"{{organizationID}}",
+								"project",
+								"{{projectID}}",
+								"organization"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getProjectOrganization",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/org/{{organizationID}}/project/{{projectID}}/organization/{{projectOrganizationID}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"org",
+								"{{organizationID}}",
+								"project",
+								"{{projectID}}",
+								"organization",
+								"{{projectOrganizationID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateProjectOrganization",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/org/{{organizationID}}/project/{{projectID}}/organization/{{projectOrganizationID}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"org",
+								"{{organizationID}}",
+								"project",
+								"{{projectID}}",
+								"organization",
+								"{{projectOrganizationID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteProjectOrganization",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/org/{{organizationID}}/project/{{projectID}}/organization/{{projectOrganizationID}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"org",
+								"{{organizationID}}",
+								"project",
+								"{{projectID}}",
+								"organization",
+								"{{projectOrganizationID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "WorkSchedule",
+			"item": [
+				{
+					"name": "getWorkSchedule",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/workschedule/{{workScheduleId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"workschedule",
+								"{{workScheduleId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getWorkScheduleCalendar",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/workschedule/{{workScheduleID}}/calendar",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"workschedule",
+								"{{workScheduleID}}",
+								"calendar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "setDefaultWorkScheduleItem",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/workschedule/{{workScheduleId}}/default/{{workScheduleIItemID}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"workschedule",
+								"{{workScheduleId}}",
+								"default",
+								"{{workScheduleIItemID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getWorkScheduleItems",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/workschedule/{{workScheduleID}}/item",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"workschedule",
+								"{{workScheduleID}}",
+								"item"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addWorkScheduleItem",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/workschedule/{{workScheduleID}}/item",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"workschedule",
+								"{{workScheduleID}}",
+								"item"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateworkScheduleItem",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/workschedule/{{workScheduleID}}/item/{{workScheduleIItemID}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"workschedule",
+								"{{workScheduleID}}",
+								"item",
+								"{{workScheduleIItemID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteWorkScheduleItem",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/workschedule/{{workScheduleID}}/item/{{workScheduleIItemID}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"workschedule",
+								"{{workScheduleID}}",
+								"item",
+								"{{workScheduleIItemID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"auth": {
@@ -430,6 +1504,64 @@
 					""
 				]
 			}
+		}
+	],
+	"variable": [
+		{
+			"key": "bucketID",
+			"value": ""
+		},
+		{
+			"key": "fileID",
+			"value": ""
+		},
+		{
+			"key": "organizationID",
+			"value": ""
+		},
+		{
+			"key": "projectID",
+			"value": ""
+		},
+		{
+			"key": "pptID",
+			"value": ""
+		},
+		{
+			"key": "meetingID",
+			"value": ""
+		},
+		{
+			"key": "chuteID",
+			"value": ""
+		},
+		{
+			"key": "cardID",
+			"value": ""
+		},
+		{
+			"key": "teamID",
+			"value": ""
+		},
+		{
+			"key": "memberID",
+			"value": ""
+		},
+		{
+			"key": "locationID",
+			"value": ""
+		},
+		{
+			"key": "projectOrganizationID",
+			"value": ""
+		},
+		{
+			"key": "workScheduleID",
+			"value": ""
+		},
+		{
+			"key": "workScheduleIItemID",
+			"value": ""
 		}
 	]
 }
