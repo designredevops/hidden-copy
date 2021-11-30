@@ -31,7 +31,7 @@ public class ProjectService {
 		return projectRepository.findById(projectId).orElseThrow();
 	}
 
-	public Project updateProject(String projectId, Project project) {
+	public Project updateProject(UUID projectId, Project project) {
 		return projectRepository.save(project);
 	}
 
@@ -42,7 +42,7 @@ public class ProjectService {
 		return null;
 	}
 
-	public Page<Project> getProjectsByOrganization(String orgId, Pageable page) {
+	public Page<Project> getProjectsByOrganization(UUID orgId, Pageable page) {
 		// TODO Auto-generated method stub
 		// JPA
 		return null;

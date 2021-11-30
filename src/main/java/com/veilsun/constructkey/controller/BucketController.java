@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.veilsun.constructkey.domain.BucketItem;
 import com.veilsun.constructkey.service.BucketService;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/bucket/{bucketId}")
 public class BucketController {
@@ -27,32 +29,32 @@ public class BucketController {
 	BucketService bucketService;
 	
 	@GetMapping("")
-	public ResponseEntity<?> getBucket(@PathVariable("bucketId") String bucketId) {
+	public ResponseEntity<?> getBucket(@PathVariable("bucketId") UUID bucketId) {
 		return null;
 	}
 	
 	@GetMapping("/file")
-	public ResponseEntity<?> getFiles(@PathVariable("bucketId") String bucketId) {
+	public ResponseEntity<?> getFiles(@PathVariable("bucketId") UUID bucketId) {
 		return null;
 	}
 	
 	@PostMapping("/file")
-	public ResponseEntity<?> addFile(@PathVariable("teamId") String teamId, @RequestBody BucketItem file) {
+	public ResponseEntity<?> addFile(@PathVariable("teamId") UUID teamId, @RequestBody BucketItem file) {
 		return null;
 	}
 	
 	@PutMapping("/file/{fileId}")
 	public ResponseEntity<?> updateFile(
-			@PathVariable("bucketId") String bucketId, 
-			@PathVariable("fileId") String fileId,
+			@PathVariable("bucketId") UUID bucketId,
+			@PathVariable("fileId") UUID fileId,
 			@RequestBody BucketItem file) {
 		return null;
 	}
 	
 	@DeleteMapping("/file/{fileId}")
 	public ResponseEntity<?> deleteFile(
-			@PathVariable("bucketId") String bucketId, 
-			@PathVariable("fileId") String fileId) {
+			@PathVariable("bucketId") UUID bucketId,
+			@PathVariable("fileId") UUID fileId) {
 		return null;
 	}
 }
