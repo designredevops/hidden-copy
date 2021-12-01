@@ -7,14 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.veilsun.constructkey.domain.Project;
 import com.veilsun.constructkey.domain.ProjectLocation;
@@ -39,8 +32,8 @@ public class ProjectController {
 	}
 	
 	@PostMapping("")
-	public ResponseEntity<?> createProject(@PathVariable() UUID orgId, @RequestBody Project project) {
-		return ResponseEntity.ok(new Project());
+	public ResponseEntity<?> createProject(@ModelAttribute UUID uid, @PathVariable() UUID orgId, @RequestBody Project project) {
+		return new ResponseEntity<Project>(projectService.createProject(uid, project, orgId), HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/{projectId}")
@@ -53,12 +46,13 @@ public class ProjectController {
 			@PathVariable() UUID orgId, 
 			@PathVariable() UUID projectId, 
 			@RequestBody Project project ) {
-		return null;
+		return new ResponseEntity<Project>(projectService.updateProject(projectId, project), HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/{projectId}")
 	public ResponseEntity<?> deleteProject(@PathVariable() UUID orgId, @PathVariable() UUID projectId ) {
-		return null;
+
+		return new ResponseEntity<Boolean>(projectService.deleteProject(orgId, projectId), HttpStatus.OK);
 	}
 	
 	/*
@@ -66,8 +60,8 @@ public class ProjectController {
 	 */
 	
 	@GetMapping("/{projectId}/location")
-	public ResponseEntity<?> getProjectLocations(@PathVariable() UUID orgId, @PathVariable() UUID projectId) {
-		return null;
+	public ResponseEntity<?> getProjectLocations(@PathVariable() UUID orgId, @PathVariable() UUID projectId, Pageable page) {
+		return new ResponseEntity<Page<ProjectLocation>>(projectService.getProjectLocations(orgId, projectId, page), HttpStatus.OK);
 	}
 	
 	@PostMapping("/{projectId}/location")
@@ -75,15 +69,16 @@ public class ProjectController {
 			@PathVariable() UUID orgId, 
 			@PathVariable() UUID projectId, 
 			@RequestBody ProjectLocation projectLocation) {
-		return null;
+		return new ResponseEntity<ProjectLocation>(projectService.createProjectLocation(orgId, projectId, projectLocation), HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/{projectId}/location/{locationId}")
 	public ResponseEntity<?> getProjectLocation(
 			@PathVariable() UUID orgId, 
 			@PathVariable() UUID projectId, 
-			@PathVariable() UUID locationId) {
-		return null;
+			@PathVariable() UUID locationId
+	) {
+		return new ResponseEntity<ProjectLocation>(projectService.getProjectLocation(orgId, projectId, locationId), HttpStatus.OK);
 	}
 	
 	@PutMapping("/{projectId}/location/{locationId}")
