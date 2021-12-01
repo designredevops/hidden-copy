@@ -13,5 +13,7 @@ import java.util.UUID;
 public interface ProjectRepository extends JpaRepository<Project, UUID> {
 
 	public Page<Project> findAllByMemberTeamMembersUserId(UUID userId, Pageable page);
+
+	public Page<Project> findAllByOrganizationId(UUID orgId, Pageable page);
 	
 }

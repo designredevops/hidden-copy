@@ -1,6 +1,7 @@
 package com.veilsun.constructkey.controller;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,13 +29,13 @@ public class WorkScheduleController {
 	WorkScheduleService workScheduleService;
 	
 	@GetMapping("")
-	public ResponseEntity<?> getWorkSchedule(@PathVariable("workScheduleId") String workScheduleId) {
+	public ResponseEntity<?> getWorkSchedule(@PathVariable("workScheduleId") UUID workScheduleId) {
 		return null;
 	}
 	
 	@GetMapping("/calendar")
 	public ResponseEntity<?> getWorkScheduleCalendar(
-			@PathVariable("workScheduleId") String workScheduleId,
+			@PathVariable("workScheduleId") UUID workScheduleId,
 			@PathVariable("from") LocalDate from,
 			@PathVariable("to") LocalDate to
 			) {
@@ -43,35 +44,35 @@ public class WorkScheduleController {
 	
 	@PostMapping("/default/{workScheduleItemId}")
 	public ResponseEntity<?> setDefaultWorkScheduleItem(
-			@PathVariable("workScheduleId") String workScheduleId,
-			@PathVariable("workScheduleItemId") String workScheduleItemId) {
+			@PathVariable("workScheduleId") UUID workScheduleId,
+			@PathVariable("workScheduleItemId") UUID workScheduleItemId) {
 		return null;
 	}
 	
 	@GetMapping("/item")
-	public ResponseEntity<?> getWorkScheduleItems(@PathVariable("workScheduleId") String workScheduleId) {
+	public ResponseEntity<?> getWorkScheduleItems(@PathVariable("workScheduleId") UUID workScheduleId) {
 		return null;
 	}
 	
 	@PostMapping("/item")
 	public ResponseEntity<?> addWorkScheduleItem(
-			@PathVariable("workScheduleId") String workScheduleId, 
+			@PathVariable("workScheduleId") UUID workScheduleId, 
 			@RequestBody WorkScheduleItem item) {
 		return null;
 	}
 	
 	@PutMapping("/item/{workScheduleItemId}")
 	public ResponseEntity<?> updateWorkScheduleItem(
-			@PathVariable("workScheduleId") String workScheduleId, 
-			@PathVariable("workScheduleItemId") String workScheduleItemId,
+			@PathVariable("workScheduleId") UUID workScheduleId, 
+			@PathVariable("workScheduleItemId") UUID workScheduleItemId,
 			@RequestBody WorkScheduleItem item) {
 		return null;
 	}
 	
 	@DeleteMapping("/item/{workScheduleItemId}")
 	public ResponseEntity<?> deleteWorkScheduleItem(
-			@PathVariable("workScheduleId") String workScheduleId, 
-			@PathVariable("workScheduleItemId") String workScheduleItemId) {
+			@PathVariable("workScheduleId") UUID workScheduleId, 
+			@PathVariable("workScheduleItemId") UUID workScheduleItemId) {
 		return null;
 	}
 }

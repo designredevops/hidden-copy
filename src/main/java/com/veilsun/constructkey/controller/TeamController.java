@@ -1,8 +1,10 @@
 package com.veilsun.constructkey.controller;
 
+import com.veilsun.constructkey.domain.Team;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.veilsun.constructkey.domain.TeamMember;
 import com.veilsun.constructkey.service.TeamService;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -29,17 +32,19 @@ public class TeamController {
 	
 	@GetMapping("")
 	public ResponseEntity<?> getTeam(@PathVariable("teamId") UUID teamId) {
-		return null;
+		return new ResponseEntity<Team>(teamService.getTeam(teamId), HttpStatus.OK);
 	}
 	
 	@GetMapping("/pool")
 	public ResponseEntity<?> getTeamUserPool(@PathVariable("teamId") UUID teamId) {
+
 		return null;
 	}
 	
 	@GetMapping("/member")
 	public ResponseEntity<?> getTeamMembers(@PathVariable("teamId") UUID teamId) {
-		return null;
+
+		return new ResponseEntity<List<TeamMember>>(teamService.getTeamMembers(teamId), HttpStatus.OK);
 	}
 	
 	@PostMapping("/member")
