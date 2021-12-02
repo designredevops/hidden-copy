@@ -87,7 +87,7 @@ public class ProjectController {
 			@PathVariable() UUID projectId, 
 			@PathVariable() UUID locationId,
 			@RequestBody ProjectLocation projectLocation) {
-		return null;
+		return new ResponseEntity<ProjectLocation>(projectService.updateProjectLocation(orgId, projectId, locationId, projectLocation), HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/{projectId}/location/{locationId}")
@@ -95,7 +95,7 @@ public class ProjectController {
 			@PathVariable() UUID orgId, 
 			@PathVariable() UUID projectId, 
 			@PathVariable() UUID locationId) {
-		return null;
+		return new ResponseEntity<Boolean>(projectService.deleteProjectLocation(locationId), HttpStatus.OK);
 	}
 	
 	/**
@@ -103,8 +103,15 @@ public class ProjectController {
 	 */
 	
 	@GetMapping("/{projectId}/organization")
-	public ResponseEntity<?> getProjectOrganizations(@PathVariable() UUID orgId, @PathVariable() UUID projectId) {
-		return null;
+	public ResponseEntity<?> getProjectOrganizations(
+			@PathVariable() UUID orgId,
+			@PathVariable() UUID projectId,
+			Pageable page
+	) {
+		return new ResponseEntity<Page<ProjectOrganization>>(
+				projectService.getProjectOrganizations(orgId, projectId, page),
+				HttpStatus.OK
+		);
 	}
 	
 	@PostMapping("/{projectId}/organization")
@@ -112,7 +119,7 @@ public class ProjectController {
 			@PathVariable() UUID orgId, 
 			@PathVariable() UUID projectId, 
 			@RequestBody ProjectOrganization projectOrganization) {
-		return null;
+		return new ResponseEntity<ProjectOrganization>(projectService.createProjectOrganization(orgId, projectId, projectOrganization), HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/{projectId}/organization/{projectOrganizationId}")
@@ -129,7 +136,7 @@ public class ProjectController {
 			@PathVariable() UUID projectId, 
 			@PathVariable() UUID projectOrganizationId,
 			@RequestBody ProjectOrganization projectOrganization) {
-		return null;
+		return new ResponseEntity<ProjectOrganization>(projectService.updateProjectOrganization(projectOrganization), HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/{projectId}/organization/{projectOrganizationId}")

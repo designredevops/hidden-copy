@@ -1,20 +1,21 @@
 package com.veilsun.constructkey.service;
 
-import com.veilsun.constructkey.domain.Organization;
-import com.veilsun.constructkey.domain.ProjectLocation;
+import com.veilsun.constructkey.domain.*;
 import com.veilsun.constructkey.repository.ProjectLocationRepository;
+import com.veilsun.constructkey.repository.ProjectOrganizationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import com.veilsun.constructkey.domain.Project;
-import com.veilsun.constructkey.domain.Team;
 import com.veilsun.constructkey.domain.Team.TeamType;
 import com.veilsun.constructkey.domain.dto.UserProjectInvitation;
 import com.veilsun.constructkey.repository.ProjectRepository;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -25,6 +26,9 @@ public class ProjectService {
 
 	@Autowired
 	private ProjectRepository projectRepository;
+
+	@Autowired
+	private ProjectOrganizationRepository projectOrganizationRepository;
 
 	public Project createProject(UUID userId, Project project, UUID orgId) {
 		project.setAdminTeam(new Team(userId, TeamType.ProjectAdmin));
@@ -76,5 +80,34 @@ public class ProjectService {
 	public ProjectLocation getProjectLocation(UUID orgId, UUID projectId, UUID locationId) {
 		ProjectLocation location = projectLocationRepository.findByProjectIdAndId(projectId, locationId);
 		return location;
+	}
+
+	public ProjectLocation updateProjectLocation(UUID orgId, UUID projectId, UUID locationId, ProjectLocation projectLocation) {
+		return projectLocationRepository.save(projectLocation);
+	}
+
+	public Boolean deleteProjectLocation(UUID locationId) {
+		projectLocationRepository.deleteById(locationId);
+		boolean isDeleted = projectLocationRepository.findById(locationId).isEmpty();
+		return isDeleted;
+	}
+
+	public Page<ProjectOrganization> getProjectOrganizations(UUID orgId, UUID projectId, Pageable page) {
+		return projectOrganizationRepository.findAllByOrganizationIdAndProjectId(orgId, projectId, page);
+	}
+
+	public ProjectOrganization createProjectOrganization(UUID orgId, UUID projectId, ProjectOrganization projectOrganization) {
+		projectOrganization.setProject(projectRepository.findById(projectId).get());
+		projectOrganization.setOrganization(projectRepository.findById(projectId).get().getOrganization());
+		//projectOrganization.setDisplayStyle();
+		//projectOrganization.setWorkSchedule();
+		projectOrganization.setUpdatedOn(LocalDateTime.now());
+		ProjectOrganization createdProject = projectOrganizationRepository.save(projectOrganization);
+		projectOrganization.setCreatedOn(LocalDateTime.now());
+		return createdProject;
+	}
+
+	public ProjectOrganization updateProjectOrganization(ProjectOrganization projectOrganization) {
+		return projectOrganizationRepository.save(projectOrganization);
 	}
 }
