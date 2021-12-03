@@ -127,7 +127,7 @@ public class ProjectController {
 			@PathVariable() UUID orgId, 
 			@PathVariable() UUID projectId, 
 			@PathVariable() UUID projectOrganizationId) {
-		return null;
+		return new ResponseEntity<ProjectOrganization>(projectService.getProjectOrganization(projectOrganizationId), HttpStatus.OK);
 	}
 	
 	@PutMapping("/{projectId}/organization/{projectOrganizationId}")
@@ -144,7 +144,7 @@ public class ProjectController {
 			@PathVariable() UUID orgId, 
 			@PathVariable() UUID projectId, 
 			@PathVariable() UUID projectOrganizationId) {
-		return null;
+		return new ResponseEntity<Boolean>(projectService.deleteProjectOrganization(projectOrganizationId), HttpStatus.OK);
 	}
 	
 	

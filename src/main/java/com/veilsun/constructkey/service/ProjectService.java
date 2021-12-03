@@ -13,6 +13,7 @@ import com.veilsun.constructkey.domain.Team.TeamType;
 import com.veilsun.constructkey.domain.dto.UserProjectInvitation;
 import com.veilsun.constructkey.repository.ProjectRepository;
 
+import javax.swing.text.html.Option;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -96,18 +97,37 @@ public class ProjectService {
 		return projectOrganizationRepository.findAllByOrganizationIdAndProjectId(orgId, projectId, page);
 	}
 
-	public ProjectOrganization createProjectOrganization(UUID orgId, UUID projectId, ProjectOrganization projectOrganization) {
+	public ProjectOrganization createProjectOrganization(
+			UUID orgId,
+			UUID projectId,
+			ProjectOrganization projectOrganization
+	) {
 		projectOrganization.setProject(projectRepository.findById(projectId).get());
-		projectOrganization.setOrganization(projectRepository.findById(projectId).get().getOrganization());
+		Optional<Organization> organization =
+				Optional.ofNullable(
+						projectRepository.findById(projectId).get().getOrganization() == null ?
+								new Organization(orgId) : projectRepository.findById(projectId).get().getOrganization());
+		projectOrganization.setOrganization(organization.get());
 		//projectOrganization.setDisplayStyle();
 		//projectOrganization.setWorkSchedule();
 		projectOrganization.setUpdatedOn(LocalDateTime.now());
-		ProjectOrganization createdProject = projectOrganizationRepository.save(projectOrganization);
 		projectOrganization.setCreatedOn(LocalDateTime.now());
+		ProjectOrganization createdProject = projectOrganizationRepository.save(projectOrganization);
 		return createdProject;
 	}
 
 	public ProjectOrganization updateProjectOrganization(ProjectOrganization projectOrganization) {
 		return projectOrganizationRepository.save(projectOrganization);
+	}
+
+	public ProjectOrganization getProjectOrganization(UUID projectOrganizationId) {
+		ProjectOrganization projectOrganization = projectOrganizationRepository.findById(projectOrganizationId).orElseThrow();
+		return projectOrganization;
+	}
+
+	public Boolean deleteProjectOrganization(UUID projectOrganizationId) {
+		 projectOrganizationRepository.deleteById(projectOrganizationId);
+		 boolean isDeleted = projectLocationRepository.findById(projectOrganizationId).isEmpty();
+		 return isDeleted;
 	}
 }
