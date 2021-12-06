@@ -62,8 +62,7 @@ public class ProjectService {
 
 	public Boolean deleteProject(UUID orgId, UUID projectId) {
 		projectRepository.deleteById(projectId);
-		boolean isDeleted = projectRepository.findById(projectId).isEmpty();
-		return  isDeleted;
+		return true;
 	}
 
 	public Page<ProjectLocation> getProjectLocations(UUID orgId, UUID projectId, Pageable page) {
@@ -72,10 +71,8 @@ public class ProjectService {
 
 
 	public ProjectLocation createProjectLocation(UUID orgId, UUID projectId, ProjectLocation projectLocation) {
-		Optional<Project> projectToAddLocation = projectRepository.findById(projectId);
-		projectLocation.setProject(projectToAddLocation.get());
-		projectLocationRepository.save(projectLocation);
-		return projectLocation;
+		projectLocation.setProject(new Project(projectId));
+		return projectLocationRepository.save(projectLocation);
 	}
 
 	public ProjectLocation getProjectLocation(UUID orgId, UUID projectId, UUID locationId) {
@@ -89,8 +86,7 @@ public class ProjectService {
 
 	public Boolean deleteProjectLocation(UUID locationId) {
 		projectLocationRepository.deleteById(locationId);
-		boolean isDeleted = projectLocationRepository.findById(locationId).isEmpty();
-		return isDeleted;
+		return true;
 	}
 
 	public Page<ProjectOrganization> getProjectOrganizations(UUID orgId, UUID projectId, Pageable page) {
@@ -102,14 +98,10 @@ public class ProjectService {
 			UUID projectId,
 			ProjectOrganization projectOrganization
 	) {
-		projectOrganization.setProject(projectRepository.findById(projectId).get());
-		Optional<Organization> organization =
-				Optional.ofNullable(
-						projectRepository.findById(projectId).get().getOrganization() == null ?
-								new Organization(orgId) : projectRepository.findById(projectId).get().getOrganization());
-		projectOrganization.setOrganization(organization.get());
-		//projectOrganization.setDisplayStyle();
-		//projectOrganization.setWorkSchedule();
+		projectOrganization.setProject(new Project(projectId));
+		projectOrganization.setOrganization(new Organization(orgId));
+		projectOrganization.setDisplayStyle(new DisplayStyle());
+		projectOrganization.setWorkSchedule(new WorkSchedule());
 		projectOrganization.setUpdatedOn(LocalDateTime.now());
 		projectOrganization.setCreatedOn(LocalDateTime.now());
 		ProjectOrganization createdProject = projectOrganizationRepository.save(projectOrganization);
@@ -127,7 +119,6 @@ public class ProjectService {
 
 	public Boolean deleteProjectOrganization(UUID projectOrganizationId) {
 		 projectOrganizationRepository.deleteById(projectOrganizationId);
-		 boolean isDeleted = projectLocationRepository.findById(projectOrganizationId).isEmpty();
-		 return isDeleted;
+		 return true;
 	}
 }

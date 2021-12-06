@@ -3,6 +3,7 @@ package com.veilsun.constructkey.domain;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Set;
+import java.util.UUID;
 
 import javax.persistence.*;
 
@@ -54,4 +55,7 @@ public class Project extends Record {
 
 	}
 
+	public Project(UUID projectId){
+		this.setId(projectId);
+	}
 }
