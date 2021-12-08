@@ -39,7 +39,7 @@ public class PullPlanTargetController {
 			@PathVariable() UUID orgId,
 			@PathVariable() UUID projectId,
 			Pageable page) {
-		return new ResponseEntity<Page<Project>>(pptService.getPPTByProject(orgId, projectId, page), HttpStatus.OK);
+		return new ResponseEntity<Page<PullPlanTarget>>(pptService.getPPTByProject(orgId, projectId, page), HttpStatus.OK);
 	}
 	
 	@PostMapping("")
@@ -47,7 +47,7 @@ public class PullPlanTargetController {
 			@PathVariable() UUID orgId,
 			@PathVariable() UUID projectId,
 			@RequestBody PullPlanTarget ppt) {
-		return ResponseEntity.ok(new PullPlanTarget());
+		return new ResponseEntity<PullPlanTarget>(pptService.createPPT(orgId, projectId, ppt), HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/{pptId}")
@@ -64,7 +64,7 @@ public class PullPlanTargetController {
 			@PathVariable() UUID projectId,
 			@PathVariable() UUID pptId,
 			@RequestBody PullPlanTarget ppt ) {
-		return null;
+		return new ResponseEntity<PullPlanTarget>(pptService.updatePPT(ppt), HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/{pptId}")
@@ -72,7 +72,7 @@ public class PullPlanTargetController {
 			@PathVariable() UUID orgId, 
 			@PathVariable() UUID projectId,
 			@PathVariable() UUID pptId) {
-		return null;
+		return new ResponseEntity<Boolean>(pptService.deletePPT(pptId), HttpStatus.OK);
 	}
 	
 	/**
@@ -83,8 +83,10 @@ public class PullPlanTargetController {
 	public ResponseEntity<?> getPPTMeetings(
 			@PathVariable() UUID orgId,
 			@PathVariable() UUID projectId,
-			@PathVariable() UUID pptId) {
-		return null;
+			@PathVariable() UUID pptId,
+			Pageable page
+	) {
+		return new ResponseEntity<Page<PullPlanTargetMeeting>>(pptService.getPPTMeetings(orgId, projectId, pptId, page), HttpStatus.OK);
 	}
 	
 	
@@ -94,7 +96,9 @@ public class PullPlanTargetController {
 			@PathVariable() UUID projectId,
 			@PathVariable() UUID pptId,
 			@RequestBody PullPlanTargetMeeting pptMeeting) {
-		return ResponseEntity.ok(new PullPlanTargetMeeting());
+		return new ResponseEntity<PullPlanTargetMeeting>(
+				pptService.createPPTMeeting(orgId, projectId, pptId, pptMeeting),
+				HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/{pptId}/meeting/{meetingId}")
@@ -102,8 +106,8 @@ public class PullPlanTargetController {
 			@PathVariable() UUID orgId, 
 			@PathVariable() UUID projectId,
 			@PathVariable() UUID pptId,
-			@PathVariable() String meetingId) {
-		return null;
+			@PathVariable() UUID meetingId) {
+		return new ResponseEntity<PullPlanTargetMeeting>(pptService.getPPTMeeting(meetingId), HttpStatus.OK);
 	}
 	
 	@PutMapping("/{pptId}/meeting/{meetingId}")
@@ -111,9 +115,9 @@ public class PullPlanTargetController {
 			@PathVariable() UUID orgId, 
 			@PathVariable() UUID projectId,
 			@PathVariable() UUID pptId,
-			@PathVariable() String meetingId,
+			@PathVariable() UUID meetingId,
 			@RequestBody PullPlanTargetMeeting pptMeeting ) {
-		return null;
+		return new ResponseEntity<PullPlanTargetMeeting>(pptService.updatePPTMeeting(pptMeeting), HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/{pptId}/meeting/{meetingId}")
@@ -121,8 +125,8 @@ public class PullPlanTargetController {
 			@PathVariable() UUID orgId, 
 			@PathVariable() UUID projectId,
 			@PathVariable() UUID pptId,
-			@PathVariable() String meetingId) {
-		return null;
+			@PathVariable() UUID meetingId) {
+		return new ResponseEntity<Boolean>(pptService.deletePPTMeeting(meetingId), HttpStatus.OK);
 	}
 	
 	/**
