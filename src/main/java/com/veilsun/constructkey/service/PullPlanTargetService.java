@@ -5,6 +5,7 @@ import com.veilsun.constructkey.domain.PullPlanTargetMeeting;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.veilsun.constructkey.domain.Project;
@@ -38,5 +39,39 @@ public class PullPlanTargetService {
 		ppt.setDocuments(new Bucket());
 		PullPlanTarget createdPPT = pptRepository.save(ppt);
 		return createdPPT;
+	}
+
+	public PullPlanTarget updatePPT(PullPlanTarget ppt) {
+		PullPlanTarget updatedPPT = pptRepository.save(ppt);
+		return updatedPPT;
+	}
+
+	public Boolean deletePPT(UUID pptId) {
+		pptRepository.deleteById(pptId);
+		return true;
+	}
+
+	public Page<PullPlanTargetMeeting> getPPTMeetings(UUID orgId, UUID projectId, UUID pptId, Pageable page) {
+		return pptMeetingRepository.findAllByPullPlanTargetId(pptId, page);
+	}
+
+	public PullPlanTargetMeeting createPPTMeeting(UUID orgId, UUID projectId, UUID pptId, PullPlanTargetMeeting pptMeeting) {
+		pptMeeting.setPullPlanTarget(new PullPlanTarget(pptId));
+		PullPlanTargetMeeting createdPPTMeeting = pptMeetingRepository.save(pptMeeting);
+		return createdPPTMeeting;
+	}
+
+	public PullPlanTargetMeeting getPPTMeeting(UUID meetingId) {
+		return pptMeetingRepository.findById(meetingId).orElseThrow();
+	}
+
+	public PullPlanTargetMeeting updatePPTMeeting(PullPlanTargetMeeting pptMeeting) {
+		PullPlanTargetMeeting updatedPPTMeeting = pptMeetingRepository.save(pptMeeting);
+		return updatedPPTMeeting;
+	}
+
+	public Boolean deletePPTMeeting(UUID meetingId) {
+		pptMeetingRepository.deleteById(meetingId);
+		return true;
 	}
 }
