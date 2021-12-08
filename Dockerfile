@@ -1,0 +1,16 @@
+FROM maven:3.8-amazoncorretto-11
+ARG MYSQL_DB_STAGE
+ENV MYSQL_DB_STAGE=${MYSQL_DB_STAGE}
+ARG MYSQL_HOST
+ENV MYSQL_HOST=${MYSQL_HOST}
+ARG MYSQL_PASSWORD
+ENV MYSQL_PASSWORD=${MYSQL_PASSWORD}
+ARG MYSQL_USER
+ENV MYSQL_USER=${MYSQL_USER}
+ARG ENV_PROFILE
+ENV ENV_PROFILE=${ENV_PROFILE}
+ENV MYSQL_USER=${MYSQL_USER}
+COPY src /home/app/src
+COPY pom.xml /home/app
+RUN mvn -f /home/app/pom.xml package -Dmaven.test.skip=true
+ENTRYPOINT ["java","-jar","/home/app/target/demo-0.0.1-SNAPSHOT.jar"]
