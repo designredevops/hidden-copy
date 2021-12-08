@@ -2,12 +2,9 @@ package com.veilsun.constructkey.domain;
 
 import java.time.LocalDate;
 import java.util.Set;
+import java.util.UUID;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 import com.veilsun.constructkey.domain.global.Record;
 
@@ -32,10 +29,14 @@ public class PullPlanTarget extends Record {
 	@OneToMany(mappedBy = "pullPlanTarget", fetch = FetchType.LAZY)
 	private Set<PullPlanTargetMeeting> meetings;
 	
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Bucket documents;
 	
 	public PullPlanTarget() {
 		
+	}
+
+	public PullPlanTarget(UUID pptId){
+		this.setId(pptId);
 	}
 }
