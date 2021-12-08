@@ -25,7 +25,8 @@ build_image:
     - /build/build.sh
   only:
     - /^prod_[0-9]+(?:.[0-9]+)+$/
-    - /^stage_[0-9]+(?:.[0-9]+)+$/   
+    - /^stage_[0-9]+(?:.[0-9]+)+$/
+    - /^dev_[0-9]+(?:.[0-9]+)+$/
   except:
     - branches
 
@@ -67,5 +68,18 @@ stage_ecs:
     name: deploy
   only:
     - /^stage_[0-9]+(?:.[0-9]+)+$/  
+  except:
+    - branches  
+
+dev_ecs:
+  extends: .deployment_ecs_base
+  variables:
+    CI_AWS_ECS_CLUSTER: kaizenotter-ecs-dev-cluster
+    CI_AWS_ECS_SERVICE: kaizenotter-api-dev-service
+    CI_AWS_ECS_TASK_DEFINITION: kaizenotter-api-dev-task-definition
+  environment:
+    name: deploy
+  only:
+    - /^dev_[0-9]+(?:.[0-9]+)+$/  
   except:
     - branches  
