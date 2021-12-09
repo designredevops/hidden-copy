@@ -64,7 +64,7 @@ public class PullPlanTargetController {
 			@PathVariable() UUID projectId,
 			@PathVariable() UUID pptId,
 			@RequestBody PullPlanTarget ppt ) {
-		return new ResponseEntity<PullPlanTarget>(pptService.updatePPT(ppt), HttpStatus.OK);
+		return new ResponseEntity<PullPlanTarget>(pptService.updatePPT(pptId, ppt), HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/{pptId}")
@@ -117,7 +117,7 @@ public class PullPlanTargetController {
 			@PathVariable() UUID pptId,
 			@PathVariable() UUID meetingId,
 			@RequestBody PullPlanTargetMeeting pptMeeting ) {
-		return new ResponseEntity<PullPlanTargetMeeting>(pptService.updatePPTMeeting(pptMeeting), HttpStatus.OK);
+		return new ResponseEntity<PullPlanTargetMeeting>(pptService.updatePPTMeeting(meetingId, pptMeeting), HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/{pptId}/meeting/{meetingId}")

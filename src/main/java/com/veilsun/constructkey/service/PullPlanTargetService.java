@@ -13,6 +13,8 @@ import com.veilsun.constructkey.domain.PullPlanTarget;
 import com.veilsun.constructkey.repository.PullPlanTargetMeetingRepository;
 import com.veilsun.constructkey.repository.PullPlanTargetRepository;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.UUID;
 
@@ -41,9 +43,15 @@ public class PullPlanTargetService {
 		return createdPPT;
 	}
 
-	public PullPlanTarget updatePPT(PullPlanTarget ppt) {
-		PullPlanTarget updatedPPT = pptRepository.save(ppt);
-		return updatedPPT;
+	public PullPlanTarget updatePPT(UUID pptId, PullPlanTarget ppt) {
+		PullPlanTarget originalPPT = pptRepository.findById(pptId).orElseThrow();
+		if (ppt.getName() != null) originalPPT.setName(ppt.getName());
+		if (ppt.getDescription() != null) originalPPT.setDescription(ppt.getDescription());
+		if (ppt.getDuration() != null) originalPPT.setDuration(ppt.getDuration());
+		if (ppt.getCompletionDate() != null) originalPPT.setCompletionDate(ppt.getCompletionDate());
+
+		pptRepository.save(originalPPT);
+		return originalPPT;
 	}
 
 	public Boolean deletePPT(UUID pptId) {
@@ -65,9 +73,15 @@ public class PullPlanTargetService {
 		return pptMeetingRepository.findById(meetingId).orElseThrow();
 	}
 
-	public PullPlanTargetMeeting updatePPTMeeting(PullPlanTargetMeeting pptMeeting) {
-		PullPlanTargetMeeting updatedPPTMeeting = pptMeetingRepository.save(pptMeeting);
-		return updatedPPTMeeting;
+	public PullPlanTargetMeeting updatePPTMeeting(UUID meetingId, PullPlanTargetMeeting pptMeeting) {
+		PullPlanTargetMeeting originalPPTMeeting = pptMeetingRepository.findById(meetingId).orElseThrow();
+		if (pptMeeting.getTitle() != null) originalPPTMeeting.setTitle(pptMeeting.getTitle());
+		if (pptMeeting.getLocation() != null) originalPPTMeeting.setLocation(pptMeeting.getLocation());
+		if (pptMeeting.getStarts() != null) originalPPTMeeting.setStarts(pptMeeting.getStarts());
+		if (pptMeeting.getEnds() != null) originalPPTMeeting.setEnds(pptMeeting.getEnds());
+
+		pptMeetingRepository.save(originalPPTMeeting);
+		return originalPPTMeeting;
 	}
 
 	public Boolean deletePPTMeeting(UUID meetingId) {

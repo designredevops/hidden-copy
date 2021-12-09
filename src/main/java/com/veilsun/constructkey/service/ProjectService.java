@@ -89,7 +89,9 @@ public class ProjectService {
 	}
 
 	public ProjectLocation updateProjectLocation(UUID orgId, UUID projectId, UUID locationId, ProjectLocation projectLocation) {
-		return projectLocationRepository.save(projectLocation);
+		ProjectLocation originalProjectLocation = projectLocationRepository.findById(locationId).orElseThrow();
+		if (projectLocation.getName() != null) originalProjectLocation.setName(projectLocation.getName());
+		return projectLocationRepository.save(originalProjectLocation);
 	}
 
 	public Boolean deleteProjectLocation(UUID locationId) {
@@ -114,10 +116,6 @@ public class ProjectService {
 		projectOrganization.setCreatedOn(LocalDateTime.now());
 		ProjectOrganization createdProject = projectOrganizationRepository.save(projectOrganization);
 		return createdProject;
-	}
-
-	public ProjectOrganization updateProjectOrganization(ProjectOrganization projectOrganization) {
-		return projectOrganizationRepository.save(projectOrganization);
 	}
 
 	public ProjectOrganization getProjectOrganization(UUID projectOrganizationId) {

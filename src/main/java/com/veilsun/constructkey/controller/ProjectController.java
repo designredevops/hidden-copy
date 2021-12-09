@@ -130,15 +130,6 @@ public class ProjectController {
 		return new ResponseEntity<ProjectOrganization>(projectService.getProjectOrganization(projectOrganizationId), HttpStatus.OK);
 	}
 	
-	@PutMapping("/{projectId}/organization/{projectOrganizationId}")
-	public ResponseEntity<?> updateProjectOrganization(
-			@PathVariable() UUID orgId, 
-			@PathVariable() UUID projectId, 
-			@PathVariable() UUID projectOrganizationId,
-			@RequestBody ProjectOrganization projectOrganization) {
-		return new ResponseEntity<ProjectOrganization>(projectService.updateProjectOrganization(projectOrganization), HttpStatus.OK);
-	}
-	
 	@DeleteMapping("/{projectId}/organization/{projectOrganizationId}")
 	public ResponseEntity<?> deleteProjectOrganization(
 			@PathVariable() UUID orgId, 

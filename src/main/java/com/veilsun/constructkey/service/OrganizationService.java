@@ -32,6 +32,7 @@ public class OrganizationService {
 	}
 
 	public Organization updateOrganization(UUID orgId, Organization org) {
+		Organization originalOrganization = organizationRepository.findById(orgId).orElseThrow();
 		return organizationRepository.save(org);
 	}
 
