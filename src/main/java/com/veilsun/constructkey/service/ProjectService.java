@@ -44,7 +44,7 @@ public class ProjectService {
 	}
 
 	public Project updateProject(UUID projectId, Project project) {
-		Project originalProject = projectRepository.getById(projectId);
+		Project originalProject = projectRepository.findById(projectId).orElseThrow();
 		if (project.getArchived() != null) originalProject.setArchived(project.getArchived());
 		if (project.getDescription() != null) originalProject.setDescription(project.getDescription());
 		if (project.getEndDate() != null) originalProject.setEndDate(project.getEndDate());
