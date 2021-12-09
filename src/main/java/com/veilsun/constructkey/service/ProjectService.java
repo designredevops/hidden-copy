@@ -44,7 +44,15 @@ public class ProjectService {
 	}
 
 	public Project updateProject(UUID projectId, Project project) {
-		return projectRepository.save(project);
+		Project originalProject = projectRepository.getById(projectId);
+		if (project.getArchived() != null) originalProject.setArchived(project.getArchived());
+		if (project.getDescription() != null) originalProject.setDescription(project.getDescription());
+		if (project.getEndDate() != null) originalProject.setEndDate(project.getEndDate());
+		if (project.getName() != null) originalProject.setName(project.getName());
+		if (project.getNumber() != null) originalProject.setNumber(project.getNumber());
+		if (project.getStartDate() != null) originalProject.setStartDate(project.getStartDate());
+
+		return projectRepository.save(originalProject);
 	}
 
 	public Project inviteUser(UserProjectInvitation invitation) {
