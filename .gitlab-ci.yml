@@ -1,0 +1,85 @@
+stages:
+  - build_image
+  - deployment
+
+variables:
+  AUTO_DEVOPS_PLATFORM_TARGET: ECS
+
+build_image:
+  stage: build_image
+  image: 'registry.gitlab.com/gitlab-org/cluster-integration/auto-build-image:v1.0.0'
+  variables:
+    DOCKER_TLS_CERTDIR: ''
+  services:
+    - name: 'docker:20.10.6-dind'
+      command: ['--tls=false', '--host=tcp://0.0.0.0:2375']
+  script:
+    - |
+      if [[ -z "$CI_COMMIT_TAG" ]]; then
+        export CI_APPLICATION_REPOSITORY=${CI_APPLICATION_REPOSITORY:-$CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG}
+        export CI_APPLICATION_TAG=${CI_APPLICATION_TAG:-$CI_COMMIT_SHA}
+      else
+        export CI_APPLICATION_REPOSITORY=${CI_APPLICATION_REPOSITORY:-$CI_REGISTRY_IMAGE}
+        export CI_APPLICATION_TAG=${CI_APPLICATION_TAG:-$CI_COMMIT_TAG}
+      fi
+    - /build/build.sh
+  only:
+    - /^prod_[0-9]+(?:.[0-9]+)+$/
+    - /^stage_[0-9]+(?:.[0-9]+)+$/
+    - /^dev_[0-9]+(?:.[0-9]+)+$/
+  except:
+    - branches
+
+.ecs_image:
+  image: 'registry.gitlab.com/gitlab-org/cloud-deploy/aws-ecs:latest'
+
+.deploy_to_ecs:
+  extends: .ecs_image
+  dependencies: []
+  script:
+    - ecs update-task-definition
+
+.deployment_ecs_base:
+  stage: deployment
+  extends: .deploy_to_ecs
+  environment:
+    name: deployment
+
+production_ecs:
+  extends: .deployment_ecs_base
+  variables:
+    CI_AWS_ECS_CLUSTER: kaizenotter-ecs-cluster
+    CI_AWS_ECS_SERVICE: kaizenotter-api-service
+    CI_AWS_ECS_TASK_DEFINITION: kaizenotter-api-task-definition
+  environment:
+    name: deploy
+  only:
+    - /^prod_[0-9]+(?:.[0-9]+)+$/  
+  except:
+    - branches
+
+stage_ecs:
+  extends: .deployment_ecs_base
+  variables:
+    CI_AWS_ECS_CLUSTER: kaizenotter-ecs-stage-cluster
+    CI_AWS_ECS_SERVICE: kaizenotter-api-stage-service
+    CI_AWS_ECS_TASK_DEFINITION: kaizenotter-api-stage-task-definition
+  environment:
+    name: deploy
+  only:
+    - /^stage_[0-9]+(?:.[0-9]+)+$/  
+  except:
+    - branches  
+
+dev_ecs:
+  extends: .deployment_ecs_base
+  variables:
+    CI_AWS_ECS_CLUSTER: kaizenotter-ecs-dev-cluster
+    CI_AWS_ECS_SERVICE: kaizenotter-api-dev-service
+    CI_AWS_ECS_TASK_DEFINITION: kaizenotter-api-dev-task-definition
+  environment:
+    name: deploy
+  only:
+    - /^dev_[0-9]+(?:.[0-9]+)+$/  
+  except:
+    - branches  
