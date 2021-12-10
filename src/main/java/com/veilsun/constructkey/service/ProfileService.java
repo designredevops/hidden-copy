@@ -32,7 +32,7 @@ public class ProfileService {
 	}
 	
 	public Page<Organization> getOrganizationsByUserId(UUID userId, Pageable page) {
-		return organizationRepository.findAllByMemberTeamMembersUserId(userId, page);
+		return organizationRepository.findAllByMemberTeamMembersUserIdOrAdminTeamMembersUserId(userId, userId, page);
 	}
 
 	public Page<UserInvitation> getNewInvitationsByUserId(UUID userId, Pageable page) {

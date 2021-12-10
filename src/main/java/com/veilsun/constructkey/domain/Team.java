@@ -10,6 +10,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.veilsun.constructkey.domain.global.Record;
 
 import lombok.Getter;
@@ -28,7 +29,7 @@ public class Team extends Record {
 	
 	public Team(UUID userId, TeamType type) {
 		this.type = type;
-		this.members = Set.of(new TeamMember(userId));
+		this.members = Set.of(new TeamMember(userId, this));
 	}
 	
 	public Team(TeamType type) {
@@ -38,7 +39,8 @@ public class Team extends Record {
 	public Team() {
 		
 	}
-	
+
+	@JsonManagedReference
 	@OneToMany(mappedBy = "team", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<TeamMember> members;
 	

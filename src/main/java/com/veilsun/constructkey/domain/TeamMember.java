@@ -5,6 +5,7 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.veilsun.constructkey.domain.global.Record;
 
 import lombok.Getter;
@@ -25,14 +26,16 @@ public class TeamMember extends Record {
 		Active, Deactive
 	}
 	
-	public TeamMember(UUID userId) {
+	public TeamMember(UUID userId, Team team) {
 		this.user = new User(userId);
+		this.team = team;
 	}
 
 	public TeamMember() {
 		
 	}
-	
+
+	@JsonBackReference
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Team team;
 	
