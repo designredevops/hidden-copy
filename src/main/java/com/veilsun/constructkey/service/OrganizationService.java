@@ -33,7 +33,10 @@ public class OrganizationService {
 
 	public Organization updateOrganization(UUID orgId, Organization org) {
 		Organization originalOrganization = organizationRepository.findById(orgId).orElseThrow();
-		return organizationRepository.save(org);
+		if (org.getName() != null) originalOrganization.setName(org.getName());
+		if (org.getAllowExternalInvites() != null) originalOrganization.setAllowExternalInvites(org.getAllowExternalInvites());
+
+		return organizationRepository.save(originalOrganization);
 	}
 
 	public Organization inviteUser(UserOrganizationInvitation invitation) {

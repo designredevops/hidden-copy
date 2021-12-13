@@ -1,18 +1,19 @@
 package com.veilsun.constructkey.service;
 
-import com.veilsun.constructkey.domain.Bucket;
-import com.veilsun.constructkey.domain.PullPlanTargetMeeting;
+import com.veilsun.constructkey.domain.*;
+import com.veilsun.constructkey.repository.CardRepository;
+import com.veilsun.constructkey.repository.ChuteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import com.veilsun.constructkey.domain.Project;
-import com.veilsun.constructkey.domain.PullPlanTarget;
 import com.veilsun.constructkey.repository.PullPlanTargetMeetingRepository;
 import com.veilsun.constructkey.repository.PullPlanTargetRepository;
 
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -27,6 +28,12 @@ public class PullPlanTargetService {
 	
 	@Autowired
 	private PullPlanTargetMeetingRepository pptMeetingRepository;
+
+	@Autowired
+	private ChuteRepository pptChuteRepository;
+
+	@Autowired
+	private CardRepository pptChuteCardRepository;
 
 	public Page<PullPlanTarget> getPPTByProject(UUID orgId, UUID projectId, Pageable page) {
 		return pptRepository.findAllByProjectId(projectId, page);
@@ -88,4 +95,44 @@ public class PullPlanTargetService {
 		pptMeetingRepository.deleteById(meetingId);
 		return true;
 	}
+
+	public Page<Chute> getPPTChutes(UUID pptId, Pageable page) {
+		return pptChuteRepository.findAllByPptId(pptId, page);
+	}
+
+	public Chute updatePPTChute(UUID chuteId, Chute chute) {
+		Chute originalChute = pptChuteRepository.findById(chuteId).orElseThrow();
+		if (chute.getName() != null) originalChute.setName(chute.getName());
+		pptChuteRepository.save(originalChute);
+		return originalChute;
+	}
+
+	public Chute createPPTChute(UUID pptId, UUID orgId, UUID projectId, Chute chute) {
+		chute.setPpt(new PullPlanTarget(pptId));
+		chute.setOrganization(new Organization(orgId));
+		chute.setDisplayStyle(new DisplayStyle());
+		Chute createdChute = pptChuteRepository.save(chute);
+		return createdChute;
+	}
+
+	public Chute getPPTChute(UUID chuteId) {
+		return pptChuteRepository.findById(chuteId).orElseThrow();
+	}
+
+	public Boolean deletePPTChute(UUID chuteId) {
+		pptChuteRepository.deleteById(chuteId);
+		return true;
+	}
+
+	public Card updatePPTChuteCard(UUID chuteId, UUID cardId, Card card) {
+		Card originalCard = pptChuteCardRepository.findById(cardId).orElseThrow();
+		if (card.getDays() != null) originalCard.setDays(card.getDays());
+		if (card.getPeople() != null) originalCard.setPeople(card.getPeople());
+		if (card.getPromise() != null) originalCard.setPromise(card.getPromise());
+		if (card.getNeed() != null) originalCard.setNeed(card.getNeed());
+		if (card.getRanking() != null) originalCard.setRanking(card.getRanking());
+
+		return pptChuteCardRepository.save(originalCard);
+	}
+
 }

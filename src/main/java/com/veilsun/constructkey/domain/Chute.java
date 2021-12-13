@@ -1,5 +1,6 @@
 package com.veilsun.constructkey.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
@@ -28,6 +29,6 @@ public class Chute extends Record {
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Organization organization;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private DisplayStyle displayStyle;
 }
