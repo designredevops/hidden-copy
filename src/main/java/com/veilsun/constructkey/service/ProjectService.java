@@ -44,7 +44,15 @@ public class ProjectService {
 	}
 
 	public Project updateProject(UUID projectId, Project project) {
-		return projectRepository.save(project);
+		Project originalProject = projectRepository.findById(projectId).orElseThrow();
+		if (project.getArchived() != null) originalProject.setArchived(project.getArchived());
+		if (project.getDescription() != null) originalProject.setDescription(project.getDescription());
+		if (project.getEndDate() != null) originalProject.setEndDate(project.getEndDate());
+		if (project.getName() != null) originalProject.setName(project.getName());
+		if (project.getNumber() != null) originalProject.setNumber(project.getNumber());
+		if (project.getStartDate() != null) originalProject.setStartDate(project.getStartDate());
+
+		return projectRepository.save(originalProject);
 	}
 
 	public Project inviteUser(UserProjectInvitation invitation) {
@@ -81,7 +89,9 @@ public class ProjectService {
 	}
 
 	public ProjectLocation updateProjectLocation(UUID orgId, UUID projectId, UUID locationId, ProjectLocation projectLocation) {
-		return projectLocationRepository.save(projectLocation);
+		ProjectLocation originalProjectLocation = projectLocationRepository.findById(locationId).orElseThrow();
+		if (projectLocation.getName() != null) originalProjectLocation.setName(projectLocation.getName());
+		return projectLocationRepository.save(originalProjectLocation);
 	}
 
 	public Boolean deleteProjectLocation(UUID locationId) {
@@ -106,10 +116,6 @@ public class ProjectService {
 		projectOrganization.setCreatedOn(LocalDateTime.now());
 		ProjectOrganization createdProject = projectOrganizationRepository.save(projectOrganization);
 		return createdProject;
-	}
-
-	public ProjectOrganization updateProjectOrganization(ProjectOrganization projectOrganization) {
-		return projectOrganizationRepository.save(projectOrganization);
 	}
 
 	public ProjectOrganization getProjectOrganization(UUID projectOrganizationId) {

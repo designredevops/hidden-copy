@@ -14,6 +14,8 @@ public interface OrganizationRepository extends JpaRepository<Organization, UUID
 
 	public Page<Organization> findAllByMemberTeamMembersUserId(UUID userId, Pageable page);
 
+	public Page<Organization> findAllByMemberTeamMembersUserIdOrAdminTeamMembersUserId(UUID userId, UUID secondUserId, Pageable page);
+
 	public Page<Organization> findAllByParentOrganizationId(UUID orgId, Pageable page);
 	
 }
