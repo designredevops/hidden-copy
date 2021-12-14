@@ -57,7 +57,7 @@ public class TeamController {
 			@PathVariable("teamId") UUID teamId,
 			@PathVariable("memberId") UUID memberId,
 			@RequestBody TeamMember member) {
-		return null;
+		return new ResponseEntity<TeamMember>(teamService.updateTeamMember(teamId, memberId, member), HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/member/{memberId}")

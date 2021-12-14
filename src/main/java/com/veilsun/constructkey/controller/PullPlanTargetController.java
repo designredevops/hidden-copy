@@ -137,8 +137,9 @@ public class PullPlanTargetController {
 	public ResponseEntity<?> getPPTChutes(
 			@PathVariable() UUID orgId, 
 			@PathVariable() UUID projectId,
-			@PathVariable() UUID pptId) {
-		return null;
+			@PathVariable() UUID pptId,
+			Pageable page) {
+		return new ResponseEntity<Page<Chute>>(pptService.getPPTChutes(pptId, page), HttpStatus.OK);
 	}
 	
 	
@@ -148,7 +149,7 @@ public class PullPlanTargetController {
 			@PathVariable() UUID projectId,
 			@PathVariable() UUID pptId,
 			@RequestBody Chute chute) {
-		return ResponseEntity.ok(new Chute());
+		return new ResponseEntity<Chute>(pptService.createPPTChute(pptId, orgId, projectId, chute), HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/{pptId}/chute/{chuteId}")
@@ -157,7 +158,7 @@ public class PullPlanTargetController {
 			@PathVariable() UUID projectId,
 			@PathVariable() UUID pptId,
 			@PathVariable() UUID chuteId) {
-		return null;
+		return new ResponseEntity<Chute>(pptService.getPPTChute(chuteId), HttpStatus.OK);
 	}
 	
 	@PutMapping("/{pptId}/chute/{chuteId}")
@@ -167,7 +168,7 @@ public class PullPlanTargetController {
 			@PathVariable() UUID pptId,
 			@PathVariable() UUID chuteId,
 			@RequestBody Chute chute ) {
-		return null;
+		return new ResponseEntity<Chute>(pptService.updatePPTChute(chuteId, chute), HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/{pptId}/chute/{chuteId}")
@@ -176,7 +177,7 @@ public class PullPlanTargetController {
 			@PathVariable() UUID projectId,
 			@PathVariable() UUID pptId,
 			@PathVariable() UUID chuteId) {
-		return null;
+		return new ResponseEntity<Boolean>(pptService.deletePPTChute(chuteId), HttpStatus.OK);
 	}
 	
 	/**
@@ -188,8 +189,9 @@ public class PullPlanTargetController {
 			@PathVariable() UUID orgId, 
 			@PathVariable() UUID projectId,
 			@PathVariable() UUID pptId,
-			@PathVariable() UUID chuteId) {
-		return null;
+			@PathVariable() UUID chuteId,
+			Pageable page) {
+		return new ResponseEntity<Page<Card>>(pptService.getPPTChuteCards(chuteId, page), HttpStatus.OK);
 	}
 	
 	
@@ -198,8 +200,9 @@ public class PullPlanTargetController {
 			@PathVariable() UUID orgId, 
 			@PathVariable() UUID projectId,
 			@PathVariable() UUID pptId,
+			@PathVariable() UUID chuteId,
 			@RequestBody Card card) {
-		return ResponseEntity.ok(new Card());
+		return new ResponseEntity<Card>(pptService.createPPTChuteCard(chuteId, card), HttpStatus.OK);
 	}
 	
 	@GetMapping("/{pptId}/chute/{chuteId}/card/{cardId}")
@@ -209,7 +212,7 @@ public class PullPlanTargetController {
 			@PathVariable() UUID pptId,
 			@PathVariable() UUID chuteId,
 			@PathVariable() UUID cardId) {
-		return null;
+		return new ResponseEntity<Card>(pptService.getPPTChuteCard(cardId), HttpStatus.OK);
 	}
 	
 	@PutMapping("/{pptId}/chute/{chuteId}/card/{cardId}")
@@ -220,7 +223,7 @@ public class PullPlanTargetController {
 			@PathVariable() UUID chuteId,
 			@PathVariable() UUID cardId,
 			@RequestBody Card card ) {
-		return null;
+		return new ResponseEntity<Card>(pptService.updatePPTChuteCard(chuteId, cardId, card), HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/{pptId}/chute/{chuteId}/card/{cardId}")
@@ -230,6 +233,6 @@ public class PullPlanTargetController {
 			@PathVariable() UUID pptId,
 			@PathVariable() UUID chuteId,
 			@PathVariable() UUID cardId) {
-		return null;
+		return new ResponseEntity<Boolean>(pptService.deletePPTChuteCard(cardId), HttpStatus.OK);
 	}
 }

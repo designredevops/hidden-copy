@@ -2,6 +2,8 @@ package com.veilsun.constructkey.service;
 
 import java.util.UUID;
 
+import com.veilsun.constructkey.domain.DisplayStyle;
+import com.veilsun.constructkey.domain.WorkSchedule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,6 +15,10 @@ import com.veilsun.constructkey.domain.Team.TeamType;
 import com.veilsun.constructkey.domain.dto.UserOrganizationInvitation;
 import com.veilsun.constructkey.repository.OrganizationRepository;
 
+import javax.persistence.CascadeType;
+import javax.persistence.FetchType;
+import javax.persistence.OneToOne;
+
 @Service
 public class OrganizationService {
 
@@ -23,7 +29,10 @@ public class OrganizationService {
 	public Organization createOrganization(UUID userId, Organization org) {
 		org.setAdminTeam(new Team(userId, TeamType.OrganizationAdmin));
 		org.setMemberTeam(new Team(TeamType.OrganizationMember));
+		org.setDisplayStyle(new DisplayStyle());
+		org.setWorkSchedule(new WorkSchedule());
 		Organization createdOrg = organizationRepository.save(org);
+
 		return createdOrg;
 	}
 
@@ -33,7 +42,10 @@ public class OrganizationService {
 
 	public Organization updateOrganization(UUID orgId, Organization org) {
 		Organization originalOrganization = organizationRepository.findById(orgId).orElseThrow();
-		return organizationRepository.save(org);
+		if (org.getName() != null) originalOrganization.setName(org.getName());
+		if (org.getAllowExternalInvites() != null) originalOrganization.setAllowExternalInvites(org.getAllowExternalInvites());
+
+		return organizationRepository.save(originalOrganization);
 	}
 
 	public Organization inviteUser(UserOrganizationInvitation invitation) {

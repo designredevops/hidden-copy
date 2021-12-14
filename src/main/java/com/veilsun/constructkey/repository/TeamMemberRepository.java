@@ -10,4 +10,6 @@ import java.util.UUID;
 @Repository
 public interface TeamMemberRepository extends JpaRepository<TeamMember, UUID> {
     public List<TeamMember> findAllByTeamId(UUID teamId);
+
+    public TeamMember findOneByTeamIdAndId(UUID teamId, UUID id);
 }
