@@ -20,6 +20,7 @@ import com.veilsun.constructkey.domain.Organization;
 import com.veilsun.constructkey.domain.User;
 import com.veilsun.constructkey.domain.UserInvitation;
 import com.veilsun.constructkey.service.ProfileService;
+import com.veilsun.constructkey.specification.organization.OrganizationUserSpec;
 
 @RestController
 @RequestMapping("/profile")
@@ -41,8 +42,11 @@ public class ProfileController {
 	}
 	
 	@GetMapping("/org")
-	public ResponseEntity<?> getOrganizations(@ModelAttribute UUID uid, Pageable page) {
-		return new ResponseEntity<Page<Organization>>(profileService.getOrganizationsByUserId(uid, page), HttpStatus.OK);
+	public ResponseEntity<?> getOrganizations(
+			@ModelAttribute UUID uid, 
+			OrganizationUserSpec spec,
+			Pageable page) {
+		return new ResponseEntity<Page<Organization>>(profileService.getOrganizationsByUserId(uid, spec, page), HttpStatus.OK);
 	}
 	
 	@GetMapping("/invitation")

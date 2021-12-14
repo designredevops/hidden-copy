@@ -5,6 +5,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.veilsun.constructkey.domain.Organization;
@@ -31,8 +32,10 @@ public class ProfileService {
 		return userRepository.getUserById(userId).orElseThrow();
 	}
 	
-	public Page<Organization> getOrganizationsByUserId(UUID userId, Pageable page) {
-		return organizationRepository.findAllByMemberTeamMembersUserIdOrAdminTeamMembersUserId(userId, userId, page);
+	public Page<Organization> getOrganizationsByUserId(UUID userId, Specification<Organization> spec, Pageable page) {
+		
+		return organizationRepository.findAll(spec, page);
+//		return organizationRepository.findAllByMemberTeamMembersUserIdOrAdminTeamMembersUserId(userId, userId, page, spec);
 	}
 
 	public Page<UserInvitation> getNewInvitationsByUserId(UUID userId, Pageable page) {
