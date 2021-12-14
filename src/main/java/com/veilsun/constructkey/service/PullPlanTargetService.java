@@ -135,4 +135,22 @@ public class PullPlanTargetService {
 		return pptChuteCardRepository.save(originalCard);
 	}
 
+	public Page<Card> getPPTChuteCards(UUID chuteId, Pageable page) {
+		return pptChuteCardRepository.findAllByChuteId(chuteId, page);
+	}
+
+	public Card createPPTChuteCard(UUID chuteId, Card card) {
+		card.setChute(new Chute(chuteId));
+		Card createdCard = pptChuteCardRepository.save(card);
+		return createdCard;
+	}
+
+	public Card getPPTChuteCard(UUID cardId) {
+		return pptChuteCardRepository.findById(cardId).orElseThrow();
+	}
+
+	public Boolean deletePPTChuteCard(UUID cardId) {
+		pptChuteCardRepository.deleteById(cardId);
+		return true;
+	}
 }

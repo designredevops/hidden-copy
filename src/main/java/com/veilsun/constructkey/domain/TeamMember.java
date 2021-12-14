@@ -1,9 +1,6 @@
 package com.veilsun.constructkey.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.veilsun.constructkey.domain.global.Record;
@@ -39,7 +36,7 @@ public class TeamMember extends Record {
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Team team;
 	
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
 	private User user;
 	
 	private String role;

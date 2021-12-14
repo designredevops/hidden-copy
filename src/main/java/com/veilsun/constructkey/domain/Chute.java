@@ -11,6 +11,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.UUID;
+
 @Entity(name = "ppt_chute")
 @Getter
 @Setter
@@ -19,6 +21,10 @@ public class Chute extends Record {
 
 	public Chute() {
 		// TODO Auto-generated constructor stub
+	}
+
+	public Chute(UUID chuteId){
+		this.setId(chuteId);
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
