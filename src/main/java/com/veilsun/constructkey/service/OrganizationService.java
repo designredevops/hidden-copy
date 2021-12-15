@@ -61,7 +61,8 @@ public class OrganizationService {
 
 	public Boolean deleteOrganization(UUID orgId) {
 		// TODO Auto-generated method stub
-		return null;
+		organizationRepository.deleteById(orgId);
+		return true;
 	}
 	
 
