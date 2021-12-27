@@ -16,4 +16,6 @@ public interface PullPlanTargetRepository extends JpaRepository<PullPlanTarget, 
 	Optional<PullPlanTarget> findOneByIdAndProjectIdAndProjectOrganizationId(UUID pptId, UUID projectId, UUID orgId);
 
 	Page<PullPlanTarget> findAllByProjectId(UUID projectId, Pageable page);
+
+    Page<PullPlanTarget> findAllByProjectOrganizationId(UUID orgId, Pageable page);
 }

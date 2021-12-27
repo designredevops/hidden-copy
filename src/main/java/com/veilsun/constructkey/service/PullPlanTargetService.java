@@ -35,11 +35,11 @@ public class PullPlanTargetService {
 	@Autowired
 	private CardRepository pptChuteCardRepository;
 
-	public Page<PullPlanTarget> getPPTByProject(UUID orgId, UUID projectId, Pageable page) {
+	public Page<PullPlanTarget> getPPTByProject(UUID projectId, Pageable page) {
 		return pptRepository.findAllByProjectId(projectId, page);
 	}
 
-	public PullPlanTarget getProjectById(UUID orgId, UUID projectId, UUID pptId) {
+	public PullPlanTarget getPPTProjectByIdAndOrganizationId(UUID orgId, UUID projectId, UUID pptId) {
 		return pptRepository.findOneByIdAndProjectIdAndProjectOrganizationId(pptId, projectId, orgId).orElseThrow();
 	}
 
@@ -153,4 +153,5 @@ public class PullPlanTargetService {
 		pptChuteCardRepository.deleteById(cardId);
 		return true;
 	}
+
 }

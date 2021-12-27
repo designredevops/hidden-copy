@@ -1,16 +1,16 @@
 package com.veilsun.constructkey.service;
 
+import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
-import com.veilsun.constructkey.domain.DisplayStyle;
-import com.veilsun.constructkey.domain.WorkSchedule;
+import com.veilsun.constructkey.domain.*;
+import com.veilsun.constructkey.repository.PullPlanTargetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.veilsun.constructkey.domain.Organization;
-import com.veilsun.constructkey.domain.Team;
 import com.veilsun.constructkey.domain.Team.TeamType;
 import com.veilsun.constructkey.domain.dto.UserOrganizationInvitation;
 import com.veilsun.constructkey.repository.OrganizationRepository;
@@ -26,6 +26,9 @@ public class OrganizationService {
 	@Autowired
 	private OrganizationRepository organizationRepository;
 
+	@Autowired
+	private PullPlanTargetRepository pullPlanTargetRepository;
+
 	public Organization createOrganization(UUID userId, Organization org) {
 		org.setAdminTeam(new Team(userId, TeamType.OrganizationAdmin));
 		org.setMemberTeam(new Team(TeamType.OrganizationMember));
@@ -38,6 +41,10 @@ public class OrganizationService {
 
 	public Organization getOrganizationById(UUID orgId) {
 		return organizationRepository.findById(orgId).orElseThrow();
+	}
+
+	public Page<PullPlanTarget> getPPTByOrganization(UUID orgId, Pageable page) {
+		return pullPlanTargetRepository.findAllByProjectOrganizationId(orgId, page);
 	}
 
 	public Organization updateOrganization(UUID orgId, Organization org) {
@@ -64,6 +71,5 @@ public class OrganizationService {
 		organizationRepository.deleteById(orgId);
 		return true;
 	}
-	
 
 }

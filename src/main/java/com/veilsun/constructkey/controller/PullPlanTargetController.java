@@ -39,7 +39,7 @@ public class PullPlanTargetController {
 			@PathVariable() UUID orgId,
 			@PathVariable() UUID projectId,
 			Pageable page) {
-		return new ResponseEntity<Page<PullPlanTarget>>(pptService.getPPTByProject(orgId, projectId, page), HttpStatus.OK);
+		return new ResponseEntity<Page<PullPlanTarget>>(pptService.getPPTByProject(projectId, page), HttpStatus.OK);
 	}
 	
 	@PostMapping("")
@@ -55,7 +55,8 @@ public class PullPlanTargetController {
 			@PathVariable() UUID orgId,
 			@PathVariable() UUID projectId,
 			@PathVariable() UUID pptId) {
-		return new ResponseEntity<PullPlanTarget>(pptService.getProjectById(orgId, projectId, pptId), HttpStatus.OK);
+		return new ResponseEntity<PullPlanTarget>(pptService.getPPTProjectByIdAndOrganizationId(
+				orgId, projectId, pptId), HttpStatus.OK);
 	}
 	
 	@PutMapping("/{pptId}")
