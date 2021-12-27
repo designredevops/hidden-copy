@@ -56,7 +56,7 @@ public class PullPlanTargetController {
 			@PathVariable() UUID projectId,
 			@PathVariable() UUID pptId) {
 		return new ResponseEntity<PullPlanTarget>(pptService.getPPTProjectByIdAndOrganizationId(
-				orgId, projectId, pptId), HttpStatus.OK);
+				pptId, projectId, orgId), HttpStatus.OK);
 	}
 	
 	@PutMapping("/{pptId}")

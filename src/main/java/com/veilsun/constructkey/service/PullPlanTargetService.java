@@ -39,7 +39,7 @@ public class PullPlanTargetService {
 		return pptRepository.findAllByProjectId(projectId, page);
 	}
 
-	public PullPlanTarget getPPTProjectByIdAndOrganizationId(UUID orgId, UUID projectId, UUID pptId) {
+	public PullPlanTarget getPPTProjectByIdAndOrganizationId( UUID pptId, UUID projectId, UUID orgId) {
 		return pptRepository.findOneByIdAndProjectIdAndProjectOrganizationId(pptId, projectId, orgId).orElseThrow();
 	}
 
