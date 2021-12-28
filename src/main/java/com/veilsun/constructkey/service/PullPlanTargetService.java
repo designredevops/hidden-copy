@@ -6,17 +6,11 @@ import com.veilsun.constructkey.repository.ChuteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.veilsun.constructkey.repository.PullPlanTargetMeetingRepository;
 import com.veilsun.constructkey.repository.PullPlanTargetRepository;
 
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -35,11 +29,11 @@ public class PullPlanTargetService {
 	@Autowired
 	private CardRepository pptChuteCardRepository;
 
-	public Page<PullPlanTarget> getPPTByProject(UUID projectId, Pageable page) {
+	public Page<PullPlanTarget> findAllPPTByProject(UUID projectId, Pageable page) {
 		return pptRepository.findAllByProjectId(projectId, page);
 	}
 
-	public PullPlanTarget getPPTProjectByIdAndOrganizationId( UUID pptId, UUID projectId, UUID orgId) {
+	public PullPlanTarget findOneByPPTIdAndProjectByIdAndOrganizationId(UUID pptId, UUID projectId, UUID orgId) {
 		return pptRepository.findOneByIdAndProjectIdAndProjectOrganizationId(pptId, projectId, orgId).orElseThrow();
 	}
 

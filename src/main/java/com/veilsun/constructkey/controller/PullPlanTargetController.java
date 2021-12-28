@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.veilsun.constructkey.domain.Card;
 import com.veilsun.constructkey.domain.Chute;
-import com.veilsun.constructkey.domain.Project;
 import com.veilsun.constructkey.domain.PullPlanTarget;
 import com.veilsun.constructkey.domain.PullPlanTargetMeeting;
 import com.veilsun.constructkey.service.PullPlanTargetService;
@@ -39,7 +38,7 @@ public class PullPlanTargetController {
 			@PathVariable() UUID orgId,
 			@PathVariable() UUID projectId,
 			Pageable page) {
-		return new ResponseEntity<Page<PullPlanTarget>>(pptService.getPPTByProject(projectId, page), HttpStatus.OK);
+		return new ResponseEntity<Page<PullPlanTarget>>(pptService.findAllPPTByProject(projectId, page), HttpStatus.OK);
 	}
 	
 	@PostMapping("")
@@ -55,7 +54,7 @@ public class PullPlanTargetController {
 			@PathVariable() UUID orgId,
 			@PathVariable() UUID projectId,
 			@PathVariable() UUID pptId) {
-		return new ResponseEntity<PullPlanTarget>(pptService.getPPTProjectByIdAndOrganizationId(
+		return new ResponseEntity<PullPlanTarget>(pptService.findOneByPPTIdAndProjectByIdAndOrganizationId(
 				pptId, projectId, orgId), HttpStatus.OK);
 	}
 	
