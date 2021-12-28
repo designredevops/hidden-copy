@@ -1,7 +1,5 @@
 package com.veilsun.constructkey.service;
 
-import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 import com.veilsun.constructkey.domain.*;
@@ -14,10 +12,6 @@ import org.springframework.stereotype.Service;
 import com.veilsun.constructkey.domain.Team.TeamType;
 import com.veilsun.constructkey.domain.dto.UserOrganizationInvitation;
 import com.veilsun.constructkey.repository.OrganizationRepository;
-
-import javax.persistence.CascadeType;
-import javax.persistence.FetchType;
-import javax.persistence.OneToOne;
 
 @Service
 public class OrganizationService {
@@ -39,7 +33,7 @@ public class OrganizationService {
 		return createdOrg;
 	}
 
-	public Organization getOrganizationById(UUID orgId) {
+	public Organization findOneById(UUID orgId) {
 		return organizationRepository.findById(orgId).orElseThrow();
 	}
 
@@ -62,7 +56,7 @@ public class OrganizationService {
 		return null;
 	}
 
-	public Page<Organization> getOrganizationByParentId(UUID orgId, Pageable page) {
+	public Page<Organization> findAllByParentId(UUID orgId, Pageable page) {
 		return organizationRepository.findAllByParentOrganizationId(orgId, page);
 	}
 
@@ -72,4 +66,14 @@ public class OrganizationService {
 		return true;
 	}
 
+	public Organization createSubOrganization(UUID uid, UUID parentOrgId, Organization org) {
+		org.setAdminTeam(new Team(uid, TeamType.OrganizationAdmin));
+		org.setMemberTeam(new Team(TeamType.OrganizationMember));
+		org.setDisplayStyle(new DisplayStyle());
+		org.setWorkSchedule(new WorkSchedule());
+		org.setParentOrganization(new Organization(parentOrgId));
+		Organization createdOrg = organizationRepository.save(org);
+
+		return createdOrg;
+	}
 }

@@ -1,6 +1,5 @@
 package com.veilsun.constructkey.controller;
 
-import java.security.Principal;
 import java.util.UUID;
 
 import com.veilsun.constructkey.domain.PullPlanTarget;
@@ -28,7 +27,7 @@ public class OrganizationController {
 
 	@GetMapping("/{orgId}")
 	public ResponseEntity<?> getOrganization(@PathVariable("orgId") UUID orgId) {
-		return new ResponseEntity<Organization>(organizationService.getOrganizationById(orgId), HttpStatus.OK);
+		return new ResponseEntity<Organization>(organizationService.findOneById(orgId), HttpStatus.OK);
 	}
 
 	@GetMapping("/{orgId}/pull-plan-target")
@@ -61,6 +60,11 @@ public class OrganizationController {
 	
 	@GetMapping("/{orgId}/organization")
 	public ResponseEntity<?> getSubOrganization(@PathVariable("orgId") UUID orgId, Pageable page) {
-		return new ResponseEntity<Page<Organization>>(organizationService.getOrganizationByParentId(orgId, page), HttpStatus.OK);
+		return new ResponseEntity<Page<Organization>>(organizationService.findAllByParentId(orgId, page), HttpStatus.OK);
+	}
+
+	@PostMapping("/{orgId}/organization")
+	public ResponseEntity<?> createSubOrganization(@ModelAttribute UUID uid, @PathVariable("orgId") UUID parentOrgId, @RequestBody Organization org){
+		return new ResponseEntity<Organization>(organizationService.createSubOrganization(uid, parentOrgId, org), HttpStatus.CREATED);
 	}
 }
