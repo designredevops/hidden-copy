@@ -8,6 +8,7 @@ import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Version;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
@@ -38,4 +39,8 @@ public abstract class Record {
 	@Column(name = "updated_on")
 	@LastModifiedDate
 	private LocalDateTime updatedOn;
+	
+	@Version
+	@Column(columnDefinition = "bigint(20) default 1")
+	private long version;
 }

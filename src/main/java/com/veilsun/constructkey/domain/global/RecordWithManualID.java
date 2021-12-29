@@ -5,10 +5,13 @@ import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Version;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -26,4 +29,9 @@ public abstract class RecordWithManualID {
 	@Column(name = "updated_on")
 	@LastModifiedDate
 	private LocalDateTime updatedOn;
+	
+	@Version
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	@Column(columnDefinition = "bigint(20) default 1")
+	private long version;
 }
