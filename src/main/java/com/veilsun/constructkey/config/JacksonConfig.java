@@ -14,8 +14,7 @@ public class JacksonConfig {
 
 	@Bean
 	public Jackson2ObjectMapperBuilder configureObjectMapper() {
-	    return new Jackson2ObjectMapperBuilder()
-	        .modulesToInstall(Hibernate5Module.class);
+	    return new Jackson2ObjectMapperBuilder();
 	}
 	
 	@Bean
@@ -23,6 +22,9 @@ public class JacksonConfig {
 	public ObjectMapper objectMapper(Jackson2ObjectMapperBuilder builder) {
 	    ObjectMapper objectMapper = builder.build();
 	    objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+	    Hibernate5Module hmod = new Hibernate5Module();
+	    hmod.configure(Hibernate5Module.Feature.SERIALIZE_IDENTIFIER_FOR_LAZY_NOT_LOADED_OBJECTS, true);
+	    objectMapper.registerModule(hmod);
 	    return objectMapper;
 	}
 }
