@@ -19,6 +19,11 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Project extends Record {
 
+	public enum ProjectStatus{
+		Completed, Inactive,
+		Active, Planning
+	}
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Organization organization;
 
@@ -27,6 +32,8 @@ public class Project extends Record {
 	private String description;
 	private LocalDate startDate;
 	private LocalDate endDate;
+	private String address;
+	private ProjectStatus status;
 
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Team adminTeam;
