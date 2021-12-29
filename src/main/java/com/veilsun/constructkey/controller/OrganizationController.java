@@ -3,6 +3,7 @@ package com.veilsun.constructkey.controller;
 import java.security.Principal;
 import java.util.UUID;
 
+import com.veilsun.constructkey.domain.PullPlanTarget;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,15 +22,23 @@ import com.veilsun.constructkey.service.OrganizationService;
 public class OrganizationController {
 
 	Logger logger = LoggerFactory.getLogger(OrganizationController.class);
-	
+
 	@Autowired
 	OrganizationService organizationService;
-	
+
 	@GetMapping("/{orgId}")
 	public ResponseEntity<?> getOrganization(@PathVariable("orgId") UUID orgId) {
 		return new ResponseEntity<Organization>(organizationService.getOrganizationById(orgId), HttpStatus.OK);
 	}
-	
+
+	@GetMapping("/{orgId}/pull-plan-target")
+	public ResponseEntity<?> getPPTByOrganization(
+			@PathVariable() UUID orgId,
+			Pageable page
+	){
+		return new ResponseEntity<Page<PullPlanTarget>>(organizationService.getPPTByOrganization(orgId, page), HttpStatus.OK);
+	}
+
 	@PostMapping("")
 	public ResponseEntity<?> createOrganization(@ModelAttribute UUID uid, @RequestBody Organization org) {
 		return new ResponseEntity<Organization>(organizationService.createOrganization(uid, org), HttpStatus.CREATED);
@@ -54,6 +63,4 @@ public class OrganizationController {
 	public ResponseEntity<?> getSubOrganization(@PathVariable("orgId") UUID orgId, Pageable page) {
 		return new ResponseEntity<Page<Organization>>(organizationService.getOrganizationByParentId(orgId, page), HttpStatus.OK);
 	}
-	
-	
 }

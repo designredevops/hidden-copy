@@ -6,17 +6,11 @@ import com.veilsun.constructkey.repository.ChuteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.veilsun.constructkey.repository.PullPlanTargetMeetingRepository;
 import com.veilsun.constructkey.repository.PullPlanTargetRepository;
 
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -35,11 +29,11 @@ public class PullPlanTargetService {
 	@Autowired
 	private CardRepository pptChuteCardRepository;
 
-	public Page<PullPlanTarget> getPPTByProject(UUID orgId, UUID projectId, Pageable page) {
+	public Page<PullPlanTarget> findAllByProjectId(UUID projectId, Pageable page) {
 		return pptRepository.findAllByProjectId(projectId, page);
 	}
 
-	public PullPlanTarget getProjectById(UUID orgId, UUID projectId, UUID pptId) {
+	public PullPlanTarget findOneByIdAndProjectIdAndOrganizationId(UUID pptId, UUID projectId, UUID orgId) {
 		return pptRepository.findOneByIdAndProjectIdAndProjectOrganizationId(pptId, projectId, orgId).orElseThrow();
 	}
 
@@ -66,21 +60,21 @@ public class PullPlanTargetService {
 		return true;
 	}
 
-	public Page<PullPlanTargetMeeting> getPPTMeetings(UUID orgId, UUID projectId, UUID pptId, Pageable page) {
+	public Page<PullPlanTargetMeeting> findAllByPullPlanTargetId(UUID orgId, UUID projectId, UUID pptId, Pageable page) {
 		return pptMeetingRepository.findAllByPullPlanTargetId(pptId, page);
 	}
 
-	public PullPlanTargetMeeting createPPTMeeting(UUID orgId, UUID projectId, UUID pptId, PullPlanTargetMeeting pptMeeting) {
+	public PullPlanTargetMeeting createMeeting(UUID orgId, UUID projectId, UUID pptId, PullPlanTargetMeeting pptMeeting) {
 		pptMeeting.setPullPlanTarget(new PullPlanTarget(pptId));
 		PullPlanTargetMeeting createdPPTMeeting = pptMeetingRepository.save(pptMeeting);
 		return createdPPTMeeting;
 	}
 
-	public PullPlanTargetMeeting getPPTMeeting(UUID meetingId) {
+	public PullPlanTargetMeeting findOneMeetingById(UUID meetingId) {
 		return pptMeetingRepository.findById(meetingId).orElseThrow();
 	}
 
-	public PullPlanTargetMeeting updatePPTMeeting(UUID meetingId, PullPlanTargetMeeting pptMeeting) {
+	public PullPlanTargetMeeting updateMeeting(UUID meetingId, PullPlanTargetMeeting pptMeeting) {
 		PullPlanTargetMeeting originalPPTMeeting = pptMeetingRepository.findById(meetingId).orElseThrow();
 		if (pptMeeting.getTitle() != null) originalPPTMeeting.setTitle(pptMeeting.getTitle());
 		if (pptMeeting.getLocation() != null) originalPPTMeeting.setLocation(pptMeeting.getLocation());
@@ -91,23 +85,23 @@ public class PullPlanTargetService {
 		return originalPPTMeeting;
 	}
 
-	public Boolean deletePPTMeeting(UUID meetingId) {
+	public Boolean deleteMeeting(UUID meetingId) {
 		pptMeetingRepository.deleteById(meetingId);
 		return true;
 	}
 
-	public Page<Chute> getPPTChutes(UUID pptId, Pageable page) {
+	public Page<Chute> findAllChutesByPptId(UUID pptId, Pageable page) {
 		return pptChuteRepository.findAllByPptId(pptId, page);
 	}
 
-	public Chute updatePPTChute(UUID chuteId, Chute chute) {
+	public Chute updateChute(UUID chuteId, Chute chute) {
 		Chute originalChute = pptChuteRepository.findById(chuteId).orElseThrow();
 		if (chute.getName() != null) originalChute.setName(chute.getName());
 		pptChuteRepository.save(originalChute);
 		return originalChute;
 	}
 
-	public Chute createPPTChute(UUID pptId, UUID orgId, UUID projectId, Chute chute) {
+	public Chute createChute(UUID pptId, UUID orgId, UUID projectId, Chute chute) {
 		chute.setPpt(new PullPlanTarget(pptId));
 		chute.setOrganization(new Organization(orgId));
 		chute.setDisplayStyle(new DisplayStyle());
@@ -115,16 +109,16 @@ public class PullPlanTargetService {
 		return createdChute;
 	}
 
-	public Chute getPPTChute(UUID chuteId) {
+	public Chute findOneByIdChute(UUID chuteId) {
 		return pptChuteRepository.findById(chuteId).orElseThrow();
 	}
 
-	public Boolean deletePPTChute(UUID chuteId) {
+	public Boolean deleteChute(UUID chuteId) {
 		pptChuteRepository.deleteById(chuteId);
 		return true;
 	}
 
-	public Card updatePPTChuteCard(UUID chuteId, UUID cardId, Card card) {
+	public Card updateChuteCard(UUID chuteId, UUID cardId, Card card) {
 		Card originalCard = pptChuteCardRepository.findById(cardId).orElseThrow();
 		if (card.getDays() != null) originalCard.setDays(card.getDays());
 		if (card.getPeople() != null) originalCard.setPeople(card.getPeople());
@@ -135,22 +129,23 @@ public class PullPlanTargetService {
 		return pptChuteCardRepository.save(originalCard);
 	}
 
-	public Page<Card> getPPTChuteCards(UUID chuteId, Pageable page) {
+	public Page<Card> findAllChuteCards(UUID chuteId, Pageable page) {
 		return pptChuteCardRepository.findAllByChuteId(chuteId, page);
 	}
 
-	public Card createPPTChuteCard(UUID chuteId, Card card) {
+	public Card createChuteCard(UUID chuteId, Card card) {
 		card.setChute(new Chute(chuteId));
 		Card createdCard = pptChuteCardRepository.save(card);
 		return createdCard;
 	}
 
-	public Card getPPTChuteCard(UUID cardId) {
+	public Card findOneByIdChuteCard(UUID cardId) {
 		return pptChuteCardRepository.findById(cardId).orElseThrow();
 	}
 
-	public Boolean deletePPTChuteCard(UUID cardId) {
+	public Boolean deleteChuteCard(UUID cardId) {
 		pptChuteCardRepository.deleteById(cardId);
 		return true;
 	}
+
 }
