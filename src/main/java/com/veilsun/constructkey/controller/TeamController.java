@@ -1,9 +1,12 @@
 package com.veilsun.constructkey.controller;
 
 import com.veilsun.constructkey.domain.Team;
+import com.veilsun.constructkey.domain.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -36,9 +39,9 @@ public class TeamController {
 	}
 	
 	@GetMapping("/pool")
-	public ResponseEntity<?> getTeamUserPool(@PathVariable("teamId") UUID teamId) {
+	public ResponseEntity<?> getTeamUserPool(@PathVariable("teamId") UUID teamId, Pageable page) {
 
-		return null;
+		return new ResponseEntity<Page<List<User>>>(teamService.findAllUserPool(teamId, page), HttpStatus.OK);
 	}
 	
 	@GetMapping("/member")
@@ -49,7 +52,7 @@ public class TeamController {
 	
 	@PostMapping("/member")
 	public ResponseEntity<?> addTeamMember(@PathVariable("teamId") UUID teamId, @RequestBody TeamMember member) {
-		return null;
+		return new ResponseEntity<TeamMember>(teamService.addTeamMember(teamId, member), HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/member/{memberId}")
@@ -64,6 +67,6 @@ public class TeamController {
 	public ResponseEntity<?> deleteTeamMember(
 			@PathVariable("teamId") UUID teamId,
 			@PathVariable("memberId") UUID memberId) {
-		return null;
+		return new ResponseEntity<Boolean>(teamService.deleteTeamMember(memberId), HttpStatus.OK);
 	}
 }
