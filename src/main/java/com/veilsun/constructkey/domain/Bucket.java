@@ -1,6 +1,7 @@
 package com.veilsun.constructkey.domain;
 
 import java.util.Set;
+import java.util.UUID;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,7 +16,13 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Bucket extends Record {
-	
+
+	public Bucket(UUID bucketId) {
+		this.setId(bucketId);
+	}
+
+	public Bucket(){}
+
 	@OneToMany(mappedBy = "bucket", fetch = FetchType.LAZY)
 	private Set<BucketItem> items;
 }

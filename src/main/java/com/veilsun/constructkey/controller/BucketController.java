@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.veilsun.constructkey.domain.BucketItem;
 import com.veilsun.constructkey.service.BucketService;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.util.List;
@@ -42,13 +43,14 @@ public class BucketController {
 	@GetMapping("/file")
 	public ResponseEntity<?> getFiles(@PathVariable("bucketId") UUID bucketId, Pageable page) {
 
-		return new ResponseEntity<Page<BucketItem>>(bucketService.getFiles(bucketId, page), HttpStatus.OK);
+		return new ResponseEntity<List<String>>(bucketService.getFiles(bucketId, page), HttpStatus.OK);
 	}
 	
-	@PostMapping("/file")
-	public ResponseEntity<?> addFile(@PathVariable("bucketId") UUID bucketId, @RequestBody File file) {
+	@PostMapping("/file/{fileName}")
+	public ResponseEntity<?> addFile(@PathVariable("bucketId") UUID bucketId, @PathVariable("fileName") String fileName,
+									 @RequestParam MultipartFile file) {
 
-		return new ResponseEntity<BucketItem>(bucketService.uploadFile(bucketId, file), HttpStatus.OK);
+		return new ResponseEntity<BucketItem>(bucketService.uploadFile(bucketId, fileName, file), HttpStatus.OK);
 	}
 	
 	@PutMapping("/file/{fileId}")

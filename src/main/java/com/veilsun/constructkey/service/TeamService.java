@@ -57,14 +57,14 @@ public class TeamService {
 
 	public Page<List<User>> findAllUserPool(UUID teamId, Pageable page) {
 		// move this to service
-		/*Team team = teamRepository.findById(teamId).orElseThrow();
+		Team team = teamRepository.findById(teamId).orElseThrow();
 		if(Team.TeamType.OrganizationMember.equals(team.getType())) {
 			return Page.empty();
 		} else if(Team.TeamType.OrganizationAdmin.equals(team.getType())) {
 			// return Organization membersTeam users.
 			// Get organization -> then get
-			var user = teamMemberRepository.findAllUsersByTeamId(teamId, page).getContent();
-			return Page.empty();
+
+			return null/* organizations member team*/;
 		} else if(Team.TeamType.ProjectMember.equals(team.getType())) {
 			// return Organization membersTeam users, or Organization adminTeam users
 			return teamMemberRepository.findAllUsersByTeamId(teamId, page);
@@ -75,8 +75,8 @@ public class TeamService {
 		} else if(Team.TeamType.PullPlanTargetMeeting.equals(team.getType())) {
 			// return Project membersTeam user or Project adminTeam user
 			return teamMemberRepository.findAllUsersByTeamId(teamId, page);
-		}*/
-		return teamMemberRepository.findAllUsersByTeamId(teamId, page); //empty list
+		}
+		return null; //empty list
 	}
 
 	public Boolean deleteTeamMember(UUID memberId) {
