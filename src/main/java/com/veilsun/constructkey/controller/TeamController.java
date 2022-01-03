@@ -41,7 +41,7 @@ public class TeamController {
 	@GetMapping("/pool")
 	public ResponseEntity<?> getTeamUserPool(@PathVariable("teamId") UUID teamId, Pageable page) {
 
-		return new ResponseEntity<Page<List<User>>>(teamService.findAllUserPool(teamId, page), HttpStatus.OK);
+		return new ResponseEntity<Page<User>>(teamService.findAllUserPool(teamId, page), HttpStatus.OK);
 	}
 	
 	@GetMapping("/member")

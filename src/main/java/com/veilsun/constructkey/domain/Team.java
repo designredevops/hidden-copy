@@ -51,4 +51,5 @@ public class Team extends Record {
 	@Enumerated(EnumType.STRING)
 	private TeamType type;
 	
+	
 }
