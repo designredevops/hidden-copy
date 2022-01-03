@@ -35,9 +35,13 @@ public class Team extends Record {
 	public Team(TeamType type) {
 		this.type = type;
 	}
-	
+
+	public Team(UUID teamId){
+		this.setId(teamId);
+	}
+
 	public Team() {
-		
+
 	}
 
 	@JsonManagedReference

@@ -35,6 +35,7 @@ public class ProjectService {
 		project.setAdminTeam(new Team(userId, TeamType.ProjectAdmin));
 		project.setMemberTeam(new Team(TeamType.ProjectMember));
 		project.setOrganization(new Organization(orgId));
+		project.setWorkSchedule(new WorkSchedule());
 		Project createdProject = projectRepository.save(project);
 		return createdProject;
 	}

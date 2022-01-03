@@ -33,6 +33,8 @@ public class Project extends Record {
 	private LocalDate startDate;
 	private LocalDate endDate;
 	private String address;
+
+	@Enumerated(EnumType.STRING)
 	private ProjectStatus status;
 
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
