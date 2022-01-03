@@ -19,5 +19,8 @@ public interface TeamMemberRepository extends JpaRepository<TeamMember, UUID> {
     public TeamMember findOneByTeamIdAndId(UUID teamId, UUID id);
 
     @Query("SELECT tm.user FROM team_member tm WHERE tm.team.id = :teamId")
-    public Page<List<User>> findAllUsersByTeamId(@Param("teamId") UUID teamId, Pageable page);
+    public Page<User> findAllUsersByTeamId(@Param("teamId") UUID teamId, Pageable page);
+    
+    @Query("SELECT tm.user FROM team_member tm WHERE tm.team.id IN :teamIds")
+    public Page<User> findAllUsersByTeamIds(@Param("teamIds") List<UUID> teamIds, Pageable page);
 }
