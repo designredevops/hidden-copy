@@ -5,9 +5,7 @@ import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import com.amazonaws.services.s3.model.ObjectListing;
-import com.amazonaws.services.s3.model.ObjectMetadata;
-import com.amazonaws.services.s3.model.PutObjectResult;
+import com.amazonaws.services.s3.model.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,9 +14,7 @@ import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Component
 public class BucketS3Client {
@@ -54,7 +50,16 @@ public class BucketS3Client {
         return result.getETag();
     }
 
-    public ObjectListing listAllFiles(){
-        return s3Client.listObjects(rootBucket);
+    public List<S3ObjectSummary> listAllFiles(){
+        return s3Client.listObjects(rootBucket).getObjectSummaries();
+    }
+
+    public S3Object getFile(String bucketId, String key){
+        return s3Client.getObject(bucketId, key);
+    }
+
+    public Boolean deleteFile(String objectName){
+        s3Client.deleteObject(rootBucket, objectName);
+        return true;
     }
 }

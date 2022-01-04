@@ -43,11 +43,11 @@ public class BucketController {
 	@GetMapping("/file")
 	public ResponseEntity<?> getFiles(@PathVariable("bucketId") UUID bucketId, Pageable page) {
 
-		return new ResponseEntity<List<String>>(bucketService.getFiles(bucketId, page), HttpStatus.OK);
+		return new ResponseEntity<Page<BucketItem>>(bucketService.getFiles(bucketId, page), HttpStatus.OK);
 	}
 	
-	@PostMapping("/file/{fileName}")
-	public ResponseEntity<?> addFile(@PathVariable("bucketId") UUID bucketId, @PathVariable("fileName") String fileName,
+	@PostMapping("/file")
+	public ResponseEntity<?> addFile(@PathVariable("bucketId") UUID bucketId, @RequestParam("fileName") String fileName,
 									 @RequestParam MultipartFile file) {
 
 		return new ResponseEntity<BucketItem>(bucketService.uploadFile(bucketId, fileName, file), HttpStatus.OK);
@@ -57,14 +57,14 @@ public class BucketController {
 	public ResponseEntity<?> updateFile(
 			@PathVariable("bucketId") UUID bucketId,
 			@PathVariable("fileId") UUID fileId,
-			@RequestBody BucketItem file) {
-		return null;
+			@RequestParam MultipartFile file) {
+		return new ResponseEntity<BucketItem>(bucketService.updateFile(bucketId, fileId, file), HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/file/{fileId}")
+	@DeleteMapping("/file/{fileName}")
 	public ResponseEntity<?> deleteFile(
 			@PathVariable("bucketId") UUID bucketId,
-			@PathVariable("fileId") UUID fileId) {
-		return null;
+			@PathVariable("fileName") UUID fileName) {
+		return new ResponseEntity<Boolean>(bucketService.deleteFile(bucketId, fileName), HttpStatus.OK);
 	}
 }

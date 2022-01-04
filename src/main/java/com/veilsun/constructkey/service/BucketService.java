@@ -8,6 +8,7 @@ import com.veilsun.constructkey.domain.BucketItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.veilsun.constructkey.repository.BucketItemRepository;
@@ -36,15 +37,8 @@ public class BucketService {
 		return bucketRepository.findById(bucketId).orElseThrow();
 	}
 
-	public List<String> getFiles(UUID bucketId, Pageable page) {
-		//return bucketItemRepository.findAllByBucketId(bucketId, page);
-		List<String> files = new ArrayList<>();
-		var objectListing = s3Client.listAllFiles();
-		if (objectListing.getObjectSummaries().size() < 0) return Collections.EMPTY_LIST;
-		for(S3ObjectSummary os : objectListing.getObjectSummaries()){
-			files.add(os.getKey());
-		}
-		return files;
+	public Page<BucketItem> getFiles(UUID bucketId, Pageable page) {
+		return bucketItemRepository.findAllByBucketId(bucketId, page);
 	}
 
 	public BucketItem uploadFile(UUID bucketId, String fileName, MultipartFile incomingFile) {
@@ -55,13 +49,26 @@ public class BucketService {
 		metadata.put("Content-Type", incomingFile.getContentType());
 		metadata.put("Content-Length", String.valueOf(incomingFile.getSize()));
 		metadata.put("Name-Key", fileName);
+		BucketItem proxyBucketItem = bucketItemRepository.save(fileToUpload);
+		metadata.put("Main-Id", proxyBucketItem.getId().toString());
+		String reverseName = proxyBucketItem.getId() + "_" + fileName;
+		fileToUpload.setName(reverseName);
 		try {
-			storageId = s3Client.uploadFiles(fileName, incomingFile, Optional.of(metadata));
+			storageId = s3Client.uploadFiles(reverseName, incomingFile, Optional.of(metadata));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		fileToUpload.setStorageId(storageId);
 		return bucketItemRepository.save(fileToUpload);
 
+	}
+
+	public BucketItem updateFile(UUID bucketId, UUID fileId, MultipartFile file) {
+		return uploadFile(bucketId, file.getName(), file);
+	}
+
+	public Boolean deleteFile(UUID bucketId, UUID fileName) {
+		s3Client.deleteFile(fileName.toString());
+		return true;
 	}
 }
