@@ -1,5 +1,6 @@
 package com.veilsun.constructkey.client;
 
+import com.amazonaws.HttpMethod;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
@@ -14,6 +15,8 @@ import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
+import java.time.Instant;
 import java.util.*;
 
 @Component
@@ -61,5 +64,16 @@ public class BucketS3Client {
     public Boolean deleteFile(String objectName){
         s3Client.deleteObject(rootBucket, objectName);
         return true;
+    }
+
+    public URL generatePresignedUrlRequest(String objectKey){
+        Date expiration = new Date();
+        long expTimeMillis = Instant.now().toEpochMilli();
+        expTimeMillis += 100 * 10 * 10;
+        expiration.setTime(expTimeMillis);
+        GeneratePresignedUrlRequest generatePresignedUrlRequest = new GeneratePresignedUrlRequest(rootBucket, objectKey).
+                withMethod(HttpMethod.GET).
+                withExpiration(expiration);
+        return s3Client.generatePresignedUrl(generatePresignedUrlRequest);
     }
 }

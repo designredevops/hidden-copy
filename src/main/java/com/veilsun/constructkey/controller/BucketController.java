@@ -23,6 +23,7 @@ import com.veilsun.constructkey.service.BucketService;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.net.URL;
 import java.util.List;
 import java.util.UUID;
 
@@ -45,7 +46,7 @@ public class BucketController {
 
 		return new ResponseEntity<Page<BucketItem>>(bucketService.getFiles(bucketId, page), HttpStatus.OK);
 	}
-	
+
 	@PostMapping("/file")
 	public ResponseEntity<?> addFile(@PathVariable("bucketId") UUID bucketId, @RequestParam("fileName") String fileName,
 									 @RequestParam MultipartFile file) {
@@ -60,7 +61,12 @@ public class BucketController {
 			@RequestParam MultipartFile file) {
 		return new ResponseEntity<BucketItem>(bucketService.updateFile(bucketId, fileId, file), HttpStatus.OK);
 	}
-	
+
+	@GetMapping("/file/{fileId}/download")
+	public ResponseEntity<?> downloadFile(@PathVariable("fileId") UUID fileId){
+		return new ResponseEntity<URL>(bucketService.downloadFile(fileId), HttpStatus.OK);
+	}
+
 	@DeleteMapping("/file/{fileName}")
 	public ResponseEntity<?> deleteFile(
 			@PathVariable("bucketId") UUID bucketId,

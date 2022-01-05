@@ -1,23 +1,18 @@
 package com.veilsun.constructkey.service;
 
-import com.amazonaws.services.s3.model.ObjectListing;
-import com.amazonaws.services.s3.model.S3ObjectSummary;
 import com.veilsun.constructkey.client.BucketS3Client;
 import com.veilsun.constructkey.domain.Bucket;
 import com.veilsun.constructkey.domain.BucketItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.veilsun.constructkey.repository.BucketItemRepository;
 import com.veilsun.constructkey.repository.BucketRepository;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import java.net.URL;
 import java.util.*;
 
 @Service
@@ -31,7 +26,7 @@ public class BucketService {
 	private BucketItemRepository bucketItemRepository;
 
 	@Autowired
-	private BucketS3Client s3Client;
+	private BucketS3Client bucketS3Client;
 
 	public Bucket getBucket(UUID bucketId) {
 		return bucketRepository.findById(bucketId).orElseThrow();
@@ -54,7 +49,7 @@ public class BucketService {
 		String reverseName = proxyBucketItem.getId() + "_" + fileName;
 		fileToUpload.setName(reverseName);
 		try {
-			storageId = s3Client.uploadFiles(reverseName, incomingFile, Optional.of(metadata));
+			storageId = bucketS3Client.uploadFiles(reverseName, incomingFile, Optional.of(metadata));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -68,7 +63,12 @@ public class BucketService {
 	}
 
 	public Boolean deleteFile(UUID bucketId, UUID fileName) {
-		s3Client.deleteFile(fileName.toString());
+		bucketS3Client.deleteFile(fileName.toString());
 		return true;
+	}
+
+	public URL downloadFile(UUID fileId) {
+		BucketItem bucketItem = bucketItemRepository.findById(fileId).orElseThrow();
+		return bucketS3Client.generatePresignedUrlRequest(bucketItem.getName());
 	}
 }
