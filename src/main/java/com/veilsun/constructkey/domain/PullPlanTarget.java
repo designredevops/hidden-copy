@@ -17,6 +17,9 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class PullPlanTarget extends Record {
+	public enum PullPlanTargetStatus{
+		Active, Inactive
+	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Project project;
@@ -25,7 +28,10 @@ public class PullPlanTarget extends Record {
 	private String description;
 	private Integer duration;
 	private LocalDate completionDate;
-	
+
+	@Enumerated(EnumType.STRING)
+	private PullPlanTargetStatus status;
+
 	@OneToMany(mappedBy = "pullPlanTarget", fetch = FetchType.LAZY)
 	private Set<PullPlanTargetMeeting> meetings;
 	

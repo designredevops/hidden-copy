@@ -20,8 +20,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.veilsun.constructkey.domain.BucketItem;
 import com.veilsun.constructkey.service.BucketService;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.net.URL;
 import java.util.List;
 import java.util.UUID;
 
@@ -44,25 +46,31 @@ public class BucketController {
 
 		return new ResponseEntity<Page<BucketItem>>(bucketService.getFiles(bucketId, page), HttpStatus.OK);
 	}
-	
-	@PostMapping("/file")
-	public ResponseEntity<?> addFile(@PathVariable("bucketId") UUID bucketId, @RequestBody File file) {
 
-		return new ResponseEntity<BucketItem>(bucketService.uploadFile(bucketId, file), HttpStatus.OK);
+	@PostMapping("/file")
+	public ResponseEntity<?> addFile(@PathVariable("bucketId") UUID bucketId, @RequestParam("fileName") String fileName,
+									 @RequestParam MultipartFile file) {
+
+		return new ResponseEntity<BucketItem>(bucketService.uploadFile(bucketId, fileName, file), HttpStatus.OK);
 	}
 	
 	@PutMapping("/file/{fileId}")
 	public ResponseEntity<?> updateFile(
 			@PathVariable("bucketId") UUID bucketId,
 			@PathVariable("fileId") UUID fileId,
-			@RequestBody BucketItem file) {
-		return null;
+			@RequestParam MultipartFile file) {
+		return new ResponseEntity<BucketItem>(bucketService.updateFile(bucketId, fileId, file), HttpStatus.OK);
 	}
-	
-	@DeleteMapping("/file/{fileId}")
+
+	@GetMapping("/file/{fileId}/download")
+	public ResponseEntity<?> downloadFile(@PathVariable("fileId") UUID fileId){
+		return new ResponseEntity<URL>(bucketService.downloadFile(fileId), HttpStatus.OK);
+	}
+
+	@DeleteMapping("/file/{fileName}")
 	public ResponseEntity<?> deleteFile(
 			@PathVariable("bucketId") UUID bucketId,
-			@PathVariable("fileId") UUID fileId) {
-		return null;
+			@PathVariable("fileName") UUID fileName) {
+		return new ResponseEntity<Boolean>(bucketService.deleteFile(bucketId, fileName), HttpStatus.OK);
 	}
 }
