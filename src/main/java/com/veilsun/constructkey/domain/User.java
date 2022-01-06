@@ -9,6 +9,7 @@ import javax.persistence.Id;
 
 import org.hibernate.annotations.Type;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.veilsun.constructkey.domain.global.RecordWithManualID;
 
 import lombok.AllArgsConstructor;
@@ -36,10 +37,22 @@ public class User extends RecordWithManualID {
 
 	private String firstName;
 	private String lastName;
+	
+	@JsonIgnore
 	private String email;
+	
+	@JsonIgnore
 	private Boolean emailVerified;
+	
+	@JsonIgnore
 	private LocalDateTime emailVerifiedDate;
+	
+	@JsonIgnore
 	private String mobile;
+	
+	@JsonIgnore
 	private Boolean mobileVerified;
+	
+	@JsonIgnore
 	private LocalDateTime mobileVerifiedDate;
 }

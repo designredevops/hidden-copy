@@ -54,7 +54,7 @@ public class Project extends Record {
 
 	private Boolean allowExternalInvites;
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private WorkSchedule workSchedule;
 	
 	private Boolean archived;
