@@ -17,16 +17,16 @@ public interface TeamRepository extends JpaRepository<Team, UUID> {
 	@Query("SELECT o.memberTeam.id FROM organization o WHERE o.adminTeam.id = :adminTeamId")
 	Optional<UUID> getOrganizationMembersTeamIdByOrganzationAdminTeamId(@Param("adminTeamId") UUID adminTeamId);
 	
-	@Query("SELECT o.memberTeam.id as memberTeamId, o.adminTeam.id as adminTeamId FROM project p JOIN organization o WHERE p.adminTeam.id = :adminTeamId")
+	@Query("SELECT o.memberTeam.id as memberTeamId, o.adminTeam.id as adminTeamId FROM project p JOIN organization o ON o.id = p.organization.id WHERE p.adminTeam.id = :adminTeamId")
 	Optional<TeamIds> getOrganizationTeamsIdByProjectAdminTeamId(@Param("adminTeamId") UUID adminTeamId);
 	
-	@Query("SELECT o.memberTeam.id as memberTeamId, o.adminTeam.id as adminTeamId FROM project p JOIN organization o WHERE p.memberTeam.id = :memberTeamId")
+	@Query("SELECT o.memberTeam.id as memberTeamId, o.adminTeam.id as adminTeamId FROM project p JOIN organization o ON o.id = p.organization.id WHERE p.memberTeam.id = :memberTeamId")
 	Optional<TeamIds> getOrganizationTeamsIdByProjectMemberTeamId(@Param("memberTeamId") UUID memberTeamId);
 
 	@Query("SELECT p.memberTeam.id FROM project p WHERE p.adminTeam.id = :adminTeamId")
 	Optional<UUID> getProjectMembersTeamIdByProjectAdminTeamId(@Param("adminTeamId") UUID adminTeamId);
 	
-	@Query("SELECT p.memberTeam.id as memberTeamId, p.adminTeam.id as adminTeamId FROM project p JOIN ppt ppt JOIN ppt_meeting pptm WHERE pptm.invitees.id = :teamId")
+	@Query("SELECT p.memberTeam.id as memberTeamId, p.adminTeam.id as adminTeamId FROM project p JOIN ppt AS ppt ON ppt.project.id = p.id JOIN ppt_meeting pptm ON pptm.pullPlanTarget.id = ppt.id WHERE pptm.invitees.id = :teamId")
 	Optional<TeamIds> getProjectTeamsIdByPPTMeetingTeamId(@Param("teamId") UUID teamId);
 	
 	public interface TeamIds {

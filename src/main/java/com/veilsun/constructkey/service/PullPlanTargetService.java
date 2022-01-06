@@ -1,6 +1,7 @@
 package com.veilsun.constructkey.service;
 
 import com.veilsun.constructkey.domain.*;
+import com.veilsun.constructkey.domain.Team.TeamType;
 import com.veilsun.constructkey.repository.CardRepository;
 import com.veilsun.constructkey.repository.ChuteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,6 +67,7 @@ public class PullPlanTargetService {
 
 	public PullPlanTargetMeeting createMeeting(UUID orgId, UUID projectId, UUID pptId, PullPlanTargetMeeting pptMeeting) {
 		pptMeeting.setPullPlanTarget(new PullPlanTarget(pptId));
+		pptMeeting.setInvitees(new Team(TeamType.PullPlanTargetMeeting));
 		PullPlanTargetMeeting createdPPTMeeting = pptMeetingRepository.save(pptMeeting);
 		return createdPPTMeeting;
 	}

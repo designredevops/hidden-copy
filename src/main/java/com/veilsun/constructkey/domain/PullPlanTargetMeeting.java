@@ -2,6 +2,7 @@ package com.veilsun.constructkey.domain;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
@@ -33,6 +34,6 @@ public class PullPlanTargetMeeting extends Record {
 	private LocalDateTime starts;
 	private LocalDateTime ends;
 	
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Team invitees;
 }
