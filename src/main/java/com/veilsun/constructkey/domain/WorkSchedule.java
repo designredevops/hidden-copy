@@ -1,18 +1,16 @@
 package com.veilsun.constructkey.domain;
 
-import java.util.Set;
+import java.util.*;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.veilsun.constructkey.domain.global.Record;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.jdbc.Work;
 
 @Entity(name = "work_schedule")
 @Getter
@@ -22,11 +20,25 @@ public class WorkSchedule extends Record {
 	public enum WorkScheduleType {
 		Organization, Project, ProjectOrganization
 	}
-	
-	@OneToMany(mappedBy = "workSchedule", fetch = FetchType.LAZY)
+
+	public WorkSchedule(){
+		WorkScheduleItem i = new WorkScheduleItem();
+		i.setType(WorkScheduleItem.WorkScheduleItemType.Week);
+		i.setWorkSchedule(this);
+		this.setDefaultWorkScheduleItem(i);
+		this.items = new HashSet<>();
+		this.items.add(i);
+	}
+
+	public WorkSchedule(UUID workSchedule){
+		this.setId(workSchedule);
+	}
+
+	@JsonManagedReference
+	@OneToMany(mappedBy = "workSchedule", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<WorkScheduleItem> items;
 	
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private WorkScheduleItem defaultWorkScheduleItem;
 	
 	@Enumerated(EnumType.STRING)

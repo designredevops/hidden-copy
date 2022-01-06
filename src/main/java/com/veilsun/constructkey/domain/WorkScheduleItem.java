@@ -2,12 +2,10 @@ package com.veilsun.constructkey.domain;
 
 import java.time.LocalDate;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.veilsun.constructkey.domain.global.Record;
 
 import lombok.Getter;
@@ -19,7 +17,7 @@ import lombok.Setter;
 public class WorkScheduleItem extends Record {
 	
 	public enum WorkScheduleItemType {
-		Range, Day
+		Range, Week, Day
 	}
 	
 	public enum WorkScheduleItemStatus {
@@ -33,7 +31,8 @@ public class WorkScheduleItem extends Record {
 		}
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonBackReference
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private WorkSchedule workSchedule;
 	
 	private String title;
