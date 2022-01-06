@@ -19,7 +19,7 @@ import lombok.Setter;
 public class WorkScheduleItem extends Record {
 	
 	public enum WorkScheduleItemType {
-		Range, Day
+		Week, Day, Range 
 	}
 	
 	public enum WorkScheduleItemStatus {
