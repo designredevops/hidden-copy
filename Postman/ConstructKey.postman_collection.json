@@ -18,7 +18,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\":\"ranelias89@gmail.com\",\r\n    \"mobile\": \"829-776-3470\",\r\n    \"password\": \"2021mainTest0!\"\r\n}",
+							"raw": "{\r\n    \"email\":\"naither-grand@hotmail.com\",\r\n    \"mobile\": \"809-685-3470\",\r\n    \"password\": \"2021mainTest0!\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -45,28 +45,27 @@
 			"item": [
 				{
 					"name": "getOrganization",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
 					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/org/d9b5d452-14b3-4754-9ab5-c9c03c9d31ad",
+							"raw": "{{host}}/org/{{organizationID}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"org",
-								"d9b5d452-14b3-4754-9ab5-c9c03c9d31ad"
+								"{{organizationID}}"
 							]
 						}
 					},
@@ -79,7 +78,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\":\"Acme\"\r\n}",
+							"raw": "{\r\n    \"name\":\"\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -105,7 +104,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\":\"Acme\",\r\n    \"type\":\"GeneralContactor\"\r\n}",
+							"raw": "{\r\n    \"id\": \"fd56bcab-31a7-4c6a-a0e3-07d4e68e4e9a\",\r\n    \"version\": 1,\r\n    \"address\": \"Colorado\",\r\n    \"description\": \"Great project\",\r\n    \"endDate\": \"\",\r\n    \"name\": \"League Of Legends\",\r\n    \"number\": \"1235-asdas\",\r\n    \"startDate\": \"\",\r\n    \"status\": \"\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -113,13 +112,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/org/d9b5d452-14b3-4754-9ab5-c9c03c9d31ad",
+							"raw": "{{host}}/org/fd56bcab-31a7-4c6a-a0e3-07d4e68e4e9a",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"org",
-								"d9b5d452-14b3-4754-9ab5-c9c03c9d31ad"
+								"fd56bcab-31a7-4c6a-a0e3-07d4e68e4e9a"
 							]
 						}
 					},
@@ -131,13 +130,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/org/someID",
+							"raw": "{{host}}/org/{{organizationID}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"org",
-								"someID"
+								"{{organizationID}}"
 							]
 						}
 					},
@@ -149,13 +148,13 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/org/someID/invite",
+							"raw": "{{host}}/org/{{organizationID}}/invite",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"org",
-								"someID",
+								"{{organizationID}}",
 								"invite"
 							]
 						}
@@ -168,14 +167,33 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/org/someID/organization",
+							"raw": "{{host}}/org/{{organizationID}}/organization",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"org",
-								"someID",
+								"{{organizationID}}",
 								"organization"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getPPTByOrganization",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/org/{{organizationID}}/pull-plan-target",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"org",
+								"{{organizationID}}",
+								"pull-plan-target"
 							]
 						}
 					},
@@ -248,6 +266,21 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/ren-e/Downloads/6084c819-4bf3-4918-bcde-16678ca4ffe7_300px-DarkBribe-SR05-EN-C-1E.png"
+								},
+								{
+									"key": "fileName",
+									"value": "6084c819-4bf3-4918-bcde-16678ca4ffe7_300px-DarkBribe-SR05-EN-C-1E.png",
+									"type": "text"
+								}
+							]
+						},
 						"url": {
 							"raw": "{{host}}/bucket/{{bucketID}}/file",
 							"host": [
@@ -288,7 +321,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/bucket/{{bucketID}}/file/{{fileID}}",
+							"raw": "{{host}}/bucket/{{bucketID}}/file/3d190246-195e-4527-a8ce-fe6f4d4b2420",
 							"host": [
 								"{{host}}"
 							],
@@ -296,7 +329,28 @@
 								"bucket",
 								"{{bucketID}}",
 								"file",
-								"{{fileID}}"
+								"3d190246-195e-4527-a8ce-fe6f4d4b2420"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "downloadFile",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/bucket/{{bucketID}}/file/3d190246-195e-4527-a8ce-fe6f4d4b2420/download",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"bucket",
+								"{{bucketID}}",
+								"file",
+								"3d190246-195e-4527-a8ce-fe6f4d4b2420",
+								"download"
 							]
 						}
 					},
@@ -309,9 +363,21 @@
 			"item": [
 				{
 					"name": "getProfile",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "{{host}}/profile",
 							"host": [
@@ -347,13 +413,19 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/profile/org",
+							"raw": "{{host}}/profile/org?sort=name,desc",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"profile",
 								"org"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "name,desc"
+								}
 							]
 						}
 					},
@@ -388,7 +460,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/org/{{organizationID}}/project/{{projectId}}/pull-plan-target",
+							"raw": "{{host}}/org/{{organizationID}}/project/{{projectID}}/pull-plan-target",
 							"host": [
 								"{{host}}"
 							],
@@ -396,7 +468,7 @@
 								"org",
 								"{{organizationID}}",
 								"project",
-								"{{projectId}}",
+								"{{projectID}}",
 								"pull-plan-target"
 							]
 						}
@@ -408,8 +480,17 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Cool PPTD\",\r\n    \"description\": \"Monday MarchD\",\r\n    \"duration\": 10051\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{host}}/org/{{organizationID}}/project/{{projectId}}/pull-plan-target",
+							"raw": "{{host}}/org/{{organizationID}}/project/{{projectID}}/pull-plan-target",
 							"host": [
 								"{{host}}"
 							],
@@ -417,7 +498,7 @@
 								"org",
 								"{{organizationID}}",
 								"project",
-								"{{projectId}}",
+								"{{projectID}}",
 								"pull-plan-target"
 							]
 						}
@@ -430,7 +511,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/org/{{organizationID}}/project/{{projectId}}/pull-plan-target/{{pptID}}",
+							"raw": "{{host}}/org/{{organizationID}}/project/{{projectID}}/pull-plan-target/{{pptID}}",
 							"host": [
 								"{{host}}"
 							],
@@ -438,7 +519,7 @@
 								"org",
 								"{{organizationID}}",
 								"project",
-								"{{projectId}}",
+								"{{projectID}}",
 								"pull-plan-target",
 								"{{pptID}}"
 							]
@@ -451,8 +532,17 @@
 					"request": {
 						"method": "PUT",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"4994a219-bb02-410e-ad7c-5bc50d89ba0d\",\r\n    \"name\": \"UbiPPT\",\r\n    \"description\": \"We need a new luden\",\r\n    \"duration\": 999\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{host}}/org/{{organizationID}}/project/{{projectId}}/pull-plan-target/{{pptID}}",
+							"raw": "{{host}}/org/{{organizationID}}/project/{{projectID}}/pull-plan-target/{{pptID}}",
 							"host": [
 								"{{host}}"
 							],
@@ -460,7 +550,7 @@
 								"org",
 								"{{organizationID}}",
 								"project",
-								"{{projectId}}",
+								"{{projectID}}",
 								"pull-plan-target",
 								"{{pptID}}"
 							]
@@ -474,7 +564,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/org/{{organizationID}}/project/{{projectId}}/pull-plan-target/{{pptID}}",
+							"raw": "{{host}}/org/{{organizationID}}/project/{{projectID}}/pull-plan-target/{{pptID}}",
 							"host": [
 								"{{host}}"
 							],
@@ -482,7 +572,7 @@
 								"org",
 								"{{organizationID}}",
 								"project",
-								"{{projectId}}",
+								"{{projectID}}",
 								"pull-plan-target",
 								"{{pptID}}"
 							]
@@ -496,7 +586,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/org/{{organizationID}}/project/{{projectId}}/pull-plan-target/{{pptID}}/meeting",
+							"raw": "{{host}}/org/{{organizationID}}/project/{{projectID}}/pull-plan-target/{{pptID}}/meeting",
 							"host": [
 								"{{host}}"
 							],
@@ -504,7 +594,7 @@
 								"org",
 								"{{organizationID}}",
 								"project",
-								"{{projectId}}",
+								"{{projectID}}",
 								"pull-plan-target",
 								"{{pptID}}",
 								"meeting"
@@ -518,8 +608,17 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Greatest Pull Plan Target\",\r\n    \"location\": \"Westnorth Carolina\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{host}}/org/{{organizationID}}/project/{{projectId}}/pull-plan-target/{{pptID}}/meeting",
+							"raw": "{{host}}/org/{{organizationID}}/project/{{projectID}}/pull-plan-target/{{pptID}}/meeting",
 							"host": [
 								"{{host}}"
 							],
@@ -527,7 +626,7 @@
 								"org",
 								"{{organizationID}}",
 								"project",
-								"{{projectId}}",
+								"{{projectID}}",
 								"pull-plan-target",
 								"{{pptID}}",
 								"meeting"
@@ -542,7 +641,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/org/{{organizationID}}/project/{{projectId}}/pull-plan-target/{{pptID}}/meeting/{{meetingID}}",
+							"raw": "{{host}}/org/{{organizationID}}/project/{{projectID}}/pull-plan-target/{{pptID}}/meeting/{{meetingID}}",
 							"host": [
 								"{{host}}"
 							],
@@ -550,7 +649,7 @@
 								"org",
 								"{{organizationID}}",
 								"project",
-								"{{projectId}}",
+								"{{projectID}}",
 								"pull-plan-target",
 								"{{pptID}}",
 								"meeting",
@@ -565,8 +664,17 @@
 					"request": {
 						"method": "PUT",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"03f228b3-959d-4644-9349-f6095277f067\",\r\n    \"title\": \"SuperChanged the Change\",\r\n    \"location\": \"Changed super\",\r\n    \"starts\": \"2021-12-08T11:31:55.835237\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{host}}/org/{{organizationID}}/project/{{projectId}}/pull-plan-target/{{pptID}}/meeting/{{meetingID}}",
+							"raw": "{{host}}/org/{{organizationID}}/project/{{projectID}}/pull-plan-target/{{pptID}}/meeting/03f228b3-959d-4644-9349-f6095277f067",
 							"host": [
 								"{{host}}"
 							],
@@ -574,11 +682,11 @@
 								"org",
 								"{{organizationID}}",
 								"project",
-								"{{projectId}}",
+								"{{projectID}}",
 								"pull-plan-target",
 								"{{pptID}}",
 								"meeting",
-								"{{meetingID}}"
+								"03f228b3-959d-4644-9349-f6095277f067"
 							]
 						}
 					},
@@ -590,7 +698,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/org/{{organizationID}}/project/{{projectId}}/pull-plan-target/{{pptID}}/meeting/{{meetingID}}",
+							"raw": "{{host}}/org/{{organizationID}}/project/{{projectID}}/pull-plan-target/{{pptID}}/meeting/{{meetingID}}",
 							"host": [
 								"{{host}}"
 							],
@@ -598,7 +706,7 @@
 								"org",
 								"{{organizationID}}",
 								"project",
-								"{{projectId}}",
+								"{{projectID}}",
 								"pull-plan-target",
 								"{{pptID}}",
 								"meeting",
@@ -614,7 +722,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/org/{{organizationID}}/project/{{projectId}}/pull-plan-target/{{pptID}}/chute",
+							"raw": "{{host}}/org/{{organizationID}}/project/{{projectID}}/pull-plan-target/{{pptID}}/chute",
 							"host": [
 								"{{host}}"
 							],
@@ -622,7 +730,7 @@
 								"org",
 								"{{organizationID}}",
 								"project",
-								"{{projectId}}",
+								"{{projectID}}",
 								"pull-plan-target",
 								"{{pptID}}",
 								"chute"
@@ -636,8 +744,17 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Awesome Chute\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{host}}/org/{{organizationID}}/project/{{projectId}}/pull-plan-target/{{pptID}}/chute",
+							"raw": "{{host}}/org/{{organizationID}}/project/{{projectID}}/pull-plan-target/{{pptID}}/chute",
 							"host": [
 								"{{host}}"
 							],
@@ -645,7 +762,7 @@
 								"org",
 								"{{organizationID}}",
 								"project",
-								"{{projectId}}",
+								"{{projectID}}",
 								"pull-plan-target",
 								"{{pptID}}",
 								"chute"
@@ -660,7 +777,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/org/{{organizationID}}/project/{{projectId}}/pull-plan-target/{{pptID}}/chute/{{chuteID}}",
+							"raw": "{{host}}/org/{{organizationID}}/project/{{projectID}}/pull-plan-target/{{pptID}}/chute/{{chuteID}}",
 							"host": [
 								"{{host}}"
 							],
@@ -668,7 +785,7 @@
 								"org",
 								"{{organizationID}}",
 								"project",
-								"{{projectId}}",
+								"{{projectID}}",
 								"pull-plan-target",
 								"{{pptID}}",
 								"chute",
@@ -683,8 +800,17 @@
 					"request": {
 						"method": "PUT",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Changed awesome Chute\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{host}}/org/{{organizationID}}/project/{{projectId}}/pull-plan-target/{{pptID}}/chute/{{chuteID}}",
+							"raw": "{{host}}/org/{{organizationID}}/project/{{projectID}}/pull-plan-target/{{pptID}}/chute/{{chuteID}}",
 							"host": [
 								"{{host}}"
 							],
@@ -692,7 +818,7 @@
 								"org",
 								"{{organizationID}}",
 								"project",
-								"{{projectId}}",
+								"{{projectID}}",
 								"pull-plan-target",
 								"{{pptID}}",
 								"chute",
@@ -708,7 +834,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/org/{{organizationID}}/project/{{projectId}}/pull-plan-target/{{pptID}}/chute/{{chuteID}}",
+							"raw": "{{host}}/org/{{organizationID}}/project/{{projectID}}/pull-plan-target/{{pptID}}/chute/{{chuteID}}",
 							"host": [
 								"{{host}}"
 							],
@@ -716,7 +842,7 @@
 								"org",
 								"{{organizationID}}",
 								"project",
-								"{{projectId}}",
+								"{{projectID}}",
 								"pull-plan-target",
 								"{{pptID}}",
 								"chute",
@@ -732,7 +858,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/org/{{organizationID}}/project/{{projectId}}/pull-plan-target/{{pptID}}/chute/{{chuteID}}/card",
+							"raw": "{{host}}/org/{{organizationID}}/project/{{projectID}}/pull-plan-target/{{pptID}}/chute/{{chuteID}}/card",
 							"host": [
 								"{{host}}"
 							],
@@ -740,7 +866,7 @@
 								"org",
 								"{{organizationID}}",
 								"project",
-								"{{projectId}}",
+								"{{projectID}}",
 								"pull-plan-target",
 								"{{pptID}}",
 								"chute",
@@ -756,8 +882,17 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"type\": \"Activity\",\r\n\t\"days\": 29,\r\n    \"people\": 800,\r\n\t\"promise\": \"80A DummyPromise\",\r\n    \"need\":\"80CA DummyPromise\",\r\n\t\"ranking\": 21\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{host}}/org/{{organizationID}}/project/{{projectId}}/pull-plan-target/{{pptID}}/chute/{{chuteID}}/card",
+							"raw": "{{host}}/org/{{organizationID}}/project/{{projectID}}/pull-plan-target/{{pptID}}/chute/{{chuteID}}/card",
 							"host": [
 								"{{host}}"
 							],
@@ -765,7 +900,7 @@
 								"org",
 								"{{organizationID}}",
 								"project",
-								"{{projectId}}",
+								"{{projectID}}",
 								"pull-plan-target",
 								"{{pptID}}",
 								"chute",
@@ -782,7 +917,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/org/{{organizationID}}/project/{{projectId}}/pull-plan-target/{{pptID}}/chute/{{chuteID}}/card/{{cardID}}",
+							"raw": "{{host}}/org/{{organizationID}}/project/{{projectID}}/pull-plan-target/{{pptID}}/chute/{{chuteID}}/card/{{cardID}}",
 							"host": [
 								"{{host}}"
 							],
@@ -790,7 +925,7 @@
 								"org",
 								"{{organizationID}}",
 								"project",
-								"{{projectId}}",
+								"{{projectID}}",
 								"pull-plan-target",
 								"{{pptID}}",
 								"chute",
@@ -807,8 +942,17 @@
 					"request": {
 						"method": "PUT",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"697fc783-c3b1-4e23-9e76-c90a006ea894\",\r\n    \"type\": \"Activity\",\r\n    \"days\": 256,\r\n    \"people\": 199,\r\n    \"promise\": \"ER DummyPromise\",\r\n    \"need\": \"RO DummyPromise\",\r\n    \"ranking\": 77.0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{host}}/org/{{organizationID}}/project/{{projectId}}/pull-plan-target/{{pptID}}/chute/{{chuteID}}/card/{{cardID}}",
+							"raw": "{{host}}/org/{{organizationID}}/project/{{projectID}}/pull-plan-target/{{pptID}}/chute/{{chuteID}}/card/{{cardID}}",
 							"host": [
 								"{{host}}"
 							],
@@ -816,7 +960,7 @@
 								"org",
 								"{{organizationID}}",
 								"project",
-								"{{projectId}}",
+								"{{projectID}}",
 								"pull-plan-target",
 								"{{pptID}}",
 								"chute",
@@ -834,7 +978,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/org/{{organizationID}}/project/{{projectId}}/pull-plan-target/{{pptID}}/chute/{{chuteID}}/card/{{cardID}}",
+							"raw": "{{host}}/org/{{organizationID}}/project/{{projectID}}/pull-plan-target/{{pptID}}/chute/{{chuteID}}/card/{{cardID}}",
 							"host": [
 								"{{host}}"
 							],
@@ -842,7 +986,7 @@
 								"org",
 								"{{organizationID}}",
 								"project",
-								"{{projectId}}",
+								"{{projectID}}",
 								"pull-plan-target",
 								"{{pptID}}",
 								"chute",
@@ -865,13 +1009,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/team/{{teamID}}",
+							"raw": "{{host}}/team/{{adminTeamID}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"team",
-								"{{teamID}}"
+								"{{adminTeamID}}"
 							]
 						}
 					},
@@ -902,13 +1046,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/team/{{teamID}}/member",
+							"raw": "{{host}}/team/{{adminTeamID}}/member",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"team",
-								"{{teamID}}",
+								"{{adminTeamID}}",
 								"member"
 							]
 						}
@@ -1003,6 +1147,15 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"This is a deleteable project 77 Mo\",\r\n    \"number\": \"999755555-111111-000000\",\r\n    \"description\": \"do this now\",\r\n    \"archived\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "{{host}}/org/{{organizationID}}/project",
 							"host": [
@@ -1042,8 +1195,17 @@
 					"request": {
 						"method": "PUT",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"96b4ac16-74aa-45a5-afc9-1c91ba1767f0\",\r\n    \"name\": \"My updated name\",\r\n    \"number\": \"0000055556666-000011-5544663322\",\r\n    \"description\": \"This has been updated YEA\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{host}}/org/{{organizationID}}/project/{{projectID}}",
+							"raw": "{{host}}/org/{{organizationID}}/project/96b4ac16-74aa-45a5-afc9-1c91ba1767f0",
 							"host": [
 								"{{host}}"
 							],
@@ -1051,7 +1213,7 @@
 								"org",
 								"{{organizationID}}",
 								"project",
-								"{{projectID}}"
+								"96b4ac16-74aa-45a5-afc9-1c91ba1767f0"
 							]
 						}
 					},
@@ -1103,8 +1265,17 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Chinatown\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{host}}/org/{{organizationID}}/project/{{projectID}}/location",
+							"raw": "{{host}}/org/{{organizationID}}/project/7fdb68b2-a96f-4d98-86a0-65a992e53665/location",
 							"host": [
 								"{{host}}"
 							],
@@ -1112,7 +1283,7 @@
 								"org",
 								"{{organizationID}}",
 								"project",
-								"{{projectID}}",
+								"7fdb68b2-a96f-4d98-86a0-65a992e53665",
 								"location"
 							]
 						}
@@ -1146,6 +1317,15 @@
 					"request": {
 						"method": "PUT",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"628df25e-c8ba-4336-a6af-b315cc13df1b\",\r\n    \"name\": \"thisNameChanged\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "{{host}}/org/{{organizationID}}/project/{{projectID}}/location/{{locationID}}",
 							"host": [
@@ -1211,6 +1391,15 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "{{host}}/org/{{organizationID}}/project/{{projectID}}/organization",
 							"host": [
@@ -1254,6 +1443,15 @@
 					"request": {
 						"method": "PUT",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"f3abc5c1-2b85-490a-b080-6bdacb2ad047\",\r\n    \"project\": {\r\n        \"id\": \"864f974e-11b1-4959-bc00-568d786b1f2b\",\r\n        \"name\": \"This damned project\"\r\n\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "{{host}}/org/{{organizationID}}/project/{{projectID}}/organization/{{projectOrganizationID}}",
 							"host": [
@@ -1274,7 +1472,7 @@
 				{
 					"name": "deleteProjectOrganization",
 					"request": {
-						"method": "GET",
+						"method": "DELETE",
 						"header": [],
 						"url": {
 							"raw": "{{host}}/org/{{organizationID}}/project/{{projectID}}/organization/{{projectOrganizationID}}",
@@ -1509,39 +1707,43 @@
 	"variable": [
 		{
 			"key": "bucketID",
-			"value": ""
+			"value": "24ee9450-bd2d-49a7-9063-400d0aafb71e"
 		},
 		{
 			"key": "fileID",
-			"value": ""
+			"value": "6084c819-4bf3-4918-bcde-16678ca4ffe7"
 		},
 		{
 			"key": "organizationID",
-			"value": ""
+			"value": "db050954-4b70-4dbb-b78b-ec3d1356aa2f"
 		},
 		{
 			"key": "projectID",
-			"value": ""
+			"value": "2470bc9e-4141-4a5a-b994-73a7a6f0f0dc"
 		},
 		{
 			"key": "pptID",
-			"value": ""
+			"value": "4f03db3b-0e7a-4085-bd33-737f7d744639"
 		},
 		{
 			"key": "meetingID",
-			"value": ""
+			"value": "523f8796-07dd-438a-bd7f-af05a0f898fd"
 		},
 		{
 			"key": "chuteID",
-			"value": ""
+			"value": "f08dba30-2b4e-41c6-9d07-ac8de7b1a8f7"
 		},
 		{
 			"key": "cardID",
-			"value": ""
+			"value": "697fc783-c3b1-4e23-9e76-c90a006ea894"
 		},
 		{
 			"key": "teamID",
 			"value": ""
+		},
+		{
+			"key": "adminTeamID",
+			"value": "03f98200-f415-4df7-a29f-03360bcb5e6e"
 		},
 		{
 			"key": "memberID",
@@ -1549,11 +1751,11 @@
 		},
 		{
 			"key": "locationID",
-			"value": ""
+			"value": "4264bd98-4eda-42d1-84a8-440044f4414e"
 		},
 		{
 			"key": "projectOrganizationID",
-			"value": ""
+			"value": "c9d9cb92-8368-4070-84d7-cbdc20b4fabe"
 		},
 		{
 			"key": "workScheduleID",
@@ -1562,6 +1764,10 @@
 		{
 			"key": "workScheduleIItemID",
 			"value": ""
+		},
+		{
+			"key": "hostedOrganizationID",
+			"value": "963fd529-5631-4248-8990-4eabc8824b11"
 		}
 	]
 }
