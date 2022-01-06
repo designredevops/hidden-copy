@@ -1,24 +1,27 @@
 package com.veilsun.constructkey.service;
 
-import com.veilsun.constructkey.domain.*;
-import com.veilsun.constructkey.repository.ProjectLocationRepository;
-import com.veilsun.constructkey.repository.ProjectOrganizationRepository;
+import java.time.LocalDateTime;
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import com.veilsun.constructkey.domain.DisplayStyle;
+import com.veilsun.constructkey.domain.Organization;
+import com.veilsun.constructkey.domain.Project;
+import com.veilsun.constructkey.domain.ProjectLocation;
+import com.veilsun.constructkey.domain.ProjectOrganization;
+import com.veilsun.constructkey.domain.Team;
 import com.veilsun.constructkey.domain.Team.TeamType;
+import com.veilsun.constructkey.domain.WorkSchedule;
 import com.veilsun.constructkey.domain.dto.UserProjectInvitation;
+import com.veilsun.constructkey.repository.ProjectLocationRepository;
+import com.veilsun.constructkey.repository.ProjectOrganizationRepository;
 import com.veilsun.constructkey.repository.ProjectRepository;
-
-import javax.swing.text.html.Option;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.Optional;
-import java.util.UUID;
+import com.veilsun.constructkey.utils.EGUtils;
 
 @Service
 public class ProjectService {
@@ -42,6 +45,10 @@ public class ProjectService {
 
 	public Project getProjectById(UUID projectId) {
 		return projectRepository.findById(projectId).orElseThrow();
+	}
+	
+	public Project getProject(Specification<Project> spec, String... paths) {
+		return projectRepository.findOne(spec, EGUtils.fromAttributePaths(paths)).orElseThrow();
 	}
 
 	public Project updateProject(UUID projectId, Project project) {

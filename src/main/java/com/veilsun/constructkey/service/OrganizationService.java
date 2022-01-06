@@ -2,16 +2,22 @@ package com.veilsun.constructkey.service;
 
 import java.util.UUID;
 
-import com.veilsun.constructkey.domain.*;
-import com.veilsun.constructkey.repository.PullPlanTargetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import com.veilsun.constructkey.domain.DisplayStyle;
+import com.veilsun.constructkey.domain.Organization;
+import com.veilsun.constructkey.domain.PullPlanTarget;
+import com.veilsun.constructkey.domain.Team;
 import com.veilsun.constructkey.domain.Team.TeamType;
+import com.veilsun.constructkey.domain.WorkSchedule;
 import com.veilsun.constructkey.domain.dto.UserOrganizationInvitation;
 import com.veilsun.constructkey.repository.OrganizationRepository;
+import com.veilsun.constructkey.repository.PullPlanTargetRepository;
+import com.veilsun.constructkey.utils.EGUtils;
 
 @Service
 public class OrganizationService {
@@ -35,6 +41,10 @@ public class OrganizationService {
 
 	public Organization findOneById(UUID orgId) {
 		return organizationRepository.findById(orgId).orElseThrow();
+	}
+	
+	public Organization findOne(Specification<Organization> spec, String... paths) {
+		return organizationRepository.findOne(spec, EGUtils.fromAttributePaths(paths)).orElseThrow();		
 	}
 
 	public Page<PullPlanTarget> getPPTByOrganization(UUID orgId, Pageable page) {

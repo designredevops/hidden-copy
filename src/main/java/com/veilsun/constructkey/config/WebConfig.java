@@ -17,17 +17,17 @@ import net.kaczmarzyk.spring.data.jpa.web.SpecificationArgumentResolver;
 @Configuration
 @EnableJpaRepositories(repositoryFactoryBeanClass = EntityGraphJpaRepositoryFactoryBean.class, basePackages = "com.veilsun.constructkey.repository")
 public class WebConfig implements WebMvcConfigurer {
-	
+
 	@Autowired
 	AbstractApplicationContext applicationContext;
-	
+
 	@Override
-    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
-        argumentResolvers.add(new SpecificationArgumentResolver(applicationContext));
-    }
-	
+	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
+		argumentResolvers.add(new SpecificationArgumentResolver(applicationContext));
+	}
+
 	@Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**").allowedMethods("*").allowedOrigins("*");
-    }
+	public void addCorsMappings(CorsRegistry registry) {
+		registry.addMapping("/**").allowedMethods("*").allowedOrigins("*");
+	}
 }

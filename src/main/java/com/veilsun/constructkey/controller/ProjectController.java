@@ -13,6 +13,7 @@ import com.veilsun.constructkey.domain.Project;
 import com.veilsun.constructkey.domain.ProjectLocation;
 import com.veilsun.constructkey.domain.ProjectOrganization;
 import com.veilsun.constructkey.service.ProjectService;
+import com.veilsun.constructkey.specification.project.ProjectIdSpec;
 
 import java.util.UUID;
 
@@ -37,8 +38,12 @@ public class ProjectController {
 	}
 	
 	@GetMapping("/{projectId}")
-	public ResponseEntity<?> getProject(@PathVariable() UUID orgId, @PathVariable() UUID projectId ) {
-		return new ResponseEntity<Project>(projectService.getProjectById(projectId), HttpStatus.OK);
+	public ResponseEntity<?> getProject(
+			@PathVariable() UUID orgId, 
+			@PathVariable() UUID projectId,
+			ProjectIdSpec spec,
+			@RequestParam(name = "paths", required = false) String... paths) {
+		return new ResponseEntity<Project>(projectService.getProject(spec, paths), HttpStatus.OK);
 	}
 	
 	@PutMapping("/{projectId}")

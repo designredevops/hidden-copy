@@ -2,7 +2,6 @@ package com.veilsun.constructkey.controller;
 
 import java.util.UUID;
 
-import com.veilsun.constructkey.domain.PullPlanTarget;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,11 +9,22 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.veilsun.constructkey.domain.Organization;
+import com.veilsun.constructkey.domain.PullPlanTarget;
 import com.veilsun.constructkey.domain.dto.UserOrganizationInvitation;
 import com.veilsun.constructkey.service.OrganizationService;
+import com.veilsun.constructkey.specification.organization.OrganizationIdSpec;
 
 @RestController
 @RequestMapping("/org")
@@ -26,8 +36,11 @@ public class OrganizationController {
 	OrganizationService organizationService;
 
 	@GetMapping("/{orgId}")
-	public ResponseEntity<?> getOrganization(@PathVariable("orgId") UUID orgId) {
-		return new ResponseEntity<Organization>(organizationService.findOneById(orgId), HttpStatus.OK);
+	public ResponseEntity<?> getOrganization(
+			@PathVariable("orgId") UUID orgId,
+			OrganizationIdSpec spec,
+			@RequestParam(name = "paths", required = false) String... paths) {
+		return new ResponseEntity<Organization>(organizationService.findOne(spec, paths), HttpStatus.OK);
 	}
 
 	@GetMapping("/{orgId}/pull-plan-target")

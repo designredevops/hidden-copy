@@ -5,6 +5,7 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import com.veilsun.constructkey.domain.global.Record;
 
 import lombok.Getter;
@@ -16,6 +17,7 @@ import lombok.Setter;
 public class BucketItem extends Record {
 
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonIncludeProperties({"id"})
 	private Bucket bucket;
 	
 	private String name;

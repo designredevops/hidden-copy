@@ -2,11 +2,13 @@ package com.veilsun.constructkey.domain;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import com.veilsun.constructkey.domain.global.Record;
 
 import lombok.AllArgsConstructor;
@@ -24,6 +26,7 @@ public class PullPlanTargetMeeting extends Record {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonIncludeProperties({"id", "name"})
 	private PullPlanTarget pullPlanTarget;
 	
 	private String title;
@@ -33,6 +36,6 @@ public class PullPlanTargetMeeting extends Record {
 	private LocalDateTime starts;
 	private LocalDateTime ends;
 	
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Team invitees;
 }
