@@ -8,6 +8,7 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import com.veilsun.constructkey.domain.global.Record;
 
 import lombok.AllArgsConstructor;
@@ -25,6 +26,7 @@ public class PullPlanTargetMeeting extends Record {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonIncludeProperties({"id", "name"})
 	private PullPlanTarget pullPlanTarget;
 	
 	private String title;

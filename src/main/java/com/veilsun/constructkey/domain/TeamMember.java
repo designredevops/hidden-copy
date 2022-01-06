@@ -3,6 +3,7 @@ package com.veilsun.constructkey.domain;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import com.veilsun.constructkey.domain.global.Record;
 
 import lombok.Getter;
@@ -37,11 +38,13 @@ public class TeamMember extends Record {
 	private Team team;
 	
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+	@JsonIncludeProperties({"id", "firstName", "lastName"})
 	private User user;
 	
 	private String role;
 	
 	@OneToOne(fetch = FetchType.LAZY)
+	@JsonIncludeProperties({"id", "name"})
 	private Organization organization;
 	
 	private TeamMemberStatus status;

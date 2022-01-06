@@ -35,9 +35,11 @@ public class PullPlanTarget extends Record {
 	private PullPlanTargetStatus status;
 
 	@OneToMany(mappedBy = "pullPlanTarget", fetch = FetchType.LAZY)
+	@JsonIncludeProperties({"id"})
 	private Set<PullPlanTargetMeeting> meetings;
 	
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JsonIncludeProperties({"id"})
 	private Bucket documents;
 	
 	public PullPlanTarget() {

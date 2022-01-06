@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import com.veilsun.constructkey.domain.global.Record;
 
 import lombok.Getter;
@@ -24,6 +25,7 @@ public class WorkSchedule extends Record {
 	}
 	
 	@OneToMany(mappedBy = "workSchedule", fetch = FetchType.LAZY)
+	@JsonIncludeProperties({"id"})
 	private Set<WorkScheduleItem> items;
 	
 	@OneToOne(fetch = FetchType.LAZY)

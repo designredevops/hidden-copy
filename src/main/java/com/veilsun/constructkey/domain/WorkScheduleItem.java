@@ -8,6 +8,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import com.veilsun.constructkey.domain.global.Record;
 
 import lombok.Getter;
@@ -34,6 +35,7 @@ public class WorkScheduleItem extends Record {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonIncludeProperties({"id", "type"})
 	private WorkSchedule workSchedule;
 	
 	private String title;

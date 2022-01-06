@@ -52,6 +52,7 @@ public class Organization extends Record {
 
 	@JsonIgnore
 	@OneToOne(fetch = FetchType.LAZY)
+	@JsonIncludeProperties({"id", "name"})
 	private Organization parentOrganization;
 	
 	private Boolean allowExternalInvites;
@@ -61,5 +62,6 @@ public class Organization extends Record {
 	private DisplayStyle displayStyle;
 	
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JsonIncludeProperties({"id"})
 	private WorkSchedule workSchedule;
 }

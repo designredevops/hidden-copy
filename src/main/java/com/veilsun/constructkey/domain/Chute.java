@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import com.veilsun.constructkey.domain.global.Record;
 
 import lombok.AllArgsConstructor;
@@ -28,11 +29,13 @@ public class Chute extends Record {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonIncludeProperties({"id", "name"})
 	private PullPlanTarget ppt;
 	
 	private String name;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonIncludeProperties({"id", "name"})
 	private Organization organization;
 	
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

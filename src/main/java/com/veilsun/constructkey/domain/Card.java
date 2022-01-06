@@ -6,6 +6,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import com.veilsun.constructkey.domain.global.Record;
 
 import lombok.AllArgsConstructor;
@@ -27,6 +28,7 @@ public class Card extends Record {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonIncludeProperties({"id"})
 	private Chute chute;
 	
 	@Enumerated(EnumType.STRING)
