@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import com.veilsun.constructkey.domain.global.Record;
 
 import lombok.AllArgsConstructor;
@@ -22,6 +23,7 @@ public class PullPlanTarget extends Record {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonIncludeProperties({"id", "name"})
 	private Project project;
 	
 	private String name;

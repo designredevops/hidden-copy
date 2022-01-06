@@ -12,6 +12,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import com.veilsun.constructkey.domain.global.Record;
 
 import lombok.Getter;
@@ -38,12 +39,15 @@ public class Organization extends Record {
 	private OrganizationType type;
 	
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JsonIncludeProperties({"id"})
 	private Team adminTeam;
 	
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JsonIncludeProperties({"id"})
 	private Team memberTeam;
 	
 	@OneToMany(mappedBy = "organization", fetch = FetchType.LAZY)
+	@JsonIncludeProperties({"id", "name"})
 	private Set<Project> projects;
 
 	@JsonIgnore
