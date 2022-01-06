@@ -5,6 +5,7 @@ import java.util.*;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.veilsun.constructkey.domain.global.Record;
 
@@ -34,6 +35,7 @@ public class WorkSchedule extends Record {
 		this.setId(workSchedule);
 	}
 
+	@JsonIncludeProperties({"id"})
 	@JsonManagedReference
 	@OneToMany(mappedBy = "workSchedule", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<WorkScheduleItem> items;

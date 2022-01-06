@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.veilsun.constructkey.domain.global.Record;
 
@@ -31,6 +32,7 @@ public class WorkScheduleItem extends Record {
 		}
 	}
 
+	@JsonIncludeProperties({"id", "type"})
 	@JsonBackReference
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private WorkSchedule workSchedule;
