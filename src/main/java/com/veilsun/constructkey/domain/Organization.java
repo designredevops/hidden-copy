@@ -10,6 +10,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIncludeProperties;
@@ -33,6 +34,7 @@ public class Organization extends Record {
 		this.setId(orgId);
 	}
 
+	@NotBlank(message = "Name is mandatory")
 	private String name;
 	
 	@Enumerated(EnumType.STRING)

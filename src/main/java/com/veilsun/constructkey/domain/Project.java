@@ -13,6 +13,7 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import com.veilsun.constructkey.domain.global.Record;
@@ -36,11 +37,13 @@ public class Project extends Record {
 	@JsonIncludeProperties({"id","name"})
 	private Organization organization;
 
+	@NotBlank
 	private String name;
 	private String number;
 	private String description;
 	private LocalDate startDate;
 	private LocalDate endDate;
+	@NotBlank
 	private String address;
 
 	@Enumerated(EnumType.STRING)
