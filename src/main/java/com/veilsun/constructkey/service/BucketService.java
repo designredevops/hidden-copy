@@ -62,8 +62,10 @@ public class BucketService {
 		return uploadFile(bucketId, file.getName(), file);
 	}
 
-	public Boolean deleteFile(UUID bucketId, UUID fileName) {
-		bucketS3Client.deleteFile(fileName.toString());
+	public Boolean deleteFile(UUID bucketId, UUID fileId) {
+		BucketItem bucketItemToDelete = bucketItemRepository.findById(fileId).orElseThrow();
+		bucketS3Client.deleteFile(bucketItemToDelete.getName());
+		bucketItemRepository.deleteById(fileId);
 		return true;
 	}
 
