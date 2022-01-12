@@ -49,8 +49,8 @@ public class BucketController {
 	}
 
 	@PostMapping("/file")
-	public ResponseEntity<?> addFile(@PathVariable("bucketId") UUID bucketId, @RequestParam("fileName") String fileName,
-									 @Valid @RequestParam MultipartFile file) {
+	public ResponseEntity<?> addFile(@PathVariable("bucketId") UUID bucketId, @Valid @RequestParam("fileName") String fileName,
+									 @RequestParam MultipartFile file) {
 		return new ResponseEntity<BucketItem>(bucketService.uploadFile(bucketId, fileName, file), HttpStatus.OK);
 	}
 	

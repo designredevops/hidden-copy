@@ -22,6 +22,7 @@ import com.veilsun.constructkey.domain.PullPlanTarget;
 import com.veilsun.constructkey.domain.PullPlanTargetMeeting;
 import com.veilsun.constructkey.service.PullPlanTargetService;
 
+import javax.validation.Valid;
 import java.util.UUID;
 
 @RestController
@@ -45,7 +46,7 @@ public class PullPlanTargetController {
 	public ResponseEntity<?> createPPT(
 			@PathVariable() UUID orgId,
 			@PathVariable() UUID projectId,
-			@RequestBody PullPlanTarget ppt) {
+			@Valid @RequestBody PullPlanTarget ppt) {
 		return new ResponseEntity<PullPlanTarget>(pptService.createPPT(orgId, projectId, ppt), HttpStatus.CREATED);
 	}
 	
@@ -95,7 +96,7 @@ public class PullPlanTargetController {
 			@PathVariable() UUID orgId, 
 			@PathVariable() UUID projectId,
 			@PathVariable() UUID pptId,
-			@RequestBody PullPlanTargetMeeting pptMeeting) {
+			@Valid @RequestBody PullPlanTargetMeeting pptMeeting) {
 		return new ResponseEntity<PullPlanTargetMeeting>(
 				pptService.createMeeting(orgId, projectId, pptId, pptMeeting),
 				HttpStatus.CREATED);
@@ -148,7 +149,7 @@ public class PullPlanTargetController {
 			@PathVariable() UUID orgId, 
 			@PathVariable() UUID projectId,
 			@PathVariable() UUID pptId,
-			@RequestBody Chute chute) {
+			@Valid @RequestBody Chute chute) {
 		return new ResponseEntity<Chute>(pptService.createChute(pptId, orgId, projectId, chute), HttpStatus.CREATED);
 	}
 	
@@ -201,7 +202,7 @@ public class PullPlanTargetController {
 			@PathVariable() UUID projectId,
 			@PathVariable() UUID pptId,
 			@PathVariable() UUID chuteId,
-			@RequestBody Card card) {
+			@Valid @RequestBody Card card) {
 		return new ResponseEntity<Card>(pptService.createChuteCard(chuteId, card), HttpStatus.OK);
 	}
 	

@@ -73,8 +73,8 @@ public class ProjectController {
 	@PostMapping("/{projectId}/location")
 	public ResponseEntity<?> createProjectLocation(
 			@PathVariable() UUID orgId, 
-			@PathVariable() UUID projectId, 
-			@RequestBody ProjectLocation projectLocation) {
+			@PathVariable() UUID projectId,
+			@Valid @RequestBody ProjectLocation projectLocation) {
 		return new ResponseEntity<ProjectLocation>(projectService.createProjectLocation(orgId, projectId, projectLocation), HttpStatus.CREATED);
 	}
 	
