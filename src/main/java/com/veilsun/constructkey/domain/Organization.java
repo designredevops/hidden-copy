@@ -42,10 +42,6 @@ public class Organization extends Record {
 	
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JsonIncludeProperties({"id"})
-	private Team adminTeam;
-	
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JsonIncludeProperties({"id"})
 	private Team memberTeam;
 	
 	@OneToMany(mappedBy = "organization", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

@@ -16,6 +16,7 @@ import com.veilsun.constructkey.domain.ProjectLocation;
 import com.veilsun.constructkey.domain.ProjectOrganization;
 import com.veilsun.constructkey.domain.Team;
 import com.veilsun.constructkey.domain.Team.TeamType;
+import com.veilsun.constructkey.domain.TeamMember.TeamMemberRole;
 import com.veilsun.constructkey.domain.WorkSchedule;
 import com.veilsun.constructkey.domain.dto.UserProjectInvitation;
 import com.veilsun.constructkey.repository.ProjectLocationRepository;
@@ -35,8 +36,7 @@ public class ProjectService {
 	private ProjectOrganizationRepository projectOrganizationRepository;
 
 	public Project createProject(UUID userId, Project project, UUID orgId) {
-		project.setAdminTeam(new Team(userId, TeamType.ProjectAdmin));
-		project.setMemberTeam(new Team(TeamType.ProjectMember));
+		project.setMemberTeam(new Team(userId, TeamType.ProjectMember, TeamMemberRole.Admin));
 		project.setOrganization(new Organization(orgId));
 		project.setWorkSchedule(new WorkSchedule());
 		Project createdProject = projectRepository.save(project);

@@ -14,6 +14,7 @@ import com.veilsun.constructkey.domain.Organization;
 import com.veilsun.constructkey.domain.PullPlanTarget;
 import com.veilsun.constructkey.domain.Team;
 import com.veilsun.constructkey.domain.Team.TeamType;
+import com.veilsun.constructkey.domain.TeamMember.TeamMemberRole;
 import com.veilsun.constructkey.domain.WorkSchedule;
 import com.veilsun.constructkey.domain.dto.UserOrganizationInvitation;
 import com.veilsun.constructkey.repository.OrganizationRepository;
@@ -31,8 +32,7 @@ public class OrganizationService {
 	private PullPlanTargetRepository pullPlanTargetRepository;
 
 	public Organization createOrganization(UUID userId, Organization org) {
-		org.setAdminTeam(new Team(userId, TeamType.OrganizationAdmin));
-		org.setMemberTeam(new Team(TeamType.OrganizationMember));
+		org.setMemberTeam(new Team(userId, TeamType.OrganizationMember, TeamMemberRole.Admin));
 		org.setDisplayStyle(new DisplayStyle());
 		org.setWorkSchedule(new WorkSchedule());
 		Organization createdOrg = organizationRepository.save(org);
@@ -78,7 +78,6 @@ public class OrganizationService {
 	}
 
 	public Organization createSubOrganization(UUID uid, UUID parentOrgId, Organization org) {
-		org.setAdminTeam(new Team(uid, TeamType.OrganizationAdmin));
 		org.setMemberTeam(new Team(TeamType.OrganizationMember));
 		org.setDisplayStyle(new DisplayStyle());
 		org.setWorkSchedule(new WorkSchedule());

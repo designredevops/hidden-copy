@@ -50,9 +50,6 @@ public class Project extends Record {
 	private ProjectStatus status;
 
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Team adminTeam;
-
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Team memberTeam;
 
 	@OneToMany(mappedBy = "project", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

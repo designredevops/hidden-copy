@@ -14,7 +14,6 @@ import com.veilsun.constructkey.domain.TeamMember;
 import com.veilsun.constructkey.domain.User;
 import com.veilsun.constructkey.repository.TeamMemberRepository;
 import com.veilsun.constructkey.repository.TeamRepository;
-import com.veilsun.constructkey.repository.TeamRepository.TeamIds;
 
 @Service
 public class TeamService {
@@ -54,23 +53,12 @@ public class TeamService {
 		Team team = teamRepository.findById(teamId).orElseThrow();
 		if(Team.TeamType.OrganizationMember.equals(team.getType())) {
 			return Page.empty();
-		} else if(Team.TeamType.OrganizationAdmin.equals(team.getType())) {
-			// return organization membersTeam users
-			return teamMemberRepository.findAllUsersByTeamId(teamRepository.getOrganizationMembersTeamIdByOrganzationAdminTeamId(teamId).orElseThrow(), page);
 		} else if(Team.TeamType.ProjectMember.equals(team.getType())) {
-			// return Organization membersTeam users, and Organization adminTeam users
-			TeamIds teamIds = teamRepository.getOrganizationTeamsIdByProjectMemberTeamId(teamId).orElseThrow();
-			return teamMemberRepository.findAllUsersByTeamIds(Arrays.asList(teamIds.getAdminTeamId(), teamIds.getMemberTeamId()), page);
-			//return users;
-		} else if(Team.TeamType.ProjectAdmin.equals(team.getType())) {
-			// return Organization membersTeam users, or Organization adminTeam users, or Project membersTeam
-			TeamIds orgTeamIds = teamRepository.getOrganizationTeamsIdByProjectAdminTeamId(teamId).orElseThrow();
-			UUID projectMemberTeamId = teamRepository.getProjectMembersTeamIdByProjectAdminTeamId(teamId).orElseThrow();
-			return teamMemberRepository.findAllUsersByTeamIds(Arrays.asList(orgTeamIds.getAdminTeamId(), orgTeamIds.getMemberTeamId(), projectMemberTeamId), page);
-		} else if(Team.TeamType.PullPlanTargetMeeting.equals(team.getType())) {
-			// return Project membersTeam user or Project adminTeam user
-			TeamIds projectTeamIds = teamRepository.getProjectTeamsIdByPPTMeetingTeamId(teamId).orElseThrow();
-			return teamMemberRepository.findAllUsersByTeamIds(Arrays.asList(projectTeamIds.getAdminTeamId(), projectTeamIds.getMemberTeamId()), page);
+			UUID teamIds = teamRepository.getOrganizationTeamsIdByProjectMemberTeamId(teamId).orElseThrow();
+			return teamMemberRepository.findAllUsersByTeamIds(Arrays.asList(teamIds), page);
+		}  else if(Team.TeamType.PullPlanTargetMeeting.equals(team.getType())) {
+			UUID projectTeamIds = teamRepository.getProjectTeamsIdByPPTMeetingTeamId(teamId).orElseThrow();
+			return teamMemberRepository.findAllUsersByTeamIds(Arrays.asList(projectTeamIds), page);
 		}
 		return Page.empty();
 	}

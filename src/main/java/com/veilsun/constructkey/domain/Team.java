@@ -11,6 +11,7 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.veilsun.constructkey.domain.TeamMember.TeamMemberRole;
 import com.veilsun.constructkey.domain.global.Record;
 
 import lombok.Getter;
@@ -22,14 +23,14 @@ import lombok.Setter;
 public class Team extends Record {
 
 	public enum TeamType {
-		OrganizationAdmin, OrganizationMember,
-		ProjectAdmin, ProjectMember,
+		OrganizationMember,
+		ProjectMember,
 		PullPlanTargetMeeting
 	}
 	
-	public Team(UUID userId, TeamType type) {
+	public Team(UUID userId, TeamType type, TeamMemberRole role) {
 		this.type = type;
-		this.members = Set.of(new TeamMember(userId, this));
+		this.members = Set.of(new TeamMember(userId, this, role));
 	}
 	
 	public Team(TeamType type) {

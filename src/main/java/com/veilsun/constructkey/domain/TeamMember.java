@@ -24,9 +24,14 @@ public class TeamMember extends Record {
 		Active, Deactive
 	}
 	
-	public TeamMember(UUID userId, Team team) {
+	public enum TeamMemberRole {
+		Member, Admin
+	}
+	
+	public TeamMember(UUID userId, Team team, TeamMemberRole role) {
 		this.user = new User(userId);
 		this.team = team;
+		this.role = role;
 	}
 
 	public TeamMember() {
@@ -41,7 +46,8 @@ public class TeamMember extends Record {
 	@JsonIncludeProperties({"id", "firstName", "lastName"})
 	private User user;
 	
-	private String role;
+	@Enumerated(EnumType.STRING)
+	private TeamMemberRole role;
 	
 	@OneToOne(fetch = FetchType.LAZY)
 	@JsonIncludeProperties({"id", "name"})

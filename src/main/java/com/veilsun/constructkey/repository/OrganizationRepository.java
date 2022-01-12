@@ -19,16 +19,16 @@ public interface OrganizationRepository extends JpaRepository<Organization, UUID
 
 	public Page<Organization> findAllByMemberTeamMembersUserId(UUID userId, Pageable page);
 
-	public Page<Organization> findAllByMemberTeamMembersUserIdOrAdminTeamMembersUserId(UUID userId, UUID secondUserId, Pageable page, Specification<Organization> spec);
-
 	public Page<Organization> findAllByParentOrganizationId(UUID orgId, Pageable page);
-
-	public Organization findOneByAdminTeamId(UUID adminTeamId);
 
 	public Organization findOneByMemberTeamId(UUID memberTeamId);
 	
-	@Query(value = "SELECT 1 FROM organization o INNER JOIN team_member tm ON tm.team_id = o.admin_team_id WHERE o.id = :orgId AND tm.user_id = :userId LIMIT 1",
-		   nativeQuery = true)
+	@Query(value = "SELECT 1 FROM organization o INNER JOIN team_member tm ON tm.team_id = o.member_team_id WHERE o.id = :orgId AND tm.user_id = :userId AND tm.role = 'Admin' LIMIT 1",
+			   nativeQuery = true)
 	public Integer isOrganizationAdmin(@Param("orgId") UUID orgId, @Param("userId") UUID userId);
+	
+	@Query(value = "SELECT 1 FROM organization o INNER JOIN team_member tm ON tm.team_id = o.member_team_id WHERE o.id = :orgId AND tm.user_id = :userId LIMIT 1",
+		   nativeQuery = true)
+	public Integer isOrganizationMember(@Param("orgId") UUID orgId, @Param("userId") UUID userId);
 	
 }
