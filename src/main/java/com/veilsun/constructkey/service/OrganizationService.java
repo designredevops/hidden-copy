@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import com.veilsun.constructkey.domain.DisplayStyle;
@@ -70,8 +71,8 @@ public class OrganizationService {
 		return organizationRepository.findAllByParentOrganizationId(orgId, page);
 	}
 
+	@PreAuthorize("@authenticationService.isOrganizationAdmin(#orgId)")
 	public Boolean deleteOrganization(UUID orgId) {
-		// TODO Auto-generated method stub
 		organizationRepository.deleteById(orgId);
 		return true;
 	}
