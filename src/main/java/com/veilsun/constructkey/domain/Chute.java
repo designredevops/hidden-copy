@@ -4,6 +4,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import com.veilsun.constructkey.domain.global.Record;
@@ -28,12 +29,15 @@ public class Chute extends Record {
 		this.setId(chuteId);
 	}
 
+	@NotBlank
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JsonIncludeProperties({"id", "name"})
 	private PullPlanTarget ppt;
-	
+
+	@NotBlank(message = "Name must not be null")
 	private String name;
-	
+
+	@NotBlank
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JsonIncludeProperties({"id", "name"})
 	private Organization organization;

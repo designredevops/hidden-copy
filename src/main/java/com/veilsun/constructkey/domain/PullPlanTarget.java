@@ -5,6 +5,7 @@ import java.util.Set;
 import java.util.UUID;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import com.veilsun.constructkey.domain.global.Record;
@@ -25,9 +26,14 @@ public class PullPlanTarget extends Record {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JsonIncludeProperties({"id", "name"})
 	private Project project;
-	
+
+	@NotBlank(message = "Name must not be blank")
 	private String name;
+
+	@NotBlank
 	private String description;
+
+	@NotBlank
 	private Integer duration;
 	private LocalDate completionDate;
 

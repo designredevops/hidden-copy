@@ -50,7 +50,6 @@ public class BucketController {
 	@PostMapping("/file")
 	public ResponseEntity<?> addFile(@PathVariable("bucketId") UUID bucketId, @RequestParam("fileName") String fileName,
 									 @RequestParam MultipartFile file) {
-
 		return new ResponseEntity<BucketItem>(bucketService.uploadFile(bucketId, fileName, file), HttpStatus.OK);
 	}
 	
@@ -67,10 +66,10 @@ public class BucketController {
 		return new ResponseEntity<URL>(bucketService.downloadFile(fileId), HttpStatus.OK);
 	}
 
-	@DeleteMapping("/file/{fileName}")
+	@DeleteMapping("/file/{fileId}")
 	public ResponseEntity<?> deleteFile(
 			@PathVariable("bucketId") UUID bucketId,
-			@PathVariable("fileName") UUID fileName) {
-		return new ResponseEntity<Boolean>(bucketService.deleteFile(bucketId, fileName), HttpStatus.OK);
+			@PathVariable("fileId") UUID fileId) {
+		return new ResponseEntity<Boolean>(bucketService.deleteFile(bucketId, fileId), HttpStatus.OK);
 	}
 }
