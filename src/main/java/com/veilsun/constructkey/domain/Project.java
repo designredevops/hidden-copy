@@ -50,18 +50,15 @@ public class Project extends Record {
 	private ProjectStatus status;
 
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Team adminTeam;
-
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Team memberTeam;
 
-	@OneToMany(mappedBy = "project", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "project", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<ProjectLocation> locations;
 
-	@OneToMany(mappedBy = "project", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "project", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<ProjectOrganization> tradePartners;
 
-	@OneToMany(mappedBy = "project", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "project", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<PullPlanTarget> pullPlanTargets;
 
 	private Boolean allowExternalInvites;

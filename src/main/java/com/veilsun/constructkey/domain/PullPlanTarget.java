@@ -40,7 +40,7 @@ public class PullPlanTarget extends Record {
 	@Enumerated(EnumType.STRING)
 	private PullPlanTargetStatus status;
 
-	@OneToMany(mappedBy = "pullPlanTarget", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "pullPlanTarget", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JsonIncludeProperties({"id"})
 	private Set<PullPlanTargetMeeting> meetings;
 	

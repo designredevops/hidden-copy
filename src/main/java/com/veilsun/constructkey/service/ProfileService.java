@@ -33,9 +33,7 @@ public class ProfileService {
 	}
 	
 	public Page<Organization> getOrganizationsByUserId(UUID userId, Specification<Organization> spec, Pageable page) {
-		
 		return organizationRepository.findAll(spec, page);
-//		return organizationRepository.findAllByMemberTeamMembersUserIdOrAdminTeamMembersUserId(userId, userId, page, spec);
 	}
 
 	public Page<UserInvitation> getNewInvitationsByUserId(UUID userId, Pageable page) {
