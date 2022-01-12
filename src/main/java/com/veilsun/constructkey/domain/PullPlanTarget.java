@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import com.veilsun.constructkey.domain.global.Record;
@@ -33,7 +34,7 @@ public class PullPlanTarget extends Record {
 	@NotBlank
 	private String description;
 
-	@NotBlank
+	@NotNull
 	private Integer duration;
 	private LocalDate completionDate;
 

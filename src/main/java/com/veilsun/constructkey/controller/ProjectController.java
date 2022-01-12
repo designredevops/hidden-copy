@@ -51,7 +51,7 @@ public class ProjectController {
 	public ResponseEntity<?> updateProject(
 			@PathVariable() UUID orgId, 
 			@PathVariable() UUID projectId, 
-			@RequestBody Project project ) {
+			@Valid @RequestBody Project project ) {
 		return new ResponseEntity<Project>(projectService.updateProject(projectId, project), HttpStatus.OK);
 	}
 	
