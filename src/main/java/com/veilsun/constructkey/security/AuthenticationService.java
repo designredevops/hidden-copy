@@ -21,6 +21,7 @@ public class AuthenticationService {
 	}
 	
 	public boolean isOrganizationAdmin(UUID orgId) {
-		return organizationRepository.memberOfOrganizationAdmin(orgId, userId()).isPresent();
+		Integer r = organizationRepository.isOrganizationAdmin(orgId, userId());
+		return r == null;
 	}
 }

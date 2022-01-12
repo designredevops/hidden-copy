@@ -48,7 +48,7 @@ public class Organization extends Record {
 	@JsonIncludeProperties({"id"})
 	private Team memberTeam;
 	
-	@OneToMany(mappedBy = "organization", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "organization", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JsonIncludeProperties({"id", "name"})
 	private Set<Project> projects;
 
