@@ -34,7 +34,7 @@ public class WorkScheduleItem extends Record {
 
 	@JsonIncludeProperties({"id", "type"})
 	@JsonBackReference
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
 	private WorkSchedule workSchedule;
 	
 	private String title;
