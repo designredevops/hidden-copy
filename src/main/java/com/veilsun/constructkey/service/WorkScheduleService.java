@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.veilsun.constructkey.repository.WorkScheduleItemRepository;
 import com.veilsun.constructkey.repository.WorkScheduleRepository;
 
+import javax.transaction.Transactional;
 import java.util.UUID;
 
 @Service
@@ -31,6 +32,7 @@ public class WorkScheduleService {
 		return workScheduleItemRepository.findAllByWorkScheduleId(workScheduleId, page);
 	}
 
+	@Transactional
 	public WorkScheduleItem addWorkScheduleItem(UUID workScheduleId, WorkScheduleItem item) {
 		item.setWorkSchedule(new WorkSchedule(workScheduleId));
 		return workScheduleItemRepository.save(item);
