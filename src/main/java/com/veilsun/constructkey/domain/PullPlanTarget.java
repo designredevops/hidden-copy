@@ -31,10 +31,10 @@ public class PullPlanTarget extends Record {
 	@NotBlank(message = "Name must not be blank")
 	private String name;
 
-	@NotBlank
+
 	private String description;
 
-	@NotNull
+
 	private Integer duration;
 	private LocalDate completionDate;
 
