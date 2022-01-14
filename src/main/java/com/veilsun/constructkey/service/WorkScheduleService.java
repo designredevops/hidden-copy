@@ -32,7 +32,6 @@ public class WorkScheduleService {
 		return workScheduleItemRepository.findAllByWorkScheduleId(workScheduleId, page);
 	}
 
-	@Transactional
 	public WorkScheduleItem addWorkScheduleItem(UUID workScheduleId, WorkScheduleItem item) {
 		item.setWorkSchedule(new WorkSchedule(workScheduleId));
 		return workScheduleItemRepository.save(item);

@@ -43,7 +43,6 @@ public class Project extends Record {
 	private String description;
 	private LocalDate startDate;
 	private LocalDate endDate;
-	@NotBlank
 	private String address;
 
 	@Enumerated(EnumType.STRING)
