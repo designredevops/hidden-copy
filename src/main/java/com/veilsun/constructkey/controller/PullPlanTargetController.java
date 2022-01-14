@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -74,6 +75,20 @@ public class PullPlanTargetController {
 			@PathVariable() UUID projectId,
 			@PathVariable() UUID pptId) {
 		return new ResponseEntity<Boolean>(pptService.deletePPT(pptId), HttpStatus.OK);
+	}
+	
+	/**
+	 * Board channel
+	 * @throws Exception 
+	 */
+	
+	@GetMapping("/{pptId}/channel")
+	public ResponseEntity<?> getChannelAccessToken(
+			@PathVariable() UUID orgId, 
+			@PathVariable() UUID projectId,
+			@PathVariable() UUID pptId,
+			@ModelAttribute UUID userId) throws Exception {
+		return new ResponseEntity<String>(pptService.getChannelAccessToken(pptId, userId), HttpStatus.OK);
 	}
 	
 	/**
@@ -224,7 +239,7 @@ public class PullPlanTargetController {
 			@PathVariable() UUID chuteId,
 			@PathVariable() UUID cardId,
 			@RequestBody Card card ) {
-		return new ResponseEntity<Card>(pptService.updateChuteCard(chuteId, cardId, card), HttpStatus.OK);
+		return new ResponseEntity<Card>(pptService.updateChuteCard(pptId, chuteId, cardId, card), HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/{pptId}/chute/{chuteId}/card/{cardId}")
