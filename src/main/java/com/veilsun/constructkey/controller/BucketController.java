@@ -22,6 +22,7 @@ import com.veilsun.constructkey.domain.BucketItem;
 import com.veilsun.constructkey.service.BucketService;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import java.io.File;
 import java.net.URL;
 import java.util.List;
@@ -48,7 +49,7 @@ public class BucketController {
 	}
 
 	@PostMapping("/file")
-	public ResponseEntity<?> addFile(@PathVariable("bucketId") UUID bucketId, @RequestParam("fileName") String fileName,
+	public ResponseEntity<?> addFile(@PathVariable("bucketId") UUID bucketId, @Valid @RequestParam("fileName") String fileName,
 									 @RequestParam MultipartFile file) {
 		return new ResponseEntity<BucketItem>(bucketService.uploadFile(bucketId, fileName, file), HttpStatus.OK);
 	}

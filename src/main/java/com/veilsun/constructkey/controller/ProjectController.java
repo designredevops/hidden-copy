@@ -15,6 +15,7 @@ import com.veilsun.constructkey.domain.ProjectOrganization;
 import com.veilsun.constructkey.service.ProjectService;
 import com.veilsun.constructkey.specification.project.ProjectIdSpec;
 
+import javax.validation.Valid;
 import java.util.UUID;
 
 @RestController
@@ -33,7 +34,7 @@ public class ProjectController {
 	}
 	
 	@PostMapping("")
-	public ResponseEntity<?> createProject(@ModelAttribute UUID uid, @PathVariable() UUID orgId, @RequestBody Project project) {
+	public ResponseEntity<?> createProject(@ModelAttribute UUID uid, @PathVariable() UUID orgId, @Valid @RequestBody Project project) {
 		return new ResponseEntity<Project>(projectService.createProject(uid, project, orgId), HttpStatus.CREATED);
 	}
 	
@@ -50,7 +51,7 @@ public class ProjectController {
 	public ResponseEntity<?> updateProject(
 			@PathVariable() UUID orgId, 
 			@PathVariable() UUID projectId, 
-			@RequestBody Project project ) {
+			@Valid @RequestBody Project project ) {
 		return new ResponseEntity<Project>(projectService.updateProject(projectId, project), HttpStatus.OK);
 	}
 	
@@ -72,8 +73,8 @@ public class ProjectController {
 	@PostMapping("/{projectId}/location")
 	public ResponseEntity<?> createProjectLocation(
 			@PathVariable() UUID orgId, 
-			@PathVariable() UUID projectId, 
-			@RequestBody ProjectLocation projectLocation) {
+			@PathVariable() UUID projectId,
+			@Valid @RequestBody ProjectLocation projectLocation) {
 		return new ResponseEntity<ProjectLocation>(projectService.createProjectLocation(orgId, projectId, projectLocation), HttpStatus.CREATED);
 	}
 	
