@@ -223,7 +223,7 @@ public class PullPlanTargetController {
 			@PathVariable() UUID chuteId,
 			@PathVariable() UUID cardId,
 			@RequestBody Card card ) {
-		return new ResponseEntity<Card>(pptService.updateChuteCard(chuteId, cardId, card), HttpStatus.OK);
+		return new ResponseEntity<Card>(pptService.updateChuteCard(pptId, chuteId, cardId, card), HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/{pptId}/chute/{chuteId}/card/{cardId}")

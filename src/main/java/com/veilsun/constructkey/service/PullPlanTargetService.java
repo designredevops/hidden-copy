@@ -1,5 +1,7 @@
 package com.veilsun.constructkey.service;
 
+import com.nimbusds.jose.shaded.json.JSONObject;
+import com.veilsun.constructkey.client.WebsocketClient;
 import com.veilsun.constructkey.domain.*;
 import com.veilsun.constructkey.domain.Team.TeamType;
 import com.veilsun.constructkey.repository.CardRepository;
@@ -29,6 +31,9 @@ public class PullPlanTargetService {
 
 	@Autowired
 	private CardRepository pptChuteCardRepository;
+	
+	@Autowired
+	private WebsocketClient wsClient;
 
 	public Page<PullPlanTarget> findAllByProjectId(UUID projectId, Pageable page) {
 		return pptRepository.findAllByProjectId(projectId, page);
@@ -120,7 +125,7 @@ public class PullPlanTargetService {
 		return true;
 	}
 
-	public Card updateChuteCard(UUID chuteId, UUID cardId, Card card) {
+	public Card updateChuteCard(UUID pptId, UUID chuteId, UUID cardId, Card card) {
 		Card originalCard = pptChuteCardRepository.findById(cardId).orElseThrow();
 		if (card.getDays() != null) originalCard.setDays(card.getDays());
 		if (card.getPeople() != null) originalCard.setPeople(card.getPeople());
@@ -128,7 +133,13 @@ public class PullPlanTargetService {
 		if (card.getNeed() != null) originalCard.setNeed(card.getNeed());
 		if (card.getRanking() != null) originalCard.setRanking(card.getRanking());
 
-		return pptChuteCardRepository.save(originalCard);
+		Card c = pptChuteCardRepository.save(originalCard);
+		
+		JSONObject json = new JSONObject();
+		json.put("card", c);
+		json.put("pptId", pptId);
+		wsClient.sendMessage(pptId, json);
+		return c;
 	}
 
 	public Page<Card> findAllChuteCards(UUID chuteId, Pageable page) {
