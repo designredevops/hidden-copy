@@ -1,6 +1,7 @@
 package com.veilsun.constructkey.service;
 
 import com.nimbusds.jose.shaded.json.JSONObject;
+import com.veilsun.constructkey.client.JWTClient;
 import com.veilsun.constructkey.client.WebsocketClient;
 import com.veilsun.constructkey.domain.*;
 import com.veilsun.constructkey.domain.Team.TeamType;
@@ -31,6 +32,9 @@ public class PullPlanTargetService {
 
 	@Autowired
 	private CardRepository pptChuteCardRepository;
+	
+	@Autowired
+	private JWTClient jwtClient;
 	
 	@Autowired
 	private WebsocketClient wsClient;
@@ -159,6 +163,14 @@ public class PullPlanTargetService {
 	public Boolean deleteChuteCard(UUID cardId) {
 		pptChuteCardRepository.deleteById(cardId);
 		return true;
+	}
+
+	public String getChannelAccessToken(UUID pptId, UUID userId) throws Exception {
+		try {
+			return jwtClient.generateToken(pptId.toString() + "+" + userId.toString());
+		} catch (Exception e) {
+			throw e;
+		}
 	}
 
 }

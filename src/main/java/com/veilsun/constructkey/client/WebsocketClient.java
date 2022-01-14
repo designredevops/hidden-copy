@@ -8,7 +8,7 @@ import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import com.amazonaws.client.builder.AwsClientBuilder.EndpointConfiguration;
 import com.amazonaws.regions.Regions;
@@ -19,7 +19,7 @@ import com.nimbusds.jose.shaded.json.JSONObject;
 import com.veilsun.constructkey.domain.ChannelConnection;
 import com.veilsun.constructkey.repository.ChannelConnectionRepository;
 
-@Service
+@Component
 public class WebsocketClient {
 
 	private AmazonApiGatewayManagementApi client;
