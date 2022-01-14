@@ -63,7 +63,7 @@ public class WorkScheduleController {
 			@PathVariable("workScheduleId") UUID workScheduleId, 
 			@PathVariable("workScheduleItemId") UUID workScheduleItemId,
 			@RequestBody WorkScheduleItem item) {
-		return new ResponseEntity<WorkScheduleItem>(workScheduleService.updateWorkScheduleItem(item), HttpStatus.OK);
+		return new ResponseEntity<WorkScheduleItem>(workScheduleService.updateWorkScheduleItem(workScheduleItemId, item), HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/item/{workScheduleItemId}")

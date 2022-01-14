@@ -37,8 +37,20 @@ public class WorkScheduleService {
 		return workScheduleItemRepository.save(item);
 	}
 
-	public WorkScheduleItem updateWorkScheduleItem(WorkScheduleItem item) {
-		return workScheduleItemRepository.save(item);
+	public WorkScheduleItem updateWorkScheduleItem(UUID workScheduleItemId, WorkScheduleItem item) {
+		WorkScheduleItem originalWorkScheduleItem = workScheduleItemRepository.findById(workScheduleItemId).orElseThrow();
+		if (item.getTitle() != null) originalWorkScheduleItem.setTitle(item.getTitle());
+		if (item.getType() != null) originalWorkScheduleItem.setType(item.getType());
+		if (item.getStart() != null) originalWorkScheduleItem.setStart(item.getStart());
+		if (item.getEnd() != null) originalWorkScheduleItem.setEnd(item.getEnd());
+		if (item.getMON() != null) originalWorkScheduleItem.setMON(item.getMON());
+		if (item.getTUE() != null) originalWorkScheduleItem.setTUE(item.getTUE());
+		if (item.getWED() != null) originalWorkScheduleItem.setWED(item.getWED());
+		if (item.getTHU() != null) originalWorkScheduleItem.setTHU(item.getTHU());
+		if (item.getFRI() != null) originalWorkScheduleItem.setFRI(item.getFRI());
+		if (item.getSAT() != null) originalWorkScheduleItem.setSAT(item.getSAT());
+		if (item.getSUN() != null) originalWorkScheduleItem.setSUN(item.getSUN());
+		return workScheduleItemRepository.save(originalWorkScheduleItem);
 	}
 
 	public Boolean deleteWorkScheduleItem(UUID workScheduleItemId) {
