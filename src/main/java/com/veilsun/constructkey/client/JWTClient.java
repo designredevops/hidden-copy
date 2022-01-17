@@ -54,7 +54,7 @@ public class JWTClient {
 	public String generateToken(String payload) throws Exception {
 		String token = null;
 		try {
-            Algorithm algorithm = Algorithm.RSA256(publicKey, privateKey);
+            Algorithm algorithm = Algorithm.RSA256(null, privateKey);
             token = JWT.create()
             		.withClaim("payload", payload)
                     .sign(algorithm);
@@ -66,6 +66,7 @@ public class JWTClient {
 	}
 	
 	public String getPublicKey() {
+		
 		return publicKeyString;
 	}
 }
