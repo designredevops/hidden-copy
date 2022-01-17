@@ -38,7 +38,7 @@ public class PublicController {
 		return new ResponseEntity<String>("Ok", HttpStatus.OK);
 	}
 	
-	@GetMapping("/key/public")
+	@GetMapping("/key")
 	public ResponseEntity<String> getPublicKey() {
 		return new ResponseEntity<String>(jwtClient.getPublicKey(), HttpStatus.OK);
 	}
