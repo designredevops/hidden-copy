@@ -6,6 +6,11 @@ import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
 
 import javax.annotation.PostConstruct;
 
@@ -44,7 +49,6 @@ public class JWTClient {
 			
 			byte[] privateKeyBytes = new PemReader(new StringReader(privateKeyString)).readPemObject().getContent();
 			privateKey = (RSAPrivateKey) keyFactory.generatePrivate(new PKCS8EncodedKeySpec(privateKeyBytes));
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error(e.getMessage());
@@ -55,8 +59,11 @@ public class JWTClient {
 		String token = null;
 		try {
             Algorithm algorithm = Algorithm.RSA256(null, privateKey);
+            
+            LocalDateTime dateTime = LocalDateTime.now().plus(Duration.of(30, ChronoUnit.SECONDS));
             token = JWT.create()
             		.withClaim("payload", payload)
+            		.withExpiresAt(Date.from(dateTime.atZone(ZoneId.systemDefault()).toInstant()))
                     .sign(algorithm);
         } catch (Exception x) {
             throw x;
