@@ -19,6 +19,7 @@ import com.veilsun.constructkey.domain.WorkSchedule;
 import com.veilsun.constructkey.domain.dto.UserOrganizationInvitation;
 import com.veilsun.constructkey.repository.OrganizationRepository;
 import com.veilsun.constructkey.repository.PullPlanTargetRepository;
+import com.veilsun.constructkey.specification.ppt.PullPlanTargetByOrganizationSpec;
 import com.veilsun.constructkey.utils.EGUtils;
 
 @Service
@@ -85,5 +86,10 @@ public class OrganizationService {
 		Organization createdOrg = organizationRepository.save(org);
 
 		return createdOrg;
+	}
+
+	public Page<PullPlanTarget> getPPTByOrganization(PullPlanTargetByOrganizationSpec spec, String[] paths,
+			Pageable page) {
+		return pullPlanTargetRepository.findAll(spec, page, EGUtils.fromAttributePaths(paths));
 	}
 }

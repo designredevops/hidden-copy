@@ -25,6 +25,7 @@ import com.veilsun.constructkey.domain.PullPlanTarget;
 import com.veilsun.constructkey.domain.dto.UserOrganizationInvitation;
 import com.veilsun.constructkey.service.OrganizationService;
 import com.veilsun.constructkey.specification.organization.OrganizationIdSpec;
+import com.veilsun.constructkey.specification.ppt.PullPlanTargetByOrganizationSpec;
 
 @RestController
 @RequestMapping("/org")
@@ -46,9 +47,11 @@ public class OrganizationController {
 	@GetMapping("/{orgId}/pull-plan-target")
 	public ResponseEntity<?> getPPTByOrganization(
 			@PathVariable() UUID orgId,
-			Pageable page
+			PullPlanTargetByOrganizationSpec spec,
+			Pageable page,
+			@RequestParam(name = "paths", required = false) String... paths
 	){
-		return new ResponseEntity<Page<PullPlanTarget>>(organizationService.getPPTByOrganization(orgId, page), HttpStatus.OK);
+		return new ResponseEntity<Page<PullPlanTarget>>(organizationService.getPPTByOrganization(spec, paths, page), HttpStatus.OK);
 	}
 
 	@PostMapping("")

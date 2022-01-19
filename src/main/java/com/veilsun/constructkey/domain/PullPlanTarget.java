@@ -4,9 +4,15 @@ import java.time.LocalDate;
 import java.util.Set;
 import java.util.UUID;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import com.veilsun.constructkey.domain.global.Record;
@@ -44,6 +50,10 @@ public class PullPlanTarget extends Record {
 	@OneToMany(mappedBy = "pullPlanTarget", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JsonIncludeProperties({"id"})
 	private Set<PullPlanTargetMeeting> meetings;
+	
+	@OneToMany(mappedBy = "pullPlanTarget", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JsonIncludeProperties({"id"})
+	private Set<Sequence> sequences;
 	
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JsonIncludeProperties({"id"})

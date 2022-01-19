@@ -13,37 +13,32 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-@Entity(name = "card")
+@Entity(name = "ppt_sequence_item")
 @Getter
 @Setter
 @AllArgsConstructor
-public class Card extends Record {
+public class SequenceItem extends Record {
 	
-	public Card() {
+	public SequenceItem() {
 		// TODO Auto-generated constructor stub
 	}
+	
+	public SequenceItem(SequenceType type) {
+		this.type = type;
+	}
 
-	public enum CardType {
-		Activity, Inspection, Constrain
+	public enum SequenceType {
+		Normal, Milestone
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JsonIncludeProperties({"id"})
-	private Chute chute;
+	private Sequence sequence;
 	
 	@Enumerated(EnumType.STRING)
-	private CardType type;
+	private SequenceType type;
 	
-	private Integer days, people;
-	
-	private String promise, need;
 	
 	private Double ranking;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JsonIncludeProperties({"id"})
-	private SequenceItem sequence;
-	
-	private Double sequenceRanking;
 	
 }
