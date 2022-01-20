@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 
 import com.veilsun.constructkey.repository.BucketItemRepository;
 import com.veilsun.constructkey.repository.BucketRepository;
+import com.veilsun.constructkey.specification.bucket.BucketByIdSpec;
+import com.veilsun.constructkey.utils.EGUtils;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import java.net.URL;
@@ -72,5 +75,9 @@ public class BucketService {
 	public URL downloadFile(UUID fileId) {
 		BucketItem bucketItem = bucketItemRepository.findById(fileId).orElseThrow();
 		return bucketS3Client.generatePresignedUrlRequest(bucketItem.getName());
+	}
+
+	public Bucket getBucket(BucketByIdSpec spec, String[] paths) {
+		return bucketRepository.findOne(spec, EGUtils.fromAttributePaths(paths)).orElseThrow();
 	}
 }

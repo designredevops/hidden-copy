@@ -1,6 +1,10 @@
 package com.veilsun.constructkey.controller;
 
-import com.veilsun.constructkey.domain.Bucket;
+import java.net.URL;
+import java.util.UUID;
+
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,20 +17,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.veilsun.constructkey.domain.BucketItem;
-import com.veilsun.constructkey.service.BucketService;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.Valid;
-import java.io.File;
-import java.net.URL;
-import java.util.List;
-import java.util.UUID;
+import com.veilsun.constructkey.domain.Bucket;
+import com.veilsun.constructkey.domain.BucketItem;
+import com.veilsun.constructkey.service.BucketService;
+import com.veilsun.constructkey.specification.bucket.BucketByIdSpec;
 
 @RestController
 @RequestMapping("/bucket/{bucketId}")
@@ -38,8 +37,11 @@ public class BucketController {
 	BucketService bucketService;
 	
 	@GetMapping("")
-	public ResponseEntity<?> getBucket(@PathVariable("bucketId") UUID bucketId) {
-		return new ResponseEntity<Bucket>(bucketService.getBucket(bucketId), HttpStatus.OK);
+	public ResponseEntity<?> getBucket(
+			@PathVariable("bucketId") UUID bucketId,
+			BucketByIdSpec spec,
+			@RequestParam(name = "paths", required = false) String... paths) {
+		return new ResponseEntity<Bucket>(bucketService.getBucket(spec, paths), HttpStatus.OK);
 	}
 	
 	@GetMapping("/file")

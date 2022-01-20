@@ -8,10 +8,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.cosium.spring.data.jpa.entity.graph.repository.EntityGraphJpaSpecificationExecutor;
 import com.veilsun.constructkey.domain.Team;
 
 @Repository
-public interface TeamRepository extends JpaRepository<Team, UUID> {
+public interface TeamRepository extends JpaRepository<Team, UUID>, EntityGraphJpaSpecificationExecutor<Team> {
 
 	@Query("SELECT o.memberTeam.id as memberTeamId FROM project p JOIN organization o ON o.id = p.organization.id WHERE p.memberTeam.id = :memberTeamId")
 	Optional<UUID> getOrganizationTeamsIdByProjectMemberTeamId(@Param("memberTeamId") UUID memberTeamId);
