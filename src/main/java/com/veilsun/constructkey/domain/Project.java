@@ -27,7 +27,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class Project extends Record {
-
+	
 	public enum ProjectStatus{
 		Completed, Inactive,
 		Active, Planning

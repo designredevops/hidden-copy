@@ -19,6 +19,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import com.veilsun.constructkey.domain.User;
 
@@ -54,4 +55,10 @@ public abstract class Record {
 	@Version
 	@Column(columnDefinition = "bigint(20) default 1")
 	private long version;
+	
+	@JsonIgnore
+	public static final String XID = "id";
+	
+	@JsonIgnore
+	public static final String XNAME = "name";
 }

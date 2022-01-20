@@ -31,7 +31,7 @@ public class PullPlanTarget extends Record {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JsonIncludeProperties({"id", "name"})
+	@JsonIncludeProperties({Record.XID, Record.XNAME})
 	private Project project;
 
 	@NotBlank(message = "Name must not be blank")
