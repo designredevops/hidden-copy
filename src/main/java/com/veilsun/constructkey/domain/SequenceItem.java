@@ -26,9 +26,14 @@ public class SequenceItem extends Record {
 	public SequenceItem(SequenceType type) {
 		this.type = type;
 	}
+	
+	public SequenceItem(String title, SequenceType type) {
+		this.title = title;
+		this.type = type;
+	}
 
 	public enum SequenceType {
-		Normal, Milestone
+		Normal, Milestone, Weekday
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -37,6 +42,8 @@ public class SequenceItem extends Record {
 	
 	@Enumerated(EnumType.STRING)
 	private SequenceType type;
+	
+	private String title;
 	
 	
 	private Double ranking;

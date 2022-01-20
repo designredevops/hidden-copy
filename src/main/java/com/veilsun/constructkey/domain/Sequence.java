@@ -1,10 +1,13 @@
 package com.veilsun.constructkey.domain;
 
+import java.util.Set;
 import java.util.UUID;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -36,4 +39,7 @@ public class Sequence extends Record {
 
 	@NotBlank(message = "Name must not be null")
 	private String name;
+	
+	@OneToMany(mappedBy = "sequence", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<SequenceItem> items;
 }

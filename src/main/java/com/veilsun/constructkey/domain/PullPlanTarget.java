@@ -57,6 +57,10 @@ public class PullPlanTarget extends Record {
 	
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JsonIncludeProperties({"id"})
+	private Sequence weekDaySequence;
+	
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JsonIncludeProperties({"id"})
 	private Bucket documents;
 	
 	public PullPlanTarget() {
