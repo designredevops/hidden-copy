@@ -5,16 +5,13 @@ import com.veilsun.constructkey.client.JWTClient;
 import com.veilsun.constructkey.client.WebsocketClient;
 import com.veilsun.constructkey.domain.*;
 import com.veilsun.constructkey.domain.Team.TeamType;
-import com.veilsun.constructkey.repository.CardRepository;
-import com.veilsun.constructkey.repository.ChuteRepository;
+import com.veilsun.constructkey.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.veilsun.constructkey.repository.PullPlanTargetMeetingRepository;
-import com.veilsun.constructkey.repository.PullPlanTargetRepository;
-
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -38,6 +35,9 @@ public class PullPlanTargetService {
 	
 	@Autowired
 	private WebsocketClient wsClient;
+
+	@Autowired
+	private SequenceRepository sequenceRepository;
 
 	public Page<PullPlanTarget> findAllByProjectId(UUID projectId, Pageable page) {
 		return pptRepository.findAllByProjectId(projectId, page);
@@ -173,4 +173,21 @@ public class PullPlanTargetService {
 		}
 	}
 
+	public List<Sequence> findAllSequencesByPptId(UUID pptId, Pageable page) {
+		return sequenceRepository.findAllByPullPlanTargetId(pptId);
+	}
+
+	public Sequence createSequence(UUID pptId, Sequence sequence) {
+		PullPlanTarget pullPlanTarget = pptRepository.findById(pptId).orElseThrow();
+		sequence.setPullPlanTarget(pullPlanTarget);
+		return sequenceRepository.save(sequence);
+	}
+
+	public Sequence findOneSequenceByPullPlanTargetId(UUID pptId) {
+		PullPlanTarget pullPlanTarget = pptRepository.findById(pptId).orElseThrow();
+		if (pullPlanTarget.getWeekDaySequence() != null && pullPlanTarget.getWeekDaySequence().getId() != null){
+			return sequenceRepository.findById(pullPlanTarget.getWeekDaySequence().getId()).orElseThrow();
+		}
+		return null;
+	}
 }

@@ -32,7 +32,7 @@ public class Sequence extends Record {
 		this.setId(sequenceId);
 	}
 
-	@NotNull
+	//@NotNull
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JsonIncludeProperties({"id", "name"})
 	private PullPlanTarget pullPlanTarget;
