@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.veilsun.constructkey.repository.BucketItemRepository;
 import com.veilsun.constructkey.repository.BucketRepository;
 import com.veilsun.constructkey.specification.bucket.BucketByIdSpec;
+import com.veilsun.constructkey.specification.bucket.BucketItemSpec;
 import com.veilsun.constructkey.utils.EGUtils;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -79,5 +80,9 @@ public class BucketService {
 
 	public Bucket getBucket(BucketByIdSpec spec, String[] paths) {
 		return bucketRepository.findOne(spec, EGUtils.fromAttributePaths(paths)).orElseThrow();
+	}
+
+	public Page<BucketItem> getFiles(BucketItemSpec spec, Pageable page, String[] paths) {
+		return bucketItemRepository.findAll(spec, page, EGUtils.fromAttributePaths(paths));
 	}
 }

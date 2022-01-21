@@ -26,6 +26,7 @@ import com.veilsun.constructkey.domain.Bucket;
 import com.veilsun.constructkey.domain.BucketItem;
 import com.veilsun.constructkey.service.BucketService;
 import com.veilsun.constructkey.specification.bucket.BucketByIdSpec;
+import com.veilsun.constructkey.specification.bucket.BucketItemSpec;
 
 @RestController
 @RequestMapping("/bucket/{bucketId}")
@@ -45,9 +46,12 @@ public class BucketController {
 	}
 	
 	@GetMapping("/file")
-	public ResponseEntity<?> getFiles(@PathVariable("bucketId") UUID bucketId, Pageable page) {
-
-		return new ResponseEntity<Page<BucketItem>>(bucketService.getFiles(bucketId, page), HttpStatus.OK);
+	public ResponseEntity<?> getFiles(
+			@PathVariable("bucketId") UUID bucketId, 
+			Pageable page,
+			BucketItemSpec spec,
+			@RequestParam(name = "paths", required = false) String... paths) {
+		return new ResponseEntity<Page<BucketItem>>(bucketService.getFiles(spec, page, paths), HttpStatus.OK);
 	}
 
 	@PostMapping("/file")
