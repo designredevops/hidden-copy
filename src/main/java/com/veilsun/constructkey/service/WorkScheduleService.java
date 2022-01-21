@@ -1,17 +1,16 @@
 package com.veilsun.constructkey.service;
 
-import com.veilsun.constructkey.domain.WorkSchedule;
-import com.veilsun.constructkey.domain.WorkScheduleItem;
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.veilsun.constructkey.domain.WorkSchedule;
+import com.veilsun.constructkey.domain.WorkScheduleItem;
 import com.veilsun.constructkey.repository.WorkScheduleItemRepository;
 import com.veilsun.constructkey.repository.WorkScheduleRepository;
-
-import javax.transaction.Transactional;
-import java.util.UUID;
 
 @Service
 public class WorkScheduleService {

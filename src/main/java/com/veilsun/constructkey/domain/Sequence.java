@@ -9,7 +9,6 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import com.veilsun.constructkey.domain.global.Record;
@@ -32,7 +31,6 @@ public class Sequence extends Record {
 		this.setId(sequenceId);
 	}
 
-	//@NotNull
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JsonIncludeProperties({"id", "name"})
 	private PullPlanTarget pullPlanTarget;

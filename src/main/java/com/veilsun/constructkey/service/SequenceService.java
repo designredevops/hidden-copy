@@ -1,16 +1,16 @@
 package com.veilsun.constructkey.service;
 
-import com.veilsun.constructkey.domain.PullPlanTarget;
-import com.veilsun.constructkey.domain.Sequence;
-import com.veilsun.constructkey.domain.SequenceItem;
-import com.veilsun.constructkey.repository.SequenceItemRepository;
-import com.veilsun.constructkey.repository.SequenceRepository;
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
+import com.veilsun.constructkey.domain.Sequence;
+import com.veilsun.constructkey.domain.SequenceItem;
+import com.veilsun.constructkey.repository.SequenceItemRepository;
+import com.veilsun.constructkey.repository.SequenceRepository;
 
 @Service
 public class SequenceService {

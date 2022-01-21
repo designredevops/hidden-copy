@@ -178,8 +178,7 @@ public class PullPlanTargetService {
 	}
 
 	public Sequence createSequence(UUID pptId, Sequence sequence) {
-		PullPlanTarget pullPlanTarget = pptRepository.findById(pptId).orElseThrow();
-		sequence.setPullPlanTarget(pullPlanTarget);
+		sequence.setPullPlanTarget(new PullPlanTarget(pptId));
 		return sequenceRepository.save(sequence);
 	}
 

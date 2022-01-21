@@ -1,20 +1,26 @@
 package com.veilsun.constructkey.controller;
 
-import com.veilsun.constructkey.domain.PullPlanTarget;
-import com.veilsun.constructkey.domain.Sequence;
-import com.veilsun.constructkey.domain.SequenceItem;
-import com.veilsun.constructkey.repository.SequenceRepository;
-import com.veilsun.constructkey.service.PullPlanTargetService;
-import com.veilsun.constructkey.service.SequenceService;
+import java.util.UUID;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
-import java.util.UUID;
+import com.veilsun.constructkey.domain.Sequence;
+import com.veilsun.constructkey.domain.SequenceItem;
+import com.veilsun.constructkey.service.SequenceService;
 
 @RestController
 @RequestMapping("/sequence")
