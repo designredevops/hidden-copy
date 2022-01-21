@@ -1,5 +1,6 @@
 package com.veilsun.constructkey.controller;
 
+import com.veilsun.constructkey.domain.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,13 +18,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.veilsun.constructkey.domain.Card;
-import com.veilsun.constructkey.domain.Chute;
-import com.veilsun.constructkey.domain.PullPlanTarget;
-import com.veilsun.constructkey.domain.PullPlanTargetMeeting;
 import com.veilsun.constructkey.service.PullPlanTargetService;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -250,5 +248,38 @@ public class PullPlanTargetController {
 			@PathVariable() UUID chuteId,
 			@PathVariable() UUID cardId) {
 		return new ResponseEntity<Boolean>(pptService.deleteChuteCard(cardId), HttpStatus.OK);
+	}
+
+	/**
+	 * Sequence
+	 * */
+
+	@GetMapping("/{pptId}/sequence")
+	public ResponseEntity<?> getPPTSequences(
+			@PathVariable() UUID orgId,
+			@PathVariable() UUID projectId,
+			@PathVariable() UUID pptId,
+			Pageable page
+	) {
+		return new ResponseEntity<List<Sequence>>(pptService.findAllSequencesByPptId(pptId, page), HttpStatus.OK);
+	}
+
+	@PostMapping("/{pptId}/sequence")
+	public ResponseEntity<?> createPPTSequence(
+			@PathVariable() UUID orgId,
+			@PathVariable() UUID projectId,
+			@PathVariable() UUID pptId,
+			@Valid @RequestBody Sequence sequence) {
+		return new ResponseEntity<Sequence>(
+				pptService.createSequence(pptId, sequence), HttpStatus.CREATED);
+	}
+
+	@GetMapping("/{pptId}/weekday")
+	public ResponseEntity<?> getPPTWeekday(
+			@PathVariable() UUID orgId,
+			@PathVariable() UUID projectId,
+			@PathVariable() UUID pptId
+	) {
+		return new ResponseEntity<Sequence>(pptService.findOneSequenceByPullPlanTargetId(pptId), HttpStatus.OK);
 	}
 }
