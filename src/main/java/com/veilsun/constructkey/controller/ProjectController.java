@@ -1,5 +1,8 @@
 package com.veilsun.constructkey.controller;
 
+import com.veilsun.constructkey.specification.project.ProjectByOrganizationSpec;
+import com.veilsun.constructkey.specification.project.ProjectLocationsSpec;
+import com.veilsun.constructkey.specification.project.ProjectOrganizationSpec;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +32,13 @@ public class ProjectController {
 	
 	// GET https://constructkey.com/api/org/2882-al-28340-alkjd932/project
 	@GetMapping("")
-	public ResponseEntity<?> getProjectsByOrganization(@PathVariable() UUID orgId, Pageable page) {
-		return new ResponseEntity<Page<Project>>(projectService.getProjectsByOrganization(orgId, page), HttpStatus.OK);
+	public ResponseEntity<?> getProjectsByOrganization(
+			@PathVariable() UUID orgId,
+			Pageable page,
+			ProjectByOrganizationSpec spec,
+			@RequestParam(name = "paths", required = false) String... paths
+			) {
+		return new ResponseEntity<Page<Project>>(projectService.getProjectsByOrganization(spec, page, paths), HttpStatus.OK);
 	}
 	
 	@PostMapping("")
@@ -66,8 +74,13 @@ public class ProjectController {
 	 */
 	
 	@GetMapping("/{projectId}/location")
-	public ResponseEntity<?> getProjectLocations(@PathVariable() UUID orgId, @PathVariable() UUID projectId, Pageable page) {
-		return new ResponseEntity<Page<ProjectLocation>>(projectService.getProjectLocations(orgId, projectId, page), HttpStatus.OK);
+	public ResponseEntity<?> getProjectLocations(@PathVariable() UUID orgId,
+												 @PathVariable() UUID projectId,
+												 Pageable page,
+												 ProjectLocationsSpec spec,
+												 @RequestParam(name = "paths", required = false) String... paths) {
+		return new ResponseEntity<Page<ProjectLocation>>(projectService.getProjectLocations(
+				spec, page, paths), HttpStatus.OK);
 	}
 	
 	@PostMapping("/{projectId}/location")
@@ -82,9 +95,11 @@ public class ProjectController {
 	public ResponseEntity<?> getProjectLocation(
 			@PathVariable() UUID orgId, 
 			@PathVariable() UUID projectId, 
-			@PathVariable() UUID locationId
+			@PathVariable() UUID locationId,
+			ProjectLocationsSpec spec,
+			@RequestParam(name = "paths", required = false) String... paths
 	) {
-		return new ResponseEntity<ProjectLocation>(projectService.getProjectLocation(orgId, projectId, locationId), HttpStatus.OK);
+		return new ResponseEntity<ProjectLocation>(projectService.getProjectLocation(spec, paths), HttpStatus.OK);
 	}
 	
 	@PutMapping("/{projectId}/location/{locationId}")
@@ -112,10 +127,12 @@ public class ProjectController {
 	public ResponseEntity<?> getProjectOrganizations(
 			@PathVariable() UUID orgId,
 			@PathVariable() UUID projectId,
-			Pageable page
+			Pageable page,
+			ProjectOrganizationSpec spec,
+			@RequestParam(name = "paths", required = false) String... paths
 	) {
 		return new ResponseEntity<Page<ProjectOrganization>>(
-				projectService.getProjectOrganizations(orgId, projectId, page),
+				projectService.getProjectOrganizations(spec, page, paths),
 				HttpStatus.OK
 		);
 	}
@@ -132,8 +149,11 @@ public class ProjectController {
 	public ResponseEntity<?> getProjectOrganization(
 			@PathVariable() UUID orgId, 
 			@PathVariable() UUID projectId, 
-			@PathVariable() UUID projectOrganizationId) {
-		return new ResponseEntity<ProjectOrganization>(projectService.getProjectOrganization(projectOrganizationId), HttpStatus.OK);
+			@PathVariable() UUID projectOrganizationId,
+			ProjectOrganizationSpec spec,
+			@RequestParam(name = "paths", required = false) String... paths
+			) {
+		return new ResponseEntity<ProjectOrganization>(projectService.getProjectOrganization(spec, paths), HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/{projectId}/organization/{projectOrganizationId}")
