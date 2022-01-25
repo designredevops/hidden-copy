@@ -4,6 +4,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
+import com.veilsun.constructkey.specification.team.TeamByTeamIdSpec;
+import com.veilsun.constructkey.specification.team.TeamMembersByTeamIdSpec;
+import com.veilsun.constructkey.utils.EGUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -66,5 +69,13 @@ public class TeamService {
 	public Boolean deleteTeamMember(UUID memberId) {
 		teamMemberRepository.deleteById(memberId);
 		return true;
+	}
+
+	public Team getTeam(TeamByTeamIdSpec spec, String[] paths) {
+		return teamRepository.findOne(spec, EGUtils.fromAttributePaths(paths)).orElseThrow();
+	}
+
+	public List<TeamMember> getTeamMembers(TeamMembersByTeamIdSpec spec, String[] paths) {
+		return teamMemberRepository.findAll(spec, EGUtils.fromAttributePaths(paths));
 	}
 }

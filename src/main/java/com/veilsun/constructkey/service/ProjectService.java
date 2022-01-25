@@ -4,8 +4,9 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 import com.veilsun.constructkey.specification.project.ProjectByOrganizationSpec;
-import com.veilsun.constructkey.specification.project.ProjectLocationsSpec;
-import com.veilsun.constructkey.specification.project.ProjectOrganizationSpec;
+import com.veilsun.constructkey.specification.project.location.ProjectLocationsByProjectSpec;
+import com.veilsun.constructkey.specification.project.organization.ProjectOrganizationByProjectOrganizationIdSpec;
+import com.veilsun.constructkey.specification.project.organization.ProjectOrganizationSpec;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -144,12 +145,12 @@ public class ProjectService {
 		return projectRepository.findAll(spec, page, EGUtils.fromAttributePaths(paths));
 	}
 
-	public Page<ProjectLocation> getProjectLocations(ProjectLocationsSpec spec, Pageable page, String[] paths) {
+	public Page<ProjectLocation> getProjectLocations(ProjectLocationsByProjectSpec spec, Pageable page, String[] paths) {
 		return projectLocationRepository.findAll(spec, page, EGUtils.fromAttributePaths(paths));
 
 	}
 
-	public ProjectLocation getProjectLocation(ProjectLocationsSpec spec, String[] paths) {
+	public ProjectLocation getProjectLocation(ProjectLocationsByProjectSpec spec, String[] paths) {
 		return projectLocationRepository.findOne(spec, EGUtils.fromAttributePaths(paths)).orElseThrow();
 	}
 
@@ -157,7 +158,7 @@ public class ProjectService {
 		return projectOrganizationRepository.findAll(spec, page, EGUtils.fromAttributePaths(paths));
 	}
 
-	public ProjectOrganization getProjectOrganization(ProjectOrganizationSpec spec, String[] paths) {
+	public ProjectOrganization getProjectOrganization(ProjectOrganizationByProjectOrganizationIdSpec spec, String[] paths) {
 		return projectOrganizationRepository.findOne(spec, EGUtils.fromAttributePaths(paths)).orElseThrow();
 	}
 }

@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 import com.veilsun.constructkey.domain.WorkSchedule;
+import com.veilsun.constructkey.specification.workschedule.WorkScheduleIdSpec;
+import com.veilsun.constructkey.specification.workschedule.workscheduleitem.WorkScheduleItemByWorkScheduleSpec;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,14 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.veilsun.constructkey.domain.WorkScheduleItem;
 import com.veilsun.constructkey.service.WorkScheduleService;
@@ -33,8 +28,10 @@ public class WorkScheduleController {
 	WorkScheduleService workScheduleService;
 	
 	@GetMapping("")
-	public ResponseEntity<?> getWorkSchedule(@PathVariable("workScheduleId") UUID workScheduleId) {
-		return new ResponseEntity<WorkSchedule>(workScheduleService.getWorkSchedule(workScheduleId), HttpStatus.OK);
+	public ResponseEntity<?> getWorkSchedule(@PathVariable("workScheduleId") UUID workScheduleId,
+											 WorkScheduleIdSpec spec,
+											 @RequestParam(name = "paths", required = false) String... paths) {
+		return new ResponseEntity<WorkSchedule>(workScheduleService.getWorkSchedule(spec, paths), HttpStatus.OK);
 	}
 	
 	@GetMapping("/calendar")
@@ -47,8 +44,13 @@ public class WorkScheduleController {
 	}
 	
 	@GetMapping("/item")
-	public ResponseEntity<?> getWorkScheduleItems(@PathVariable("workScheduleId") UUID workScheduleId, Pageable page) {
-		return new ResponseEntity<Page<WorkScheduleItem>>(workScheduleService.getWorkScheduleItems(workScheduleId, page), HttpStatus.OK);
+	public ResponseEntity<?> getWorkScheduleItems(
+			@PathVariable("workScheduleId") UUID workScheduleId,
+			Pageable page,
+			WorkScheduleItemByWorkScheduleSpec spec,
+			@RequestParam(name = "paths", required = false) String... paths) {
+		return new ResponseEntity<Page<WorkScheduleItem>>(workScheduleService.getWorkScheduleItems(
+				spec, page, paths), HttpStatus.OK);
 	}
 	
 	@PostMapping("/item")

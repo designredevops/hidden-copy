@@ -49,6 +49,7 @@ public class Project extends Record {
 	private ProjectStatus status;
 
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JsonIncludeProperties({"id","members", "type"})
 	private Team memberTeam;
 
 	@OneToMany(mappedBy = "project", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -58,6 +59,7 @@ public class Project extends Record {
 	private Set<ProjectOrganization> tradePartners;
 
 	@OneToMany(mappedBy = "project", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JsonIncludeProperties({"id","name"})
 	private Set<PullPlanTarget> pullPlanTargets;
 
 	private Boolean allowExternalInvites;

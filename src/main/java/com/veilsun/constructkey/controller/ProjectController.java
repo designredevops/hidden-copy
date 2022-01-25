@@ -1,8 +1,10 @@
 package com.veilsun.constructkey.controller;
 
 import com.veilsun.constructkey.specification.project.ProjectByOrganizationSpec;
-import com.veilsun.constructkey.specification.project.ProjectLocationsSpec;
-import com.veilsun.constructkey.specification.project.ProjectOrganizationSpec;
+import com.veilsun.constructkey.specification.project.location.ProjectLocationsByIdSpec;
+import com.veilsun.constructkey.specification.project.location.ProjectLocationsByProjectSpec;
+import com.veilsun.constructkey.specification.project.organization.ProjectOrganizationByProjectOrganizationIdSpec;
+import com.veilsun.constructkey.specification.project.organization.ProjectOrganizationSpec;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,7 +79,7 @@ public class ProjectController {
 	public ResponseEntity<?> getProjectLocations(@PathVariable() UUID orgId,
 												 @PathVariable() UUID projectId,
 												 Pageable page,
-												 ProjectLocationsSpec spec,
+												 ProjectLocationsByProjectSpec spec,
 												 @RequestParam(name = "paths", required = false) String... paths) {
 		return new ResponseEntity<Page<ProjectLocation>>(projectService.getProjectLocations(
 				spec, page, paths), HttpStatus.OK);
@@ -96,7 +98,7 @@ public class ProjectController {
 			@PathVariable() UUID orgId, 
 			@PathVariable() UUID projectId, 
 			@PathVariable() UUID locationId,
-			ProjectLocationsSpec spec,
+			ProjectLocationsByIdSpec spec,
 			@RequestParam(name = "paths", required = false) String... paths
 	) {
 		return new ResponseEntity<ProjectLocation>(projectService.getProjectLocation(spec, paths), HttpStatus.OK);
@@ -150,7 +152,7 @@ public class ProjectController {
 			@PathVariable() UUID orgId, 
 			@PathVariable() UUID projectId, 
 			@PathVariable() UUID projectOrganizationId,
-			ProjectOrganizationSpec spec,
+			ProjectOrganizationByProjectOrganizationIdSpec spec,
 			@RequestParam(name = "paths", required = false) String... paths
 			) {
 		return new ResponseEntity<ProjectOrganization>(projectService.getProjectOrganization(spec, paths), HttpStatus.OK);

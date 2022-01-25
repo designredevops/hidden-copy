@@ -2,6 +2,8 @@ package com.veilsun.constructkey.controller;
 
 import com.veilsun.constructkey.domain.Team;
 import com.veilsun.constructkey.domain.User;
+import com.veilsun.constructkey.specification.team.TeamByTeamIdSpec;
+import com.veilsun.constructkey.specification.team.TeamMembersByTeamIdSpec;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,14 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.veilsun.constructkey.domain.TeamMember;
 import com.veilsun.constructkey.service.TeamService;
@@ -34,20 +29,22 @@ public class TeamController {
 	TeamService teamService;
 	
 	@GetMapping("")
-	public ResponseEntity<?> getTeam(@PathVariable("teamId") UUID teamId) {
-		return new ResponseEntity<Team>(teamService.getTeam(teamId), HttpStatus.OK);
+	public ResponseEntity<?> getTeam(@PathVariable("teamId") UUID teamId,
+									 TeamByTeamIdSpec spec,
+									 @RequestParam(name = "paths", required = false) String... paths) {
+		return new ResponseEntity<Team>(teamService.getTeam(spec, paths), HttpStatus.OK);
 	}
 	
 	@GetMapping("/pool")
 	public ResponseEntity<?> getTeamUserPool(@PathVariable("teamId") UUID teamId, Pageable page) {
-
 		return new ResponseEntity<Page<User>>(teamService.findAllUserPool(teamId, page), HttpStatus.OK);
 	}
 	
 	@GetMapping("/member")
-	public ResponseEntity<?> getTeamMembers(@PathVariable("teamId") UUID teamId) {
-
-		return new ResponseEntity<List<TeamMember>>(teamService.getTeamMembers(teamId), HttpStatus.OK);
+	public ResponseEntity<?> getTeamMembers(@PathVariable("teamId") UUID teamId,
+											TeamMembersByTeamIdSpec spec,
+											@RequestParam(name = "paths", required = false) String... paths) {
+		return new ResponseEntity<List<TeamMember>>(teamService.getTeamMembers(spec, paths), HttpStatus.OK);
 	}
 	
 	@PostMapping("/member")
