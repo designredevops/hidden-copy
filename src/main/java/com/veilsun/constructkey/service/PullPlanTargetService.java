@@ -6,6 +6,9 @@ import com.veilsun.constructkey.client.WebsocketClient;
 import com.veilsun.constructkey.domain.*;
 import com.veilsun.constructkey.domain.Team.TeamType;
 import com.veilsun.constructkey.repository.*;
+import com.veilsun.constructkey.specification.ppt.PullPlanTargetByProjectIdSpec;
+import com.veilsun.constructkey.specification.ppt.PullPlanTargetByPullPlanTargetIdSpec;
+import com.veilsun.constructkey.utils.EGUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -188,5 +191,13 @@ public class PullPlanTargetService {
 			return sequenceRepository.findById(pullPlanTarget.getWeekDaySequence().getId()).orElseThrow();
 		}
 		return null;
+	}
+
+	public Page<PullPlanTarget> findAllByProjectId(PullPlanTargetByProjectIdSpec spec, Pageable page, String[] paths) {
+		return pptRepository.findAll(spec, page, EGUtils.fromAttributePaths(paths));
+	}
+
+	public PullPlanTarget findOneById(PullPlanTargetByPullPlanTargetIdSpec spec, String[] paths) {
+		return pptRepository.findOne(spec, EGUtils.fromAttributePaths(paths)).orElseThrow();
 	}
 }
