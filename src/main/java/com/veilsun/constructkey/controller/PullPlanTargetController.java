@@ -3,6 +3,13 @@ package com.veilsun.constructkey.controller;
 import com.veilsun.constructkey.domain.*;
 import com.veilsun.constructkey.specification.ppt.PullPlanTargetByProjectIdSpec;
 import com.veilsun.constructkey.specification.ppt.PullPlanTargetByPullPlanTargetIdSpec;
+import com.veilsun.constructkey.specification.ppt.chutes.PullPlanTargetChuteByPullPlanTargetChuteIdSpec;
+import com.veilsun.constructkey.specification.ppt.chutes.PullPlanTargetChutesByPullPlanTargetIdSpec;
+import com.veilsun.constructkey.specification.ppt.chutes.cards.CardByCardIdSpec;
+import com.veilsun.constructkey.specification.ppt.chutes.cards.CardsByPullPlanTargetChuteSpec;
+import com.veilsun.constructkey.specification.ppt.meetings.PullPlanTargetMeetingByPullPlanTargetMeetingIdSpec;
+import com.veilsun.constructkey.specification.ppt.meetings.PullPlanTargetMeetingsByPullPlanTargetIdSpec;
+import com.veilsun.constructkey.specification.sequence.SequencesByPullPlanTargetIdSpec;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +22,6 @@ import org.springframework.web.bind.annotation.*;
 import com.veilsun.constructkey.service.PullPlanTargetService;
 
 import javax.validation.Valid;
-import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -96,9 +102,12 @@ public class PullPlanTargetController {
 			@PathVariable() UUID orgId,
 			@PathVariable() UUID projectId,
 			@PathVariable() UUID pptId,
-			Pageable page
+			Pageable page,
+			PullPlanTargetMeetingsByPullPlanTargetIdSpec spec,
+			@RequestParam(name = "paths", required = false) String... paths
 	) {
-		return new ResponseEntity<Page<PullPlanTargetMeeting>>(pptService.findAllByPullPlanTargetId(orgId, projectId, pptId, page), HttpStatus.OK);
+		return new ResponseEntity<Page<PullPlanTargetMeeting>>(pptService.findAllByPullPlanTargetId(
+				spec, page, paths), HttpStatus.OK);
 	}
 	
 	
@@ -115,11 +124,13 @@ public class PullPlanTargetController {
 	
 	@GetMapping("/{pptId}/meeting/{meetingId}")
 	public ResponseEntity<?> getPPTMeeting(
-			@PathVariable() UUID orgId, 
+			@PathVariable() UUID orgId,
 			@PathVariable() UUID projectId,
 			@PathVariable() UUID pptId,
-			@PathVariable() UUID meetingId) {
-		return new ResponseEntity<PullPlanTargetMeeting>(pptService.findOneMeetingById(meetingId), HttpStatus.OK);
+			@PathVariable() UUID meetingId,
+			PullPlanTargetMeetingByPullPlanTargetMeetingIdSpec spec,
+			@RequestParam(name = "paths", required = false) String... paths) {
+		return new ResponseEntity<PullPlanTargetMeeting>(pptService.findOneMeetingById(spec, paths), HttpStatus.OK);
 	}
 	
 	@PutMapping("/{pptId}/meeting/{meetingId}")
@@ -147,11 +158,13 @@ public class PullPlanTargetController {
 	
 	@GetMapping("/{pptId}/chute")
 	public ResponseEntity<?> getPPTChutes(
-			@PathVariable() UUID orgId, 
+			@PathVariable() UUID orgId,
 			@PathVariable() UUID projectId,
 			@PathVariable() UUID pptId,
-			Pageable page) {
-		return new ResponseEntity<Page<Chute>>(pptService.findAllChutesByPptId(pptId, page), HttpStatus.OK);
+			Pageable page,
+			PullPlanTargetChutesByPullPlanTargetIdSpec spec,
+			@RequestParam(name = "paths", required = false) String... paths) {
+		return new ResponseEntity<Page<Chute>>(pptService.findAllChutesByPptId(spec, page, paths), HttpStatus.OK);
 	}
 	
 	
@@ -166,11 +179,13 @@ public class PullPlanTargetController {
 	
 	@GetMapping("/{pptId}/chute/{chuteId}")
 	public ResponseEntity<?> getPPTChute(
-			@PathVariable() UUID orgId, 
+			@PathVariable() UUID orgId,
 			@PathVariable() UUID projectId,
 			@PathVariable() UUID pptId,
-			@PathVariable() UUID chuteId) {
-		return new ResponseEntity<Chute>(pptService.findOneByIdChute(chuteId), HttpStatus.OK);
+			@PathVariable() UUID chuteId,
+			PullPlanTargetChuteByPullPlanTargetChuteIdSpec spec,
+			@RequestParam(name = "paths", required = false) String... paths) {
+		return new ResponseEntity<Chute>(pptService.findOneByIdChute(spec, paths), HttpStatus.OK);
 	}
 	
 	@PutMapping("/{pptId}/chute/{chuteId}")
@@ -202,8 +217,11 @@ public class PullPlanTargetController {
 			@PathVariable() UUID projectId,
 			@PathVariable() UUID pptId,
 			@PathVariable() UUID chuteId,
-			Pageable page) {
-		return new ResponseEntity<Page<Card>>(pptService.findAllChuteCards(chuteId, page), HttpStatus.OK);
+			Pageable page,
+			CardsByPullPlanTargetChuteSpec spec,
+			@RequestParam(name = "paths", required = false) String... paths
+			) {
+		return new ResponseEntity<Page<Card>>(pptService.findAllChuteCards(spec, page, paths), HttpStatus.OK);
 	}
 	
 	
@@ -219,12 +237,14 @@ public class PullPlanTargetController {
 	
 	@GetMapping("/{pptId}/chute/{chuteId}/card/{cardId}")
 	public ResponseEntity<?> getPPTChuteCard(
-			@PathVariable() UUID orgId, 
+			@PathVariable() UUID orgId,
 			@PathVariable() UUID projectId,
 			@PathVariable() UUID pptId,
 			@PathVariable() UUID chuteId,
-			@PathVariable() UUID cardId) {
-		return new ResponseEntity<Card>(pptService.findOneByIdChuteCard(cardId), HttpStatus.OK);
+			@PathVariable() UUID cardId,
+			CardByCardIdSpec spec,
+			@RequestParam(name = "paths", required = false) String... paths) {
+		return new ResponseEntity<Card>(pptService.findOneByIdChuteCard(spec, paths), HttpStatus.OK);
 	}
 	
 	@PutMapping("/{pptId}/chute/{chuteId}/card/{cardId}")
@@ -257,9 +277,11 @@ public class PullPlanTargetController {
 			@PathVariable() UUID orgId,
 			@PathVariable() UUID projectId,
 			@PathVariable() UUID pptId,
-			Pageable page
+			Pageable page,
+			SequencesByPullPlanTargetIdSpec spec,
+			@RequestParam(name = "paths", required = false) String... paths
 	) {
-		return new ResponseEntity<List<Sequence>>(pptService.findAllSequencesByPptId(pptId, page), HttpStatus.OK);
+		return new ResponseEntity<Page<Sequence>>(pptService.findAllSequencesByPptId(spec, page, paths), HttpStatus.OK);
 	}
 
 	@PostMapping("/{pptId}/sequence")
@@ -270,14 +292,5 @@ public class PullPlanTargetController {
 			@Valid @RequestBody Sequence sequence) {
 		return new ResponseEntity<Sequence>(
 				pptService.createSequence(pptId, sequence), HttpStatus.CREATED);
-	}
-
-	@GetMapping("/{pptId}/weekday")
-	public ResponseEntity<?> getPPTWeekday(
-			@PathVariable() UUID orgId,
-			@PathVariable() UUID projectId,
-			@PathVariable() UUID pptId
-	) {
-		return new ResponseEntity<Sequence>(pptService.findOneSequenceByPullPlanTargetId(pptId), HttpStatus.OK);
 	}
 }

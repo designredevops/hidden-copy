@@ -51,7 +51,6 @@ public class SequenceService {
     public SequenceItem updateSequenceItem(UUID secId, SequenceItem sequenceItem, UUID itemId) {
         SequenceItem originalSequenceItem = sequenceItemRepository.findById(itemId).orElseThrow();
         if(sequenceItem.getTitle() != null) originalSequenceItem.setTitle(sequenceItem.getTitle());
-        if(sequenceItem.getType() != null) originalSequenceItem.setType(sequenceItem.getType());
         if(sequenceItem.getRanking() != null) originalSequenceItem.setRanking(sequenceItem.getRanking());
         return sequenceItemRepository.save(originalSequenceItem);
     }

@@ -44,5 +44,6 @@ public class Chute extends Record {
 	private Organization organization;
 	
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JsonIncludeProperties({"id", "primaryColor", "secondaryColor"})
 	private DisplayStyle displayStyle;
 }
