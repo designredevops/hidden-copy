@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import com.veilsun.constructkey.domain.global.Record;
 
 import lombok.Getter;
@@ -24,5 +25,6 @@ public class Bucket extends Record {
 	public Bucket(){}
 
 	@OneToMany(mappedBy = "bucket", fetch = FetchType.LAZY)
+	@JsonIncludeProperties({"id", "name"})
 	private Set<BucketItem> items;
 }
