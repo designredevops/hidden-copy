@@ -6,6 +6,16 @@ import com.veilsun.constructkey.client.WebsocketClient;
 import com.veilsun.constructkey.domain.*;
 import com.veilsun.constructkey.domain.Team.TeamType;
 import com.veilsun.constructkey.repository.*;
+import com.veilsun.constructkey.specification.ppt.PullPlanTargetByProjectIdSpec;
+import com.veilsun.constructkey.specification.ppt.PullPlanTargetByPullPlanTargetIdSpec;
+import com.veilsun.constructkey.specification.ppt.chutes.PullPlanTargetChuteByPullPlanTargetChuteIdSpec;
+import com.veilsun.constructkey.specification.ppt.chutes.PullPlanTargetChutesByPullPlanTargetIdSpec;
+import com.veilsun.constructkey.specification.ppt.chutes.cards.CardByCardIdSpec;
+import com.veilsun.constructkey.specification.ppt.chutes.cards.CardsByPullPlanTargetChuteSpec;
+import com.veilsun.constructkey.specification.ppt.meetings.PullPlanTargetMeetingByPullPlanTargetMeetingIdSpec;
+import com.veilsun.constructkey.specification.ppt.meetings.PullPlanTargetMeetingsByPullPlanTargetIdSpec;
+import com.veilsun.constructkey.specification.sequence.SequencesByPullPlanTargetIdSpec;
+import com.veilsun.constructkey.utils.EGUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -50,6 +60,9 @@ public class PullPlanTargetService {
 	public PullPlanTarget createPPT(UUID orgId, UUID projectId, PullPlanTarget ppt) {
 		ppt.setProject(new Project(projectId));
 		ppt.setDocuments(new Bucket());
+		Sequence sequence = new Sequence(Sequence.SequenceType.Weekday, ppt);
+		sequence.setName("PPTWeekdaySequence");
+		ppt.setWeekDaySequence(sequence);
 		PullPlanTarget createdPPT = pptRepository.save(ppt);
 		return createdPPT;
 	}
@@ -189,4 +202,41 @@ public class PullPlanTargetService {
 		}
 		return null;
 	}
+
+	public Page<PullPlanTarget> findAllByProjectId(PullPlanTargetByProjectIdSpec spec, Pageable page, String[] paths) {
+		return pptRepository.findAll(spec, page, EGUtils.fromAttributePaths(paths));
+	}
+
+	public PullPlanTarget findOneById(PullPlanTargetByPullPlanTargetIdSpec spec, String[] paths) {
+		return pptRepository.findOne(spec, EGUtils.fromAttributePaths(paths)).orElseThrow();
+	}
+
+	public Page<PullPlanTargetMeeting> findAllByPullPlanTargetId(PullPlanTargetMeetingsByPullPlanTargetIdSpec spec, Pageable page, String[] paths) {
+		return pptMeetingRepository.findAll(spec, page, EGUtils.fromAttributePaths(paths));
+	}
+
+	public PullPlanTargetMeeting findOneMeetingById(PullPlanTargetMeetingByPullPlanTargetMeetingIdSpec spec, String[] paths) {
+		return pptMeetingRepository.findOne(spec, EGUtils.fromAttributePaths(paths)).orElseThrow();
+	}
+
+	public Chute findOneByIdChute(PullPlanTargetChuteByPullPlanTargetChuteIdSpec spec, String[] paths) {
+		return pptChuteRepository.findOne(spec, EGUtils.fromAttributePaths(paths)).orElseThrow();
+	}
+
+	public Page<Chute> findAllChutesByPptId(PullPlanTargetChutesByPullPlanTargetIdSpec spec, Pageable page, String[] paths) {
+		return pptChuteRepository.findAll(spec, page, EGUtils.fromAttributePaths(paths));
+	}
+
+	public Page<Card> findAllChuteCards(CardsByPullPlanTargetChuteSpec spec, Pageable page, String[] paths) {
+		return pptChuteCardRepository.findAll(spec, page, EGUtils.fromAttributePaths(paths));
+	}
+
+	public Card findOneByIdChuteCard(CardByCardIdSpec spec, String[] paths) {
+		return pptChuteCardRepository.findOne(spec, EGUtils.fromAttributePaths(paths)).orElseThrow();
+	}
+
+	public Page<Sequence> findAllSequencesByPptId(SequencesByPullPlanTargetIdSpec spec, Pageable page, String[] paths) {
+		return sequenceRepository.findAll(spec, page, EGUtils.fromAttributePaths(paths));
+	}
+
 }

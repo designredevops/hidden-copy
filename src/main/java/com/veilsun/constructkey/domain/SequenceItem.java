@@ -22,27 +22,15 @@ public class SequenceItem extends Record {
 	public SequenceItem() {
 		// TODO Auto-generated constructor stub
 	}
-	
-	public SequenceItem(SequenceType type) {
-		this.type = type;
-	}
-	
-	public SequenceItem(String title, SequenceType type) {
-		this.title = title;
-		this.type = type;
-	}
 
-	public enum SequenceType {
-		Normal, Milestone, Weekday
+	public SequenceItem(String title) {
+		this.title = title;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JsonIncludeProperties({"id"})
 	private Sequence sequence;
-	
-	@Enumerated(EnumType.STRING)
-	private SequenceType type;
-	
+
 	private String title;
 	
 	

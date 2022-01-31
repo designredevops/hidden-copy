@@ -2,6 +2,9 @@ package com.veilsun.constructkey.service;
 
 import java.util.UUID;
 
+import com.veilsun.constructkey.specification.workschedule.WorkScheduleIdSpec;
+import com.veilsun.constructkey.specification.workschedule.workscheduleitem.WorkScheduleItemByWorkScheduleSpec;
+import com.veilsun.constructkey.utils.EGUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -55,5 +58,14 @@ public class WorkScheduleService {
 	public Boolean deleteWorkScheduleItem(UUID workScheduleItemId) {
 		workScheduleItemRepository.deleteById(workScheduleItemId);
 		return true;
+	}
+
+	public WorkSchedule getWorkSchedule(WorkScheduleIdSpec spec, String[] paths) {
+		return workScheduleRepository.findOne(spec, EGUtils.fromAttributePaths(paths)).orElseThrow();
+	}
+
+	public Page<WorkScheduleItem> getWorkScheduleItems(
+			WorkScheduleItemByWorkScheduleSpec spec, Pageable page, String[] paths) {
+		return workScheduleItemRepository.findAll(spec, page, EGUtils.fromAttributePaths(paths));
 	}
 }

@@ -3,11 +3,7 @@ package com.veilsun.constructkey.domain;
 import java.util.Set;
 import java.util.UUID;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIncludeProperties;
@@ -23,8 +19,17 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Sequence extends Record {
 
+	public enum SequenceType {
+		Normal, Milestone, Weekday
+	}
+
 	public Sequence() {
 		// TODO Auto-generated constructor stub
+	}
+
+	public Sequence(SequenceType type, PullPlanTarget ppt){
+		this.setType(type);
+		this.setPullPlanTarget(ppt);
 	}
 
 	public Sequence(UUID sequenceId){
@@ -40,4 +45,7 @@ public class Sequence extends Record {
 	
 	@OneToMany(mappedBy = "sequence", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<SequenceItem> items;
+
+	@Enumerated(EnumType.STRING)
+	private SequenceType type;
 }
