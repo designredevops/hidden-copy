@@ -64,7 +64,7 @@ public class ProjectService {
 		if (project.getNumber() != null) originalProject.setNumber(project.getNumber());
 		if (project.getStartDate() != null) originalProject.setStartDate(project.getStartDate());
 		if (project.getAddress() != null) originalProject.setAddress(project.getAddress());
-
+		if (project.getStatus() != null) originalProject.setStatus(project.getStatus());
 		return projectRepository.save(originalProject);
 	}
 
