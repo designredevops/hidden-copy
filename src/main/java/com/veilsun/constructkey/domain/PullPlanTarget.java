@@ -45,7 +45,7 @@ public class PullPlanTarget extends Record {
 	private LocalDate completionDate;
 
 	@Enumerated(EnumType.STRING)
-	private PullPlanTargetStatus status;
+	private PullPlanTargetStatus pptStatus;
 
 	@OneToMany(mappedBy = "pullPlanTarget", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JsonIncludeProperties({"id"})

@@ -46,7 +46,7 @@ public class Project extends Record {
 	private String address;
 
 	@Enumerated(EnumType.STRING)
-	private ProjectStatus status;
+	private ProjectStatus projectStatus;
 
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JsonIncludeProperties({"id","members", "type"})

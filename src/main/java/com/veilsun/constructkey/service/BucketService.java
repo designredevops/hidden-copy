@@ -43,6 +43,7 @@ public class BucketService {
 	public BucketItem uploadFile(UUID bucketId, String fileName, MultipartFile incomingFile) {
 		BucketItem fileToUpload = new BucketItem();
 		fileToUpload.setBucket(new Bucket(bucketId));
+		fileToUpload.setName(fileName);
 		String storageId = null;
 		Map<String, String> metadata = new HashMap<>();
 		metadata.put("Content-Type", incomingFile.getContentType());
