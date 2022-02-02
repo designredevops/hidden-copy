@@ -14,7 +14,7 @@ import net.kaczmarzyk.spring.data.jpa.web.annotation.Spec;
 @And({
 	@Spec(path = "organization.id", pathVars = "orgId", spec = Equal.class),
 	@Spec(path = "name", params = "name", spec = Like.class),
-	@Spec(path = "projectStatus", params = "projectStatus", paramSeparator = ',', spec = In.class)
+	@Spec(path = "status", params = "status", paramSeparator = ',', spec = In.class)
 })
 public interface ProjectByOrganizationSpec extends Specification<Project> {
 
