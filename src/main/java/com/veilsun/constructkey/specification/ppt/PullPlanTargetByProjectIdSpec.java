@@ -11,7 +11,7 @@ import org.springframework.data.jpa.domain.Specification;
 @And({
         @Spec(path = "project.id", pathVars = "projectId", spec = Equal.class),
         @Spec(path = "name", params = "name", spec = Like.class),
-        @Spec(path = "status", params = "status", paramSeparator = ',', spec = In.class)
+        @Spec(path = "pptStatus", params = "pptStatus", paramSeparator = ',', spec = In.class)
 })
 public interface PullPlanTargetByProjectIdSpec extends Specification<PullPlanTarget> {
 }
